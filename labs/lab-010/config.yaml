@@ -1,0 +1,40 @@
+metadata:
+  name: "ast001-lab-010"
+  # docs:
+  #   prerequisites: "docs/prerequisites.md"
+  #   examQuestion: "docs/exam-question.md"
+  #   caseStudy: "docs/case-study.md"
+  #   guide: "docs/step-by-step-guide.md"
+
+bootstrap:
+  manifests:
+    - name: "lab-010-manifests"
+      description: "Applies the manifests for lab 010"
+      type: "folder"
+      source: "manifests/"
+
+testing:
+  manifests:
+    - name: "solution"
+      description: "Applies the reference solution used by 'astrona test' in CI"
+      type: "folder"
+      source: "solution"
+
+validation:
+  checks:
+    - name: "lab-ns namespace exists"
+      type: "resourceExists"
+      resource: "service/web-svc -n venus"
+  script:
+    name: "verify-configmap-content"
+    description: "Custom script check: confirms the configmap's actual content, not just that it exists"
+    type: "file"
+    source: "validation/validate-service.sh"
+
+# teardown:
+#   init:
+#     - name: "dump-logs"
+#       description: "Log that the teardown hook ran"
+#       type: "file"
+#       source: "teardown/dump-logs.sh"
+#   keepCluster: false
