@@ -89,10 +89,28 @@ modules:
       - type: reading
         title: "Roll Out A New Version Without Downtime"
         path: sections/section-020/module-01/course.md
+      - type: reading
+        title: "What Starts A Rollout"
+        path: sections/section-020/module-01/course-01-what-starts-a-rollout.md
+      - type: reading
+        title: "Roll Out With Zero Downtime"
+        path: sections/section-020/module-01/course-02-roll-out-with-zero-downtime.md
+      - type: reading
+        title: "Wrap-Up: Mission Debrief"
+        path: sections/section-020/module-01/course-03-wrap-up.md
 
       - type: reading
         title: "Roll Back A Broken Rollout"
         path: sections/section-020/module-02/course.md
+      - type: reading
+        title: "Build A Rollout History"
+        path: sections/section-020/module-02/course-01-build-a-rollout-history.md
+      - type: reading
+        title: "Roll Back To A Working Revision"
+        path: sections/section-020/module-02/course-02-roll-back-to-a-working-revision.md
+      - type: reading
+        title: "Wrap-Up: Mission Debrief"
+        path: sections/section-020/module-02/course-03-wrap-up.md
 
   - id: module-030
     title: "Canary Deployments With Kustomize"
