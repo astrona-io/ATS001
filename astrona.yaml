@@ -1,0 +1,52 @@
+training:
+  id: ATS001
+  title: Application Design and Build
+  description: >
+    Training material covering the CKAD Application Design
+    and Build domain.
+
+  certification:
+    name: Certified Kubernetes Application Developer
+    code: CKAD
+    provider: CNCF
+    domain: Application Design and Build
+    weight: 20
+
+modules:
+  - id: module-001
+    title: Pod Design
+    description: >
+      Learn how Kubernetes Pods are designed and how
+      multiple containers can work together.
+
+    content:
+      - type: reading
+        title: Understanding Pod Design
+        path: content/pod-design.md
+
+      - type: video
+        title: Pod Design Explained
+        url: https://www.youtube.com/watch?v=example
+
+      - type: lab
+        title: Working with Multi-Container Pods
+        path: labs/lab-001
+
+  - id: module-002
+    title: Init Containers
+    description: >
+      Understand how init containers prepare a Pod
+      before application containers start.
+
+    content:
+      - type: reading
+        title: Understanding Init Containers
+        path: content/init-containers.md
+
+      - type: video
+        title: Init Containers Explained
+        url: https://www.youtube.com/watch?v=example
+
+      - type: lab
+        title: Configure an Init Container
+        path: labs/lab-002
