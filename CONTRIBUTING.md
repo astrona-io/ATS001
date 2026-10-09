@@ -31,39 +31,32 @@ a pull request.
 ## Project Structure
 
 ```
-astrona.yaml                # Training manifest: metadata, sections, labs
-sections/<section-id>/      # section.yaml + README.md (concept material)
-labs/<lab-id>/               # README.md + manifests/ (hands-on exercises)
+astrona.yaml                                # Course outline: every reading page and lab, in order
+CLAUDE.md                                   # Writing rules and repository facts (read this first)
+sections/section-0N0/README.md              # Section overview (plus section.yaml)
+sections/section-0N0/module-0M/course.md    # Module landing page
+sections/section-0N0/module-0M/course-0N-*.md  # Module parts, ending with a wrap-up
+sections/section-0N0/module-0M/examples/    # Reference copies of the files the pages ask you to save
+sections/section-0N0/module-0M/labs/lab-0N/ # Graded lab: config.yaml, question.md, solution.md, manifests/, solution/, validation/
 ```
 
-Every section and lab referenced in `astrona.yaml` must exist on disk at the `path`
-given, and every section/lab directory on disk should be registered in `astrona.yaml`.
-When adding or renaming a section or lab, update `astrona.yaml` in the same change.
+Every page and lab referenced in `astrona.yaml` must exist on disk at the `path`
+given, and every course page on disk should be listed in `astrona.yaml` (never
+`solution.md`). When adding, splitting or renaming a page or lab, update
+`astrona.yaml` in the same change.
 
-## Lab Content Conventions
+## Content Conventions
 
-Existing labs follow a consistent shape — match it so the training series stays
-predictable for learners:
+`CLAUDE.md` holds the full rules. In short:
 
-1. Title and one-line exam-relevant summary
-2. A single bolded "remember this sentence" takeaway for the exam
-3. **What You Learn**
-4. **Objects In This Lab** (tables for objects/labels where useful)
-5. **Study First** — questions to reason through before running commands, with
-   expected reasoning given afterward
-6. **Prerequisites**
-7. Numbered **Step N** sections with runnable `kubectl` commands and expected output
-8. **Command Summary**
-9. **Troubleshooting**
-10. **Common Mistakes**
-11. **Practice Variations**
-12. **Cleanup**
-13. **CKAD Exam Notes**
-14. **Related Commands**
-15. **References** — link to official Kubernetes docs, not third-party blogs
-
-Manifests live under `labs/<lab-id>/manifests/`, at minimum a `lab-start.yaml`, and a
-`solution.yaml` where a full worked solution helps.
+1. Plain English at about a grade 8 to 9 reading level, short paragraphs, active voice.
+2. A module is a short landing page, a few short parts (one idea each) and a wrap-up.
+3. Every `##` heading that has `###` subsections starts with a short intro.
+4. Explain each exam term the first time it appears, with the space analogy from the glossary in `CLAUDE.md`.
+5. YAML goes to a file first: "Save this as ...", "Apply it:", "Then check the result:".
+6. Each part ends with a `## Common pitfalls` warning box; a part that a graded lab tests ends with `## Your mission`.
+7. Pages do not link to outside websites. Official documentation links go only in the `resources` field of a lab entry in `astrona.yaml`.
+8. Never change commands, YAML or output to fit the style, and never make up output.
 
 ## Technical Guidelines
 
@@ -72,7 +65,7 @@ Manifests live under `labs/<lab-id>/manifests/`, at minimum a `lab-start.yaml`, 
   when field placement is the point of the exercise.
 - Always namespace commands explicitly (`-n <namespace>`) — don't rely on a default
   namespace.
-- Link only to official Kubernetes documentation (kubernetes.io) in **References**.
+- Link to official documentation only in a lab entry's `resources` in `astrona.yaml`.
 - Keep exercises CKAD-scoped: Application Design and Build domain topics, not cluster
   administration.
 
