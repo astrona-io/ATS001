@@ -44,6 +44,12 @@ modules:
         title: "Switch Traffic Between Two Versions"
         path: sections/section-010/module-01/course.md
       - type: reading
+        title: "How A Service Finds Its Pods"
+        path: sections/section-010/module-01/course-01-how-a-service-finds-its-pods.md
+      - type: reading
+        title: "Update One Version And Switch The Traffic"
+        path: sections/section-010/module-01/course-02-update-one-version-and-switch-traffic.md
+      - type: reading
         title: Question
         path: sections/section-010/module-01/labs/lab-01/question.md
       - type: lab
@@ -65,6 +71,9 @@ modules:
             url: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
           - name: "Kubernetes Deployments"
             url: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+      - type: reading
+        title: "Wrap-Up: Mission Debrief"
+        path: sections/section-010/module-01/course-03-wrap-up.md
 
   - id: module-020
     title: "Rolling Updates And Rollbacks"
