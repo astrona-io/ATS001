@@ -153,7 +153,25 @@ modules:
       - type: reading
         title: "Install And Upgrade A Local Chart"
         path: sections/section-040/module-01/course.md
+      - type: reading
+        title: "What A Chart Is"
+        path: sections/section-040/module-01/course-01-what-a-chart-is.md
+      - type: reading
+        title: "Install, Upgrade And Uninstall"
+        path: sections/section-040/module-01/course-02-install-upgrade-and-uninstall.md
+      - type: reading
+        title: "Wrap-Up: Mission Debrief"
+        path: sections/section-040/module-01/course-03-wrap-up.md
 
       - type: reading
         title: "Manage Releases From A Chart Repository"
         path: sections/section-040/module-02/course.md
+      - type: reading
+        title: "Releases And Their States"
+        path: sections/section-040/module-02/course-01-releases-and-their-states.md
+      - type: reading
+        title: "Tidy Up The Releases On A Planet"
+        path: sections/section-040/module-02/course-02-tidy-up-the-releases-on-a-planet.md
+      - type: reading
+        title: "Wrap-Up: Mission Debrief"
+        path: sections/section-040/module-02/course-03-wrap-up.md
