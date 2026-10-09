@@ -1,9 +1,24 @@
+# Course manifest for ATS001 - CKAD: Application Design and Build.
+#
+# One entry per section under `modules:`. Each section lists, in order: its
+# README, then for each module the landing page (course.md), its parts
+# (course-0N-*.md), and right after the part a lab tests, the lab's
+# question.md reading and the `type: lab` entry. The module's wrap-up page
+# comes last. A section capstone, when there is one, closes the section.
+# Playgrounds are not listed: the landing page's playground marker shows them.
+# solution.md is never listed.
+#
+# Every `path:` is relative to this file.
+
 training:
   id: ATS001
   title: Application Design and Build
   description: >
-    Training material covering the CKAD Application Design
-    and Build domain.
+    Training material for the Certified Kubernetes Application Developer
+    (CKAD) exam: deployment strategies with plain Kubernetes objects
+    (blue-green and canary), rolling updates and rollbacks, Kustomize
+    overlays and Helm charts. Each module is a short landing page, a few
+    hands-on parts and a wrap-up; section 010 ends in a graded lab.
 
   certification:
     name: Certified Kubernetes Application Developer
@@ -13,40 +28,93 @@ training:
     weight: 20
 
 modules:
-  - id: module-001
-    title: Pod Design
+
+  - id: module-010
+    title: "Blue-Green Deployments"
     description: >
-      Learn how Kubernetes Pods are designed and how
-      multiple containers can work together.
+      Keep two versions of an app running and move all traffic from one to
+      the other by changing which pod labels a Service selects.
 
     content:
       - type: reading
-        title: Understanding Pod Design
-        path: content/pod-design.md
+        title: Section Overview
+        path: sections/section-010/README.md
 
-      - type: video
-        title: Pod Design Explained
-        url: https://www.youtube.com/watch?v=example
-
+      - type: reading
+        title: "Switch Traffic Between Two Versions"
+        path: sections/section-010/module-01/course.md
+      - type: reading
+        title: Question
+        path: sections/section-010/module-01/labs/lab-01/question.md
       - type: lab
-        title: Working with Multi-Container Pods
-        path: labs/lab-001
+        title: "Blue-Green Service Switch Lab"
+        path: sections/section-010/module-01/labs/lab-01
+        difficulty: beginner
+        estimated_duration: 15m
+        topic: blue-green
+        task_kind: migration
+        tags: [blue-green, service-selector, labels, endpoints, kubectl-set-image, kubectl-patch, show-labels]
+        learning_goals:
+          - Find which pods a Service sends traffic to from its selector and its endpoints
+          - Update the image of one Deployment without touching the other version
+          - Switch a Service to one version by adding a label to its selector
+        resources:
+          - name: "Kubernetes Services"
+            url: https://kubernetes.io/docs/concepts/services-networking/service/
+          - name: "Labels and selectors"
+            url: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+          - name: "Kubernetes Deployments"
+            url: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
 
-  - id: module-002
-    title: Init Containers
+  - id: module-020
+    title: "Rolling Updates And Rollbacks"
     description: >
-      Understand how init containers prepare a Pod
-      before application containers start.
+      How a Deployment replaces its pods a few at a time, how maxSurge and
+      maxUnavailable set the pace, and how to go back to a working revision.
 
     content:
       - type: reading
-        title: Understanding Init Containers
-        path: content/init-containers.md
+        title: Section Overview
+        path: sections/section-020/README.md
 
-      - type: video
-        title: Init Containers Explained
-        url: https://www.youtube.com/watch?v=example
+      - type: reading
+        title: "Roll Out A New Version Without Downtime"
+        path: sections/section-020/module-01/course.md
 
-      - type: lab
-        title: Configure an Init Container
-        path: labs/lab-002
+      - type: reading
+        title: "Roll Back A Broken Rollout"
+        path: sections/section-020/module-02/course.md
+
+  - id: module-030
+    title: "Canary Deployments With Kustomize"
+    description: >
+      Send a small share of traffic to a new version by pod count, and keep
+      the counts per environment with Kustomize bases and overlays.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-030/README.md
+
+      - type: reading
+        title: "Shape A Canary With Kustomize Overlays"
+        path: sections/section-030/module-01/course.md
+
+  - id: module-040
+    title: "Deploy Packages With Helm"
+    description: >
+      Install, upgrade, inspect and remove applications packaged as Helm
+      charts, from a local chart and from a chart repository.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-040/README.md
+
+      - type: reading
+        title: "Install And Upgrade A Local Chart"
+        path: sections/section-040/module-01/course.md
+
+      - type: reading
+        title: "Manage Releases From A Chart Repository"
+        path: sections/section-040/module-02/course.md

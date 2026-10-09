@@ -1,6 +1,6 @@
 section:
-  id: section-001
-  title: Blue-Green Service Switch
+  id: section-010
+  title: Blue-Green Deployments
   description: >
     Blue-green deployment keeps two versions of an application available at the same time
 

@@ -1,10 +1,8 @@
 metadata:
   name: "ast001-lab-010"
-  # docs:
-  #   prerequisites: "docs/prerequisites.md"
-  #   examQuestion: "docs/exam-question.md"
-  #   caseStudy: "docs/case-study.md"
-  #   guide: "docs/step-by-step-guide.md"
+  docs:
+    examQuestion: "question.md"
+    guide: "solution.md"
 
 bootstrap:
   manifests:

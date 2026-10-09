@@ -1,0 +1,7 @@
+section:
+  id: section-040
+  title: Deploy Packages With Helm
+  description: >
+    Install, upgrade, inspect and remove applications packaged as Helm charts
+
+  order: 4
