@@ -126,6 +126,18 @@ modules:
       - type: reading
         title: "Shape A Canary With Kustomize Overlays"
         path: sections/section-030/module-01/course.md
+      - type: reading
+        title: "Canary Traffic By Pod Count"
+        path: sections/section-030/module-01/course-01-canary-traffic-by-pod-count.md
+      - type: reading
+        title: "Roll Back A Canary With An Overlay"
+        path: sections/section-030/module-01/course-02-roll-back-a-canary-with-an-overlay.md
+      - type: reading
+        title: "A Twenty Percent Canary"
+        path: sections/section-030/module-01/course-03-a-twenty-percent-canary.md
+      - type: reading
+        title: "Wrap-Up: Mission Debrief"
+        path: sections/section-030/module-01/course-04-wrap-up.md
 
   - id: module-040
     title: "Deploy Packages With Helm"
