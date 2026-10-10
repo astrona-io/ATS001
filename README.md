@@ -1,35 +1,24 @@
-# ATS001 — CKAD: Application Deployment
+# Application Deployment (ATS001)
 
-[![Donate via Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/Astrona.io/donate)
+Certified Kubernetes Application Developer (CKAD): Application Deployment, worth 20% of the official curriculum. This course belongs to ATP006.
 
-Free training material for the Certified Kubernetes Application Developer
-(CKAD) exam: deployment strategies with plain Kubernetes objects (blue-green
-and canary), rolling updates and rollbacks, Kustomize and Helm. Each module
-is a short landing page, a few hands-on parts and a wrap-up. The course
-outline the platform reads is `astrona.yaml`.
+Developed reading lessons explain configuration, component responsibility, worked reasoning and failure limits. Every section has an introduction, and every module ends with a summary. Reusable YAML knowledge checks are indexed separately. Technical content remains draft.
 
-## Curriculum
+## Course Outline
 
-| Section | Title | Exam topic | Graded lab |
-| --- | --- | --- | --- |
-| [010](sections/section-010/README.md) | Blue-Green Deployments | Deployment strategies (blue/green) | [Blue-Green Service Switch Lab](sections/section-010/module-01/labs/lab-01) |
-| [020](sections/section-020/README.md) | Rolling Updates And Rollbacks | Deployments and rolling updates | None yet |
-| [030](sections/section-030/README.md) | Canary Deployments With Kustomize | Deployment strategies (canary), Kustomize | None yet |
-| [040](sections/section-040/README.md) | Deploy Packages With Helm | Helm | None yet |
+| Section / module | Module | Teaching lessons |
+| --- | --- | --- |
+| 010 / 02 | A Prepared Blue-Green Switch | Switching Service Traffic Between Two Versions |
+| 010 / 03 | Canary Exposure And Promotion | Reasoning About Canary Traffic With Ordinary Services |
+| 020 / 03 | Rolling Updates And Availability | Rolling Updates And Health Gates; Calculating Rollout Capacity And Diagnosing Progress |
+| 020 / 04 | Release Diagnosis And Template History | Intended Versions And Observed Progress; Reproduce, Correct And Verify |
+| 030 / 02 | Reusable Kustomize Composition | Composing Resources With Kustomize |
+| 030 / 03 | Focused Patches For Environment Changes | Targeted Patches And Environment Differences |
+| 040 / 03 | Existing Charts And Effective Values | Charts, Values And The Rendered Application |
+| 040 / 04 | Release Operations And Recovery Limits | Release History, Upgrades And Controlled Recovery |
 
-## Running the lab
+## Author Review
 
-```sh
-astrona run --git ssh://git@github.com/astrona-io/ATS001.git -c sections/section-010/module-01/labs/lab-01
-astrona submit -c sections/section-010/module-01/labs/lab-01
-astrona destroy ast001-lab-010
-```
+The [curriculum map](CURRICULUM.md) records objective coverage. [Sources](SOURCES.md) support author review, and [assessment documentation](ASSESSMENTS.md) describes the reusable YAML contract. No runtime is required or claimed, and no new labs or playgrounds are included.
 
-The reading parts of sections 020 to 040 run on any practice cluster with
-`kubectl` (for example one made with `kind create cluster`); section 040 also
-needs `helm`.
-
-## Support This Project
-
-ATS001 is free CKAD training material. If it helped you, consider supporting
-ongoing work via [Liberapay](https://liberapay.com/Astrona.io).
+Existing teaching and lab assets remain unchanged outside the new reading manifest; see [preserved content](LEGACY-CONTENT.md). New modules use unused IDs.

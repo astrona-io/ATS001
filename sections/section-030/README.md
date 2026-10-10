@@ -1,13 +1,21 @@
-# Section 030: Canary Deployments With Kustomize
+---
+draft: true
+exam_objectives:
+- Kustomize
+---
+# Kustomize
 
-A canary deployment sends a small share of traffic to a new version first. In Kubernetes you can shape that share with pod counts, and Kustomize lets you keep those counts per environment without copying your files. Astronaut, think of a small scout group of new ships flying in the fleet before everyone switches.
+This section covers kustomize. You will study Reusable Kustomize Composition, Focused Patches For Environment Changes. The lessons explain the responsible components, configuration relationships and failure cases relevant to application development.
 
-## Modules
+Each module begins with its goals and ends with a summary. Reusable YAML knowledge checks follow the section summary and are registered separately for future presentation.
 
-| Module | What you learn | Graded mission |
-| --- | --- | --- |
-| [Shape A Canary With Kustomize Overlays](./module-01/course.md) | Traffic share by pod count, Kustomize bases and overlays, and rendering before you apply | None yet |
+## Learning Outcomes
 
-## What you need
-
-A practice Kubernetes cluster (for example one made with `kind create cluster`) and `kubectl`. Kustomize is built into `kubectl`, so you need nothing else.
+- Explain a base, overlay and resource composition.
+- Trace naming and namespace transformations.
+- Explain generated configuration references and hashes.
+- Review final selectors and supported API definitions.
+- Select a clear owner for an environment setting.
+- Choose a precise patch target.
+- Compare schema-aware merge and ordered JSON operations.
+- Detect unintended container or selector changes.

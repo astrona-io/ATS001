@@ -1,0 +1,112 @@
+schema_version: 1
+kind: question_bank
+id: ats001-domain-review
+course_id: ATS001
+exam_code: CKAD
+status: draft
+provenance: Original practice material; not official examination questions.
+scope:
+  type: domain
+  id: domain-review
+  title: Application Deployment
+placement:
+  position: after
+  reading: sections/section-040/module-04/course-02-summary.md
+questions:
+- id: ats001-domain-review-q01
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Verify readiness, capacity and backend ports.
+  source_readings:
+  - sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+  prompt: A green Service selector is correct, but its target port does not match the new listener. What
+    remains wrong?
+  options:
+  - id: a
+    text: The chart history retention count
+    explanation: History retention does not fix the port mapping.
+  - id: b
+    text: The backend port contract
+    explanation: Correct label selection cannot repair an unsuitable target port.
+  - id: c
+    text: The number of blue-green version names
+    explanation: Names do not determine listener reachability.
+  correct_option: b
+  explanation: Correct label selection cannot repair an unsuitable target port.
+- id: ats001-domain-review-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Estimate exposure from ready endpoints with stated limits.
+  source_readings:
+  - sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+  prompt: Several stable Pods become unready during a canary. Why can exposure rise without scaling the
+    canary?
+  options:
+  - id: a
+    text: Its share among eligible endpoints can increase
+    explanation: Ready backend counts rather than desired counts shape the available pool.
+  - id: b
+    text: Every Service automatically sets canary exposure to fifty percent
+    explanation: The Service has no universal percentage override of that kind.
+  - id: c
+    text: The canary image automatically duplicates itself
+    explanation: Image identity does not change replica count by itself.
+  correct_option: a
+  explanation: Ready backend counts rather than desired counts shape the available pool.
+- id: ats001-domain-review-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain readiness and capacity effects on rollout.
+  source_readings:
+  - sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
+  prompt: A zero-unavailable rollout cannot schedule its surge Pod. Which constraint is relevant?
+  options:
+  - id: a
+    text: The Ingress host string alone
+    explanation: Host routing does not supply scheduling capacity.
+  - id: b
+    text: Whether Helm has a longer release name
+    explanation: Release naming does not free node allocation.
+  - id: c
+    text: Capacity for replacement work while old capacity remains available
+    explanation: The budget can require extra runnable capacity before reducing old replicas.
+  correct_option: c
+  explanation: The budget can require extra runnable capacity before reducing old replicas.
+- id: ats001-domain-review-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Detect unintended container or selector changes.
+  source_readings:
+  - sections/section-030/module-03/course-01-targeted-patches-and-environment-differences.md
+  prompt: A generated overlay changes an existing Deployment's immutable selector. What is the concern?
+  options:
+  - id: a
+    text: Every selector update only changes annotations
+    explanation: Selectors have ownership semantics rather than annotation semantics.
+  - id: b
+    text: Ordinary update can be rejected even if the rendered text is valid
+    explanation: Immutable identity has an update contract beyond YAML syntax.
+  - id: c
+    text: All immutable fields are automatically ignored
+    explanation: The server does not universally ignore such changes.
+  correct_option: b
+  explanation: Immutable identity has an update contract beyond YAML syntax.
+- id: ats001-domain-review-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Assess rollback and uninstall effects on external state.
+  source_readings:
+  - sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+  prompt: Which statement best describes Helm uninstall for retained storage and hook resources?
+  options:
+  - id: a
+    text: Their lifecycle policies must be reviewed separately
+    explanation: Not every resource or external effect follows ordinary release deletion.
+  - id: b
+    text: Every backend data byte is always deleted
+    explanation: Retention and storage policy can preserve data.
+  - id: c
+    text: Every external side effect is always reversed
+    explanation: Uninstall is not a universal recovery transaction.
+  correct_option: a
+  explanation: Not every resource or external effect follows ordinary release deletion.

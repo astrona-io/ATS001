@@ -1,177 +1,147 @@
-# Course manifest for ATS001 - CKAD: Application Deployment.
-#
-# One entry per section under `modules:`. Each section lists, in order: its
-# README, then for each module the landing page (course.md), its parts
-# (course-0N-*.md), and right after the part a lab tests, the lab's
-# question.md reading and the `type: lab` entry. The module's wrap-up page
-# comes last. A section capstone, when there is one, closes the section.
-# Playgrounds are not listed: the landing page's playground marker shows them.
-# solution.md is never listed.
-#
-# Every `path:` is relative to this file.
-
+# Reading-only course. YAML assessments are registered separately in assessments/index.yaml.
 training:
   id: ATS001
   title: Application Deployment
-  description: >
-    Training material for the Certified Kubernetes Application Developer
-    (CKAD) exam: deployment strategies with plain Kubernetes objects
-    (blue-green and canary), rolling updates and rollbacks, Kustomize
-    overlays and Helm charts. Each module is a short landing page, a few
-    hands-on parts and a wrap-up; section 010 ends in a graded lab.
-
+  description: Detailed reading lessons and reusable YAML knowledge checks covering the CKAD domain. No
+    new labs or playgrounds. Technical content remains draft for review.
   certification:
     name: Certified Kubernetes Application Developer
     code: CKAD
-    provider: CNCF
+    provider: CNCF / Linux Foundation
     domain: Application Deployment
     weight: 20
-
+    competencies:
+    - Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+    - Understand Deployments and how to perform rolling updates
+    - Use the Helm package manager to deploy existing packages
+    - Kustomize
 modules:
-
-  - id: module-010
-    title: "Blue-Green Deployments"
-    description: >
-      Keep two versions of an app running and move all traffic from one to
-      the other by changing which pod labels a Service selects.
-
-    content:
-      - type: reading
-        title: Section Overview
-        path: sections/section-010/README.md
-
-      - type: reading
-        title: "Switch Traffic Between Two Versions"
-        path: sections/section-010/module-01/course.md
-      - type: reading
-        title: "How A Service Finds Its Pods"
-        path: sections/section-010/module-01/course-01-how-a-service-finds-its-pods.md
-      - type: reading
-        title: "Update One Version And Switch The Traffic"
-        path: sections/section-010/module-01/course-02-update-one-version-and-switch-traffic.md
-      - type: reading
-        title: Question
-        path: sections/section-010/module-01/labs/lab-01/question.md
-      - type: lab
-        title: "Blue-Green Service Switch Lab"
-        path: sections/section-010/module-01/labs/lab-01
-        difficulty: beginner
-        estimated_duration: 15m
-        topic: blue-green
-        task_kind: migration
-        tags: [blue-green, service-selector, labels, endpoints, kubectl-set-image, kubectl-patch, show-labels]
-        learning_goals:
-          - Find which pods a Service sends traffic to from its selector and its endpoints
-          - Update the image of one Deployment without touching the other version
-          - Switch a Service to one version by adding a label to its selector
-        resources:
-          - name: "Kubernetes Services"
-            url: https://kubernetes.io/docs/concepts/services-networking/service/
-          - name: "Labels and selectors"
-            url: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
-          - name: "Kubernetes Deployments"
-            url: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
-      - type: reading
-        title: "Wrap-Up: Mission Debrief"
-        path: sections/section-010/module-01/course-03-wrap-up.md
-
-  - id: module-020
-    title: "Rolling Updates And Rollbacks"
-    description: >
-      How a Deployment replaces its pods a few at a time, how maxSurge and
-      maxUnavailable set the pace, and how to go back to a working revision.
-
-    content:
-      - type: reading
-        title: Section Overview
-        path: sections/section-020/README.md
-
-      - type: reading
-        title: "Roll Out A New Version Without Downtime"
-        path: sections/section-020/module-01/course.md
-      - type: reading
-        title: "What Starts A Rollout"
-        path: sections/section-020/module-01/course-01-what-starts-a-rollout.md
-      - type: reading
-        title: "Roll Out With Zero Downtime"
-        path: sections/section-020/module-01/course-02-roll-out-with-zero-downtime.md
-      - type: reading
-        title: "Wrap-Up: Mission Debrief"
-        path: sections/section-020/module-01/course-03-wrap-up.md
-
-      - type: reading
-        title: "Roll Back A Broken Rollout"
-        path: sections/section-020/module-02/course.md
-      - type: reading
-        title: "Build A Rollout History"
-        path: sections/section-020/module-02/course-01-build-a-rollout-history.md
-      - type: reading
-        title: "Roll Back To A Working Revision"
-        path: sections/section-020/module-02/course-02-roll-back-to-a-working-revision.md
-      - type: reading
-        title: "Wrap-Up: Mission Debrief"
-        path: sections/section-020/module-02/course-03-wrap-up.md
-
-  - id: module-030
-    title: "Canary Deployments With Kustomize"
-    description: >
-      Send a small share of traffic to a new version by pod count, and keep
-      the counts per environment with Kustomize bases and overlays.
-
-    content:
-      - type: reading
-        title: Section Overview
-        path: sections/section-030/README.md
-
-      - type: reading
-        title: "Shape A Canary With Kustomize Overlays"
-        path: sections/section-030/module-01/course.md
-      - type: reading
-        title: "Canary Traffic By Pod Count"
-        path: sections/section-030/module-01/course-01-canary-traffic-by-pod-count.md
-      - type: reading
-        title: "Roll Back A Canary With An Overlay"
-        path: sections/section-030/module-01/course-02-roll-back-a-canary-with-an-overlay.md
-      - type: reading
-        title: "A Twenty Percent Canary"
-        path: sections/section-030/module-01/course-03-a-twenty-percent-canary.md
-      - type: reading
-        title: "Wrap-Up: Mission Debrief"
-        path: sections/section-030/module-01/course-04-wrap-up.md
-
-  - id: module-040
-    title: "Deploy Packages With Helm"
-    description: >
-      Install, upgrade, inspect and remove applications packaged as Helm
-      charts, from a local chart and from a chart repository.
-
-    content:
-      - type: reading
-        title: Section Overview
-        path: sections/section-040/README.md
-
-      - type: reading
-        title: "Install And Upgrade A Local Chart"
-        path: sections/section-040/module-01/course.md
-      - type: reading
-        title: "What A Chart Is"
-        path: sections/section-040/module-01/course-01-what-a-chart-is.md
-      - type: reading
-        title: "Install, Upgrade And Uninstall"
-        path: sections/section-040/module-01/course-02-install-upgrade-and-uninstall.md
-      - type: reading
-        title: "Wrap-Up: Mission Debrief"
-        path: sections/section-040/module-01/course-03-wrap-up.md
-
-      - type: reading
-        title: "Manage Releases From A Chart Repository"
-        path: sections/section-040/module-02/course.md
-      - type: reading
-        title: "Releases And Their States"
-        path: sections/section-040/module-02/course-01-releases-and-their-states.md
-      - type: reading
-        title: "Tidy Up The Releases On A Planet"
-        path: sections/section-040/module-02/course-02-tidy-up-the-releases-on-a-planet.md
-      - type: reading
-        title: "Wrap-Up: Mission Debrief"
-        path: sections/section-040/module-02/course-03-wrap-up.md
+- id: module-intro
+  title: Introduction
+  description: Audience, learning method, reading requirements and authoring process.
+  content:
+  - type: reading
+    title: Introduction
+    path: sections/intro/README.md
+  - type: reading
+    title: Welcome To The Course
+    path: sections/intro/course-01-welcome.md
+  - type: reading
+    title: Get Your Machine Ready
+    path: sections/intro/course-02-get-your-machine-ready.md
+  - type: reading
+    title: How This Course Is Made
+    path: sections/intro/course-03-how-this-course-is-made.md
+- id: module-010
+  title: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+  description: Developed explanations and application reasoning for Use Kubernetes primitives to implement
+    common deployment strategies (e.g. blue/green or canary).
+  draft: true
+  content:
+  - type: reading
+    title: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+    path: sections/section-010/README.md
+  - type: reading
+    title: A Prepared Blue-Green Switch
+    path: sections/section-010/module-02/course.md
+  - type: reading
+    title: Switching Service Traffic Between Two Versions
+    path: sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+  - type: reading
+    title: Summary
+    path: sections/section-010/module-02/course-02-summary.md
+  - type: reading
+    title: Canary Exposure And Promotion
+    path: sections/section-010/module-03/course.md
+  - type: reading
+    title: Reasoning About Canary Traffic With Ordinary Services
+    path: sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+  - type: reading
+    title: Summary
+    path: sections/section-010/module-03/course-02-summary.md
+- id: module-020
+  title: Understand Deployments and how to perform rolling updates
+  description: Developed explanations and application reasoning for Understand Deployments and how to
+    perform rolling updates.
+  draft: true
+  content:
+  - type: reading
+    title: Understand Deployments and how to perform rolling updates
+    path: sections/section-020/README.md
+  - type: reading
+    title: Rolling Updates And Availability
+    path: sections/section-020/module-03/course.md
+  - type: reading
+    title: Rolling Updates And Health Gates
+    path: sections/section-020/module-03/course-01-rolling-updates-and-health-gates.md
+  - type: reading
+    title: Calculating Rollout Capacity And Diagnosing Progress
+    path: sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
+  - type: reading
+    title: Summary
+    path: sections/section-020/module-03/course-03-summary.md
+  - type: reading
+    title: Release Diagnosis And Template History
+    path: sections/section-020/module-04/course.md
+  - type: reading
+    title: Intended Versions And Observed Progress
+    path: sections/section-020/module-04/course-01-intended-versions-and-observed-progress.md
+  - type: reading
+    title: Reproduce, Correct And Verify
+    path: sections/section-020/module-04/course-02-reproduce-correct-and-verify.md
+  - type: reading
+    title: Summary
+    path: sections/section-020/module-04/course-03-summary.md
+- id: module-030
+  title: Kustomize
+  description: Developed explanations and application reasoning for Kustomize.
+  draft: true
+  content:
+  - type: reading
+    title: Kustomize
+    path: sections/section-030/README.md
+  - type: reading
+    title: Reusable Kustomize Composition
+    path: sections/section-030/module-02/course.md
+  - type: reading
+    title: Composing Resources With Kustomize
+    path: sections/section-030/module-02/course-01-composing-resources-with-kustomize.md
+  - type: reading
+    title: Summary
+    path: sections/section-030/module-02/course-02-summary.md
+  - type: reading
+    title: Focused Patches For Environment Changes
+    path: sections/section-030/module-03/course.md
+  - type: reading
+    title: Targeted Patches And Environment Differences
+    path: sections/section-030/module-03/course-01-targeted-patches-and-environment-differences.md
+  - type: reading
+    title: Summary
+    path: sections/section-030/module-03/course-02-summary.md
+- id: module-040
+  title: Use the Helm package manager to deploy existing packages
+  description: Developed explanations and application reasoning for Use the Helm package manager to deploy
+    existing packages.
+  draft: true
+  content:
+  - type: reading
+    title: Use the Helm package manager to deploy existing packages
+    path: sections/section-040/README.md
+  - type: reading
+    title: Existing Charts And Effective Values
+    path: sections/section-040/module-03/course.md
+  - type: reading
+    title: Charts, Values And The Rendered Application
+    path: sections/section-040/module-03/course-01-charts-values-and-the-rendered-application.md
+  - type: reading
+    title: Summary
+    path: sections/section-040/module-03/course-02-summary.md
+  - type: reading
+    title: Release Operations And Recovery Limits
+    path: sections/section-040/module-04/course.md
+  - type: reading
+    title: Release History, Upgrades And Controlled Recovery
+    path: sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+  - type: reading
+    title: Summary
+    path: sections/section-040/module-04/course-02-summary.md

@@ -1,0 +1,110 @@
+schema_version: 1
+kind: question_bank
+id: ats001-section-040
+course_id: ATS001
+exam_code: CKAD
+status: draft
+provenance: Original practice material; not official examination questions.
+scope:
+  type: section
+  id: section-040
+  title: Use the Helm package manager to deploy existing packages
+placement:
+  position: after
+  reading: sections/section-040/module-04/course-02-summary.md
+questions:
+- id: ats001-section-040-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Distinguish chart, application and release identities.
+  source_readings:
+  - sections/section-040/module-03/course-01-charts-values-and-the-rendered-application.md
+  prompt: Which statement distinguishes a chart from a release?
+  options:
+  - id: a
+    text: A chart name guarantees the Deployment's exact name
+    explanation: Template naming can include the release identity and other inputs.
+  - id: b
+    text: A chart is a package and a release is an installed instance
+    explanation: The same package can support separate installations with different values.
+  - id: c
+    text: A release is always the registry digest of one image
+    explanation: A release tracks package installation rather than one image digest.
+  correct_option: b
+  explanation: The same package can support separate installations with different values.
+- id: ats001-section-040-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Trace value precedence into rendered fields.
+  source_readings:
+  - sections/section-040/module-03/course-01-charts-values-and-the-rendered-application.md
+  prompt: A user supplies replicas=4, but the chart reads replicaCount. Why might replicas remain unchanged?
+  options:
+  - id: a
+    text: The supplied key is not the template's supported input
+    explanation: Values affect the fields that templates actually reference.
+  - id: b
+    text: Helm always ignores all user values
+    explanation: Supported values can influence rendered objects.
+  - id: c
+    text: Kubernetes always forces every chart to one replica
+    explanation: There is no such universal replica rule.
+  correct_option: a
+  explanation: Values affect the fields that templates actually reference.
+- id: ats001-section-040-q03
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Separate rendering, admission and application health.
+  source_readings:
+  - sections/section-040/module-03/course-01-charts-values-and-the-rendered-application.md
+  prompt: Successful client-side rendering proves which fact most directly?
+  options:
+  - id: a
+    text: Every cluster serves the generated API versions
+    explanation: API availability depends on the target cluster.
+  - id: b
+    text: Every report request will succeed
+    explanation: Rendering does not execute every application operation.
+  - id: c
+    text: The package produced resource definitions under that rendering context
+    explanation: Server validation, permissions and application health remain separate.
+  correct_option: c
+  explanation: Server validation, permissions and application health remain separate.
+- id: ats001-section-040-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Evaluate upgrade value reuse and chart changes.
+  source_readings:
+  - sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+  prompt: An upgrade reuses old values with a changed chart contract. What should be reviewed?
+  options:
+  - id: a
+    text: Only the earlier application's log colour
+    explanation: Display style does not establish configuration correctness.
+  - id: b
+    text: The new chart's accepted values and effective rendered configuration
+    explanation: Carried-forward values may no longer express the intended settings.
+  - id: c
+    text: Only the length of the release name
+    explanation: Naming length does not explain changed value semantics.
+  correct_option: b
+  explanation: Carried-forward values may no longer express the intended settings.
+- id: ats001-section-040-q05
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Assess rollback and uninstall effects on external state.
+  source_readings:
+  - sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+  prompt: A chart hook migrated external data. What should a rollback assessment include?
+  options:
+  - id: a
+    text: Compatibility with the changed data and hook side effects
+    explanation: Release restoration does not universally reverse external migrations.
+  - id: b
+    text: An assumption that the database was automatically snapshotted
+    explanation: That recovery mechanism must be explicitly present.
+  - id: c
+    text: An assumption that selecting old history undoes every write
+    explanation: A prior revision is not a universal external transaction rollback.
+  correct_option: a
+  explanation: Release restoration does not universally reverse external migrations.

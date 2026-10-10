@@ -1,15 +1,22 @@
-# Section 010: Blue-Green Deployments
+---
+draft: true
+exam_objectives:
+- Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green
+  or canary)
+---
+# Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
 
-Blue-green deployment keeps two versions of an app running at the same time and lets you move all traffic from one to the other in a single step. Astronaut, picture two whole fleets in flight and one beacon: you decide which fleet answers it.
+This section covers use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary). You will study A Prepared Blue-Green Switch, Canary Exposure And Promotion. The lessons explain the responsible components, configuration relationships and failure cases relevant to application development.
 
-## Modules
+Each module begins with its goals and ends with a summary. Reusable YAML knowledge checks follow the section summary and are registered separately for future presentation.
 
-This section has one module. It teaches how a Service picks its pods by label, and how changing that choice switches the traffic.
+## Learning Outcomes
 
-| Module | What you learn | Graded mission |
-| --- | --- | --- |
-| [Switch Traffic Between Two Versions](./module-01/course.md) | Labels, Service selectors and endpoints; updating one version's image; switching a Service from both versions to one | [Blue-Green Service Switch Lab](./module-01/labs/lab-01/README.md) |
-
-## What you need
-
-A terminal with `kubectl`, and the `astrona` tool to start the graded lab. The lab builds its own small Kubernetes cluster.
+- Explain Service selection across two versions.
+- Verify readiness, capacity and backend ports.
+- Distinguish a traffic switch from a data migration.
+- Evaluate the conditions for safe traffic rollback.
+- Explain shared Service selection for stable and canary Pods.
+- Estimate exposure from ready endpoints with stated limits.
+- Choose version-specific promotion evidence.
+- Distinguish withdrawal from full release promotion.

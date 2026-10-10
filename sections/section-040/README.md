@@ -1,14 +1,21 @@
-# Section 040: Deploy Packages With Helm
+---
+draft: true
+exam_objectives:
+- Use the Helm package manager to deploy existing packages
+---
+# Use the Helm package manager to deploy existing packages
 
-Helm installs whole applications from packages called charts, and keeps a numbered history of every change. Astronaut, think of Helm as the shipyard's kit system: you pick a kit, tick options on its order form, and Helm builds and tracks it for you.
+This section covers use the Helm package manager to deploy existing packages. You will study Existing Charts And Effective Values, Release Operations And Recovery Limits. The lessons explain the responsible components, configuration relationships and failure cases relevant to application development.
 
-## Modules
+Each module begins with its goals and ends with a summary. Reusable YAML knowledge checks follow the section summary and are registered separately for future presentation.
 
-| Module | What you learn | Graded mission |
-| --- | --- | --- |
-| [Install And Upgrade A Local Chart](./module-01/course.md) | What a chart is, how values fill templates, and installing, upgrading and removing a release | None yet |
-| [Manage Releases From A Chart Repository](./module-02/course.md) | Release states, `helm list --all`, and cleaning up, upgrading and installing releases from a repository | None yet |
+## Learning Outcomes
 
-## What you need
-
-A practice Kubernetes cluster, `kubectl`, and the `helm` command (Helm 3) on your computer.
+- Distinguish chart, application and release identities.
+- Trace value precedence into rendered fields.
+- Review chart dependencies and resource requirements.
+- Separate rendering, admission and application health.
+- Identify release history in the correct namespace.
+- Evaluate upgrade value reuse and chart changes.
+- Explain hooks, waiting and immutable-field constraints.
+- Assess rollback and uninstall effects on external state.

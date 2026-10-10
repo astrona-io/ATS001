@@ -1,0 +1,111 @@
+schema_version: 1
+kind: question_bank
+id: ats001-section-030
+course_id: ATS001
+exam_code: CKAD
+status: draft
+provenance: Original practice material; not official examination questions.
+scope:
+  type: section
+  id: section-030
+  title: Kustomize
+placement:
+  position: after
+  reading: sections/section-030/module-03/course-02-summary.md
+questions:
+- id: ats001-section-030-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Explain a base, overlay and resource composition.
+  source_readings:
+  - sections/section-030/module-02/course-01-composing-resources-with-kustomize.md
+  prompt: What is the role of a Kustomize base?
+  options:
+  - id: a
+    text: A universal database snapshot
+    explanation: The resource composition does not provide database recovery.
+  - id: b
+    text: Reusable resource inputs shared by compositions
+    explanation: A base expresses common definitions that overlays can customize.
+  - id: c
+    text: A new cluster controller that continually applies files
+    explanation: Kustomize composition is not itself that running controller.
+  correct_option: b
+  explanation: A base expresses common definitions that overlays can customize.
+- id: ats001-section-030-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Explain generated configuration references and hashes.
+  source_readings:
+  - sections/section-030/module-02/course-01-composing-resources-with-kustomize.md
+  prompt: A generated ConfigMap's content-derived name changes and the recognized Deployment reference
+    changes too. What can this cause after deployment?
+  options:
+  - id: a
+    text: A changed Pod template and a rollout
+    explanation: The updated reference can make the rendered workload template differ.
+  - id: b
+    text: Guaranteed automatic hot reload by every application
+    explanation: Application reload behavior is a separate contract.
+  - id: c
+    text: Encryption of the ConfigMap contents
+    explanation: A name suffix is not confidentiality protection.
+  correct_option: a
+  explanation: The updated reference can make the rendered workload template differ.
+- id: ats001-section-030-q03
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Explain generated configuration references and hashes.
+  source_readings:
+  - sections/section-030/module-02/course-01-composing-resources-with-kustomize.md
+  prompt: Does generating a Secret protect confidential literals committed to a readable repository?
+  options:
+  - id: a
+    text: Yes; the generator retroactively encrypts repository history
+    explanation: Generation does not rewrite history into encrypted storage.
+  - id: b
+    text: Yes; every YAML file becomes private after rendering
+    explanation: Rendering does not change repository access permissions.
+  - id: c
+    text: No; the source inputs remain exposed
+    explanation: The generated resource kind does not encrypt or conceal public inputs.
+  correct_option: c
+  explanation: The generated resource kind does not encrypt or conceal public inputs.
+- id: ats001-section-030-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Choose a precise patch target.
+  source_readings:
+  - sections/section-030/module-03/course-01-targeted-patches-and-environment-differences.md
+  prompt: A patch targets every Deployment but was intended for one. What is the primary review concern?
+  options:
+  - id: a
+    text: The number of prose headings in the source file
+    explanation: Formatting does not establish the effective resource match.
+  - id: b
+    text: Unintended changes to additional matching objects
+    explanation: The target scope determines which resources receive the patch.
+  - id: c
+    text: The chart release namespace
+    explanation: Chart identity is not the Kustomize target selection rule.
+  correct_option: b
+  explanation: The target scope determines which resources receive the patch.
+- id: ats001-section-030-q05
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Detect unintended container or selector changes.
+  source_readings:
+  - sections/section-030/module-03/course-01-targeted-patches-and-environment-differences.md
+  prompt: A container-list patch accidentally removes a required helper. What verifies the intended composition?
+  options:
+  - id: a
+    text: Reviewing the final rendered containers and relationships
+    explanation: Valid syntax can still produce the wrong application structure.
+  - id: b
+    text: Checking only that the patch file parses as YAML
+    explanation: Parsing alone does not show the merged final list.
+  - id: c
+    text: Increasing the Service port
+    explanation: Port changes do not restore a removed helper definition.
+  correct_option: a
+  explanation: Valid syntax can still produce the wrong application structure.
