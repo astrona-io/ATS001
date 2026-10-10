@@ -156,13 +156,10 @@ section is only true for this one.
 
 - **The goal:** pass the application deployment part of the **Certified
   Kubernetes Application Developer (CKAD)** exam from the Cloud Native
-  Computing Foundation (CNCF). `astrona.yaml` and the `README.md` name the
-  domain **Application Design and Build** with a weight of **20%**, but every
-  page and lab in this repository teaches the topics of the CKAD
-  **Application Deployment** domain (also 20%): deployment strategies,
-  rolling updates, Helm and Kustomize. Keep the declared title until the
-  maintainer decides; do not add Application Design and Build topics (images,
-  workload kinds, multi-container pods, volumes) without asking.
+  Computing Foundation (CNCF). The domain is **Application Deployment**,
+  with a weight of **20%**: deployment strategies, rolling updates, Helm
+  and Kustomize. This repository is the Application Deployment stage of
+  **ATP006**. Application Design and Build has its own series, **ATS027**.
 - **What the exam really tests:** changing live Deployments, Services, Helm
   releases and Kustomize overlays by hand, under time pressure, and proving
   the result with `kubectl`. So the student must *do* things (switch a
@@ -460,8 +457,8 @@ Check facts here before writing them down. Prefer these over memory.
   and <https://kubernetes.io/docs/reference/kubectl/jsonpath/>
 - **The exam itself:** the CKAD page on the Linux Foundation / CNCF training
   site, and the curriculum in <https://github.com/cncf/curriculum>. The
-  domain name and weight above come from this repository's `astrona.yaml`
-  and have not been re-checked against it.
+  Application Deployment domain and its 20% weight were checked against
+  the official CKAD page on 2026-10-10.
 - **The astrona tool:** `astrona --help` and `astrona <command> --help`.
 
 ### Skills to use here
