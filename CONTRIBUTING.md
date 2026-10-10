@@ -1,87 +1,53 @@
-# Contributing to ATS001
+# Contributing To ATS001
 
-Thanks for considering a contribution. ATS001 is CKAD ("Application Design and Build")
-training material, published in the open so anyone preparing for the exam — or
-learning Kubernetes application patterns — can use, fix, and extend it. Contributions
-of any size are welcome: typo fixes, clearer explanations, new labs, bug reports.
+ATS001 covers Application Deployment in the Certified Kubernetes Application
+Developer (CKAD) curriculum. Contributions can improve explanations, correct
+resource relationships or review the original YAML knowledge checks.
 
-## Code of Conduct
+## Before Editing
+
+Read CLAUDE.md for shared writing rules and the repository's reading-only scope.
+CURRICULUM.md maps the official objectives, and AUTHORING.yaml records module
+goals and adaptation sources. Discuss substantial scope changes in a repository
+issue so the teaching remains coherent.
+
+The current manifest uses new reading modules. Earlier teaching, examples and
+lab assets remain unchanged at their original paths outside this manifest.
+LEGACY-CONTENT.json records their hashes. Preserve those assets unless a future
+migration explicitly includes them. Do not add new labs or playgrounds to this
+reading draft.
+
+## Reading Structure
+
+Each section starts with an introduction. A module contains a short course.md
+landing page, developed course-0N-*.md lessons and a final course-0N-summary.md.
+Register the introduction, landing, lessons and summary in that order in
+astrona.yaml. The summary comes before the next module.
+
+Technical Markdown retains draft front matter until review. Keep explanations
+self-contained and use real technical terms in plain English. Define terms and
+acronyms, explain responsible components and relevant limits, and end teaching
+lessons with the Common pitfalls warning. Avoid invented outputs or claims that
+an environment was executed. Author references belong in SOURCES.md.
+
+## Reusable Questions
+
+Write original questions under the versioned contract documented in ASSESSMENTS.md
+and schemas/question-bank.schema.json. Each bank contains 5–15 questions with
+stable IDs, one supported correct answer, per-option feedback, measurable goals
+and source readings. assessments/index.yaml records checkpoint order and summary
+anchors. Keep YAML data separate from the Markdown reading manifest.
+
+## Review And Submission
+
+Check reading paths, ordering, coverage, draft flags and question contracts.
+Confirm that every question follows its teaching and that retained earlier files
+still match their recorded hashes. Diagrams need structural and visual review;
+do not claim rendering or runtime checks that were not performed.
+
+Sign off commits under the [Developer Certificate of Origin](https://developercertificate.org/)
+and open a focused pull request explaining the change and verification. Keep
+publication draft until maintainers approve it.
 
 This project follows the [Contributor Covenant](https://www.contributor-covenant.org/version/2/1/code_of_conduct/).
-By participating, you agree to uphold it. Report violations to the maintainers
-listed in the repository.
-
-## Ways to Contribute
-
-- **Report a problem** — broken command, wrong expected output, outdated API version,
-  unclear explanation. Open an issue with the section/lab path and what you observed.
-- **Improve existing content** — clarify wording, fix a manifest, correct a command,
-  tighten a "Common Mistakes" or "Troubleshooting" section.
-- **Add a lab or section** — new CKAD-relevant scenario not yet covered.
-- **Review pull requests** — technical review from anyone is welcome, not just
-  maintainers.
-
-## Before You Start
-
-For anything beyond a small fix (new lab, restructuring, new section), open an issue
-first to discuss scope. This avoids duplicate work and keeps the training material
-consistent. Small fixes (typos, broken links, command corrections) can go straight to
-a pull request.
-
-## Project Structure
-
-```
-astrona.yaml                                # Course outline: every reading page and lab, in order
-CLAUDE.md                                   # Writing rules and repository facts (read this first)
-sections/section-0N0/README.md              # Section overview (plus section.yaml)
-sections/section-0N0/module-0M/course.md    # Module landing page
-sections/section-0N0/module-0M/course-0N-*.md  # Module parts, ending with a wrap-up
-sections/section-0N0/module-0M/examples/    # Reference copies of the files the pages ask you to save
-sections/section-0N0/module-0M/labs/lab-0N/ # Graded lab: config.yaml, question.md, solution.md, manifests/, solution/, validation/
-```
-
-Every page and lab referenced in `astrona.yaml` must exist on disk at the `path`
-given, and every course page on disk should be listed in `astrona.yaml` (never
-`solution.md`). When adding, splitting or renaming a page or lab, update
-`astrona.yaml` in the same change.
-
-## Content Conventions
-
-`CLAUDE.md` holds the full rules. In short:
-
-1. Plain English at about a grade 8 to 9 reading level, short paragraphs, active voice.
-2. A module is a short landing page, a few short parts (one idea each) and a wrap-up.
-3. Every `##` heading that has `###` subsections starts with a short intro.
-4. Explain each exam term the first time it appears, with the space analogy from the glossary in `CLAUDE.md`.
-5. YAML goes to a file first: "Save this as ...", "Apply it:", "Then check the result:".
-6. Each part ends with a `## Common pitfalls` warning box; a part that a graded lab tests ends with `## Your mission`.
-7. Pages do not link to outside websites. Official documentation links go only in the `resources` field of a lab entry in `astrona.yaml`.
-8. Never change commands, YAML or output to fit the style, and never make up output.
-
-## Technical Guidelines
-
-- Commands must be tested against a real cluster (Kind or equivalent) before submitting.
-- Prefer `kubectl` imperative commands when they produce the correct object; use YAML
-  when field placement is the point of the exercise.
-- Always namespace commands explicitly (`-n <namespace>`) — don't rely on a default
-  namespace.
-- Link to official documentation only in a lab entry's `resources` in `astrona.yaml`.
-- Keep exercises CKAD-scoped: Application Design and Build domain topics, not cluster
-  administration.
-
-## Submitting Changes
-
-1. Fork the repository and create a branch from `main`.
-2. Make your change, following the conventions above.
-3. Test every command you add or modify against a real cluster.
-4. Sign off your commits per the [Developer Certificate of Origin](https://developercertificate.org/)
-   (`git commit -s`) — this certifies you have the right to submit the contribution
-   under this project's license.
-5. Open a pull request describing what changed and why, referencing any related issue.
-6. Address review feedback. Maintainers may request changes to keep content accurate
-   and consistent with the rest of the series.
-
-## License
-
-By contributing, you agree your contributions are licensed under the same license as
-this project (Apache License 2.0, see `LICENSE`).
+Contributions use the repository's Apache License 2.0; see LICENSE.
