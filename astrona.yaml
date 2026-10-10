@@ -1,4 +1,4 @@
-# Course manifest for ATS001 - CKAD: Application Design and Build.
+# Course manifest for ATS001 - CKAD: Application Deployment.
 #
 # One entry per section under `modules:`. Each section lists, in order: its
 # README, then for each module the landing page (course.md), its parts
@@ -12,7 +12,7 @@
 
 training:
   id: ATS001
-  title: Application Design and Build
+  title: Application Deployment
   description: >
     Training material for the Certified Kubernetes Application Developer
     (CKAD) exam: deployment strategies with plain Kubernetes objects
@@ -24,7 +24,7 @@ training:
     name: Certified Kubernetes Application Developer
     code: CKAD
     provider: CNCF
-    domain: Application Design and Build
+    domain: Application Deployment
     weight: 20
 
 modules:
