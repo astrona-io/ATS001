@@ -5,7 +5,7 @@ exam_objectives:
 ---
 # Existing Charts And Effective Values
 
-This module connects intended application behavior to declared resources and observed conditions.
+Setting `replicaCount: 3` changes an application only if its chart template reads that value. Helm values are chart inputs, not Kubernetes fields. Tracing them into rendered resources prevents a plausible-looking override from being mistaken for an effective change.
 
 ## Learning Goals
 

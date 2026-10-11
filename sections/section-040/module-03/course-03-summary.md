@@ -9,4 +9,6 @@ Charts package resource templates and supporting inputs. Values influence the fi
 
 Rendered objects expose the intended resources but do not guarantee API acceptance or useful application behavior. Correct installation requires suitable images, permissions, storage, routing and configuration in the chosen environment.
 
+Chart defaults and chosen overrides become workload fields only through chart templates. Release inventory differs from object inventory, and a successful local render does not establish authorization, admission or runtime readiness.
+
 <!-- astrona:playground:destroy -->

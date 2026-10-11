@@ -9,6 +9,10 @@ Helm installs a chart as a named release with selected values. You will use an e
 
 Use the module playground and its private kubeconfig. The context check below prevents commands from being directed at an unrelated cluster. The helper retries a command for a bounded interval after controller or policy changes; it cannot turn a persistent failure into success. Read the actual errors when the interval expires.
 
+The chart package, the named release and the running application are separate identities. Inspect the chart's supported values before choosing an override. Then find the resulting field in the rendered Deployment or Service rather than assuming that a plausible value name is effective.
+
+Rendering happens locally; installation asks the cluster to accept and realize the output. Waiting for workload readiness adds useful runtime evidence, but it still does not test every application operation. The directly created probe fixture and the Helm-created release also remain separate workloads.
+
 <!-- astrona:playground:renew -->
 
 For a timed catalog session, renew this module before continuing. Skip renewal for an untimed local author run:
