@@ -9,6 +9,10 @@ Kustomize composes Kubernetes declarations without turning the source files into
 
 Use the module playground and its private kubeconfig. The context check below prevents commands from being directed at an unrelated cluster. The helper retries a command for a bounded interval after controller or policy changes; it cannot turn a persistent failure into success. Read the actual errors when the interval expires.
 
+Kustomize output is ordinary Kubernetes YAML. Rendering on your machine does not send objects to the cluster; applying the saved composition does. Inspect final names and references before submission, especially the link from a Deployment volume to a generated ConfigMap.
+
+A generated name changes when its configuration content changes under the hashing strategy. If that new name enters a Deployment's Pod template, applying the result can trigger replacement. This differs from editing a fixed-name ConfigMap while leaving the template unchanged.
+
 <!-- astrona:playground:renew -->
 
 For a timed catalog session, renew this module before continuing. Skip renewal for an untimed local author run:

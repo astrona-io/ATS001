@@ -5,7 +5,7 @@ exam_objectives:
 ---
 # Reusable Kustomize Composition
 
-This module connects intended application behavior to declared resources and observed conditions.
+A development Deployment needs one replica while production needs several, but their container and Service definitions should stay consistent. Kustomize lets a shared base hold those common objects and lets each overlay express the intended difference.
 
 ## Learning Goals
 
