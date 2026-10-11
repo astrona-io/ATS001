@@ -5,6 +5,22 @@ exam_objectives:
 ---
 # Reproduce, Correct And Verify
 
+The `probe` container runs, but its readiness check uses an obsolete listener port. A precise correction changes that port relationship and then checks the original request again. Changing unrelated settings at the same time makes the result harder to explain.
+
+## Learning objectives
+
+- State a testable hypothesis for an application release failure.
+- Select evidence before changing a declarative resource.
+- Verify a correction against the original symptom and caller.
+
+## Before you start
+
+Use a shell on your own machine with the module playground running. A Pod is Kubernetes's unit for running one or more containers together. The environment provides the `probe` Deployment, which maintains application Pods, and the `starfleet` namespace, which groups these objects.
+
+Read-only commands below use kubectl, the Kubernetes command-line tool. Select the private kubeconfig: the file that identifies this environment's cluster and credentials. The commands do not change the application.
+
+## Reproduce, Correct and Verify
+
 A failed release needs a correction that preserves the original application requirements. Start with a clear symptom and a bounded hypothesis. For example, the new application listens on a different port while the readiness check still uses the old one. This predicts a running process, failed probe connections and a rollout without usable new replicas.
 
 Reproduction should keep the relevant version, configuration and request conditions. Simplifying unrelated features helps, but changing the caller identity, storage or dependency version can remove the condition that causes the failure. Record which conditions are essential to the observed result.
@@ -32,6 +48,42 @@ An earlier application version is a candidate for rollback only if it still work
 A traffic reversal can reduce exposure more quickly than rebuilding, but it also needs compatibility checks for shared state. A previous healthy environment can be stale or unable to consume new data. State the recovery assumptions explicitly so the decision is reviewable.
 
 A final record should distinguish root cause, contributing conditions and observations. It should describe the actual change and the checks that support recovery. That record can guide a focused regression check or release gate, reducing future dependence on emergency manual debugging.
+
+## Inspect the mechanism
+
+A useful hypothesis predicts observable evidence. If readiness targets the wrong port, the process may stay Running while probe events report connection failures and ready endpoints disappear. If the Pod instead remains Pending without a node, that prediction is wrong: the failure occurs before the probe can run.
+
+Preserve evidence before editing. The Deployment template, Pod container status and Service port mapping describe different parts of the contract. Match the listener used by the process, the probe target and the Service target port. Then identify which source owns the wrong value. A correction that changes only live state may be overwritten by a separate deployment system.
+
+```mermaid
+flowchart TB
+    S["Observed symptom"] --> H["Specific hypothesis"]
+    H --> E["Predicted evidence"]
+    E --> C["Change responsible setting"]
+    C --> V["Repeat original observation"]
+    V --> R["Record result and limits"]
+```
+
+A correction is supported when the predicted cause and the original symptom both change as expected.
+
+<!-- astrona:playground:renew -->
+
+Select the private cluster connection and inspect the live state from your host shell:
+
+```sh
+export KUBECONFIG="$(astrona kubeconfig ats-001-playground-020-04)"
+if test "$(kubectl config current-context)" = "kind-astro-ats-001-playground-020-04"; then
+  kubectl -n starfleet get deployment probe -o yaml
+  kubectl -n starfleet describe pods -l app=probe
+  kubectl -n starfleet get service probe -o yaml
+else
+  printf "Select this module's private kubeconfig before continuing.\n" >&2
+fi
+```
+
+Find the container's named port, the readiness probe's target and the Service's `targetPort`. `describe pods` includes current state and available events, which may expire and should not be treated as permanent history. The fixture's listener contract is consistent; this inspection demonstrates the evidence needed to evaluate the wrong-port hypothesis without deliberately damaging the environment.
+
+You can now explain why a change should repair a specific failure and what evidence would contradict that explanation. Recovery still requires checking compatibility and recording the intended configuration, rather than accepting a transient improvement.
 
 ## Common pitfalls
 

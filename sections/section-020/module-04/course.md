@@ -5,7 +5,7 @@ exam_objectives:
 ---
 # Release Diagnosis And Template History
 
-This module connects intended application behavior to declared resources and observed conditions.
+Users receive an older response even though the `probe` Deployment declares a new image. The declaration, running containers and selected network backends can disagree during a release. Diagnose each boundary before deciding that the image build failed.
 
 ## Learning Goals
 

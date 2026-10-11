@@ -9,6 +9,10 @@ This exercise creates an intentional image preparation failure. The invalid tag 
 
 Use the module playground and its private kubeconfig. The context check below prevents commands from being directed at an unrelated cluster. The helper retries a command for a bounded interval after controller or policy changes; it cannot turn a persistent failure into success. Read the actual errors when the interval expires.
 
+Use the diagnosis commands to connect one symptom to one responsible setting. Container status explains process state; events explain recent controller or node actions; Service endpoints explain traffic eligibility. None of these records substitutes for the others.
+
+When correcting the defect, retain the caller and operation that first exposed it. Otherwise a successful test can merely avoid the failing condition. Separate the immediate live correction from the durable change to the configuration source.
+
 <!-- astrona:playground:renew -->
 
 For a timed catalog session, renew this module before continuing. Skip renewal for an untimed local author run:
