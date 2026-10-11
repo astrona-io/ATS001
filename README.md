@@ -1,24 +1,22 @@
 # Application Deployment (ATS001)
 
-Certified Kubernetes Application Developer (CKAD): Application Deployment, worth 20% of the official curriculum. This course belongs to ATP006.
+Certified Kubernetes Application Developer (CKAD): Application Deployment, worth 20% of the curriculum and part of ATP006.
 
-Developed reading lessons explain configuration, component responsibility, worked reasoning and failure limits. Every section has an introduction, and every module ends with a summary. Reusable YAML knowledge checks are indexed separately. Technical content remains draft.
+Each section has an introduction. Each module combines detailed concept readings, an ungraded isolated playground, guided practical work and a closing summary. YAML knowledge checks remain separately indexed. Technical content stays draft for review. New graded labs are not included.
 
 ## Course Outline
 
-| Section / module | Module | Teaching lessons |
+| Section / module | Module | Concept and practical readings |
 | --- | --- | --- |
-| 010 / 02 | A Prepared Blue-Green Switch | Switching Service Traffic Between Two Versions |
-| 010 / 03 | Canary Exposure And Promotion | Reasoning About Canary Traffic With Ordinary Services |
-| 020 / 03 | Rolling Updates And Availability | Rolling Updates And Health Gates; Calculating Rollout Capacity And Diagnosing Progress |
-| 020 / 04 | Release Diagnosis And Template History | Intended Versions And Observed Progress; Reproduce, Correct And Verify |
-| 030 / 02 | Reusable Kustomize Composition | Composing Resources With Kustomize |
-| 030 / 03 | Focused Patches For Environment Changes | Targeted Patches And Environment Differences |
-| 040 / 03 | Existing Charts And Effective Values | Charts, Values And The Rendered Application |
-| 040 / 04 | Release Operations And Recovery Limits | Release History, Upgrades And Controlled Recovery |
+| 010 / 02 | A Prepared Blue-Green Switch | Switching Service Traffic Between Two Versions; Switch A Service Between Ready Versions |
+| 010 / 03 | Canary Exposure And Promotion | Reasoning About Canary Traffic With Ordinary Services; Observe Canary Backends Without Assuming Exact Percentages |
+| 020 / 03 | Rolling Updates And Availability | Rolling Updates And Health Gates; Calculating Rollout Capacity And Diagnosing Progress; Perform And Inspect A Rolling Template Update |
+| 020 / 04 | Release Diagnosis And Template History | Intended Versions And Observed Progress; Reproduce, Correct And Verify; Diagnose A Failed Image Update And Repair The Template |
+| 030 / 02 | Reusable Kustomize Composition | Composing Resources With Kustomize; Render And Apply A Self-Contained Kustomize Base |
+| 030 / 03 | Focused Patches For Environment Changes | Targeted Patches And Environment Differences; Patch One Environment Without Editing Its Base |
+| 040 / 03 | Existing Charts And Effective Values | Charts, Values And The Rendered Application; Install An Existing Chart And Inspect Effective Values |
+| 040 / 04 | Release Operations And Recovery Limits | Release History, Upgrades And Controlled Recovery; Upgrade A Release And Inspect Controlled Recovery |
 
 ## Author Review
 
-The [curriculum map](CURRICULUM.md) records objective coverage. [Sources](SOURCES.md) support author review, and [assessment documentation](ASSESSMENTS.md) describes the reusable YAML contract. No runtime is required or claimed, and no new labs or playgrounds are included.
-
-Existing teaching and lab assets remain unchanged outside the new reading manifest; see [preserved content](LEGACY-CONTENT.md). New modules use unused IDs.
+See [curriculum coverage](CURRICULUM.md), [primary sources](SOURCES.md), [assessment contracts](ASSESSMENTS.md) and [contribution guidance](CONTRIBUTING.md). Each playground has its own config, bootstrap, guide and author smoke script. Static checks passed; live execution remains pending because the authoring session cannot access the container engine. Retain that limitation until real runtime evidence is recorded.
