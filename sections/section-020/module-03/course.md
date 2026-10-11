@@ -5,7 +5,7 @@ exam_objectives:
 ---
 # Rolling Updates And Availability
 
-This module connects intended application behavior to declared resources and observed conditions.
+A new `probe` version starts but cannot answer its readiness check. Kubernetes keeps the process running while the Deployment waits for usable replacement capacity. Reading this situation correctly prevents a failed rollout from being mistaken for a missing update.
 
 ## Learning Goals
 

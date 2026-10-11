@@ -5,6 +5,22 @@ exam_objectives:
 ---
 # Rolling Updates And Health Gates
 
+A new `probe` version starts but cannot answer its readiness check. Kubernetes keeps the process running while the Deployment waits for usable replacement capacity. Reading this situation correctly prevents a failed rollout from being mistaken for a missing update.
+
+## Learning objectives
+
+- Trace a template change through Deployment and ReplicaSet reconciliation.
+- Explain how readiness and minimum ready time affect availability.
+- Separate rollout completion from application correctness.
+
+## Before you start
+
+Use a shell on your own machine with the module playground running. A Pod is Kubernetes's unit for running one or more containers together. The environment provides the `probe` Deployment, which maintains application Pods, and the `starfleet` namespace, which groups these objects.
+
+Read-only commands below use kubectl, the Kubernetes command-line tool. Select the private kubeconfig: the file that identifies this environment's cluster and credentials. The commands do not change the application.
+
+## Rolling Updates and Health Gates
+
 Version two of `scout` replaces version one. A Deployment rolling update gradually changes replicas from the old Pod template to the new one. During the transition, old and new replicas can coexist. The application and its data interfaces must tolerate that overlap.
 
 The rollout strategy can limit how many replicas are unavailable and how many extra replicas are created. Extra replicas need node capacity, so a rollout can stall when the cluster cannot host the temporary increase. A valid update does not remove scheduling or dependency requirements.
@@ -32,6 +48,43 @@ Old and new replicas can serve requests concurrently. They may share a database,
 A rollout history captures Pod template revisions, not a complete record of every external configuration or data effect. An older image can be available for reversal while the current database no longer supports it. The recovery plan must identify those dependencies before rollback is needed.
 
 Verification should compare requested revision, observed artifact identities, availability and representative outcomes. A controller can complete its update while the application produces wrong calculations. The release gate should reflect the user's critical operations as well as Kubernetes progress.
+
+## Inspect the mechanism
+
+A Deployment describes the desired application replicas. A ReplicaSet is the controller-owned object that maintains Pods for one template. When the Deployment template changes, its controller creates or reuses the corresponding ReplicaSet and adjusts the old and new replica counts. The kubelet, the node agent that manages containers, performs the readiness check for each Pod.
+
+These responsibilities differ. The Deployment controller does not call every application endpoint itself. It acts on reported Pod readiness and its rollout strategy. The Service backend controller separately uses readiness when constructing eligible backends. A broken readiness path can therefore block replacement capacity and remove traffic eligibility without proving that the container process exited.
+
+```mermaid
+flowchart TB
+    T["Changed Pod template"] --> D["Deployment controller"]
+    D --> R["New ReplicaSet"]
+    R --> P["New Pods"]
+    P --> K["Kubelet readiness checks"]
+    K --> A["Available replacement capacity"]
+    A --> D
+```
+
+The controller increases replacement capacity only as the reported readiness and strategy permit.
+
+<!-- astrona:playground:renew -->
+
+Select the private cluster connection and inspect the live state from your host shell:
+
+```sh
+export KUBECONFIG="$(astrona kubeconfig ats-001-playground-020-03)"
+if test "$(kubectl config current-context)" = "kind-astro-ats-001-playground-020-03"; then
+  kubectl -n starfleet get deployment probe -o yaml
+  kubectl -n starfleet get replicasets -l app=probe
+  kubectl -n starfleet get pods -l app=probe -o wide
+else
+  printf "Select this module's private kubeconfig before continuing.\n" >&2
+fi
+```
+
+Read the Deployment's `spec.strategy` and `status.conditions`, then compare desired and available replicas. The `get replicasets` result shows each template's replica population; `get pods -o wide` adds placement information. The ready counts describe the current baseline. They are observations of controller progress, not a test of every application response.
+
+You can now connect template intent with replica ownership and health gates. A completed replacement still needs application checks that cover the behavior users rely on.
 
 ## Common pitfalls
 

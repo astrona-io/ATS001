@@ -9,6 +9,10 @@ A Deployment rollout creates a new ReplicaSet when its Pod template changes. The
 
 Use the module playground and its private kubeconfig. The context check below prevents commands from being directed at an unrelated cluster. The helper retries a command for a bounded interval after controller or policy changes; it cannot turn a persistent failure into success. Read the actual errors when the interval expires.
 
+A template edit starts replacement; a replica-count edit changes scale. During replacement, read old and new ReplicaSet populations separately. The readiness check decides whether a container can contribute to useful traffic, and the Deployment's minimum ready duration can further delay counting it as available.
+
+If the update waits, first find the new Pods and determine whether they are unscheduled, unable to start or running without readiness. That classification identifies the next useful evidence. Waiting longer does not fix a missing configuration object or an invalid image.
+
 <!-- astrona:playground:renew -->
 
 For a timed catalog session, renew this module before continuing. Skip renewal for an untimed local author run:

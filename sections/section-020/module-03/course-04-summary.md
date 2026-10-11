@@ -9,4 +9,6 @@ Rolling updates replace a changed Pod template under configured availability and
 
 Progress depends on capacity, image preparation, startup and useful health checks. A deadline condition reports failed progress without proving a rollback occurred. External configuration and data remain outside the complete template-history contract.
 
+Surge and unavailability percentages use different rounding rules. The same percentages therefore produce different integer budgets at different replica counts. Scheduling, readiness and shutdown timing determine whether the controller can make progress within those budgets.
+
 <!-- astrona:playground:destroy -->
