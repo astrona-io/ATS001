@@ -9,6 +9,10 @@ An overlay records a focused difference while keeping the base unchanged. You wi
 
 Use the module playground and its private kubeconfig. The context check below prevents commands from being directed at an unrelated cluster. The helper retries a command for a bounded interval after controller or policy changes; it cannot turn a persistent failure into success. Read the actual errors when the interval expires.
 
+Review a patch as a change to a complete object. The rendered replica count can be correct while a helper container disappeared or a selector changed unexpectedly. Check container names, ownership labels and Service selection alongside the intended field.
+
+List merge behavior depends on the supported schema and patch format. A named container target expresses identity; a numeric JSON patch path expresses a position. Neither the shortness of the patch nor valid YAML proves that it changed the intended container.
+
 <!-- astrona:playground:renew -->
 
 For a timed catalog session, renew this module before continuing. Skip renewal for an untimed local author run:

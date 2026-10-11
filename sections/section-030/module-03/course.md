@@ -5,7 +5,7 @@ exam_objectives:
 ---
 # Focused Patches For Environment Changes
 
-This module connects intended application behavior to declared resources and observed conditions.
+A patch should raise `probe` replicas without deleting its sidecar or changing which Pods the Deployment owns. A short patch is useful only when its merge behavior preserves those unrelated relationships.
 
 ## Learning Goals
 

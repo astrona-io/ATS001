@@ -5,6 +5,22 @@ exam_objectives:
 ---
 # Targeted Patches And Environment Differences
 
+A patch should raise `probe` replicas without deleting its sidecar or changing which Pods the Deployment owns. A short patch is useful only when its merge behavior preserves those unrelated relationships.
+
+## Learning objectives
+
+- Choose a precise object target for an overlay patch.
+- Compare schema-aware list merging with positional JSON patching.
+- Identify immutable selectors and unintended rendered changes.
+
+## Before you start
+
+Use a shell on your own machine with the module playground running. A Pod is Kubernetes's unit for running one or more containers together. The environment provides the `probe` Deployment, which maintains application Pods, and the `starfleet` namespace, which groups these objects.
+
+Read-only commands below use kubectl, the Kubernetes command-line tool. Select the private kubeconfig: the file that identifies this environment's cluster and credentials. The commands do not change the application.
+
+## Targeted Patches and Environment Differences
+
 A Kustomize overlay changes a reusable resource composition for a particular use. A patch specifies a change to matching objects instead of duplicating their complete definitions. The design goal is to make the intended difference explicit while preserving the relationships required by the application.
 
 ## Decide Which Input Owns A Setting
@@ -38,6 +54,40 @@ Suppose a production patch is intended to increase `scout` replicas and change o
 The correct review compares final behavior, not just file length. Inspect workload identity, containers, references, resources and Service routing. Then check whether the API schema accepts the resulting fields. A build step succeeding is evidence that composition completed; it is not proof that the application contract was preserved.
 
 Overlays should remain understandable as a set of deliberate differences. If every field is patched independently, the supposed base may no longer represent a useful common application. Refine the shared input instead of accumulating contradictory transformations that are difficult to verify.
+
+## Inspect the mechanism
+
+Consider a Deployment with two named containers. A supported strategic merge uses the container name as a merge key, so a patch for `probe` can leave its helper intact. A JavaScript Object Notation (JSON) patch that targets `/spec/template/spec/containers/0` selects a position instead. Reordering the input list can make that position identify another container.
+
+The rendered Deployment is the evidence of what matched and changed. Compare its complete container list, Pod labels and ownership selector, not only the field named in the patch. The selector identifies Pods that belong to the Deployment; changing it on an existing Deployment is generally not a permitted ordinary update. A patch can produce syntactically valid output that the API still rejects.
+
+```mermaid
+flowchart TB
+    B["Base object"] --> M["Target match"]
+    P["Patch target and operations"] --> M
+    M --> R["Rendered object"]
+    R --> S["Selector and reference review"]
+    S --> A["API update constraints"]
+```
+
+A matching patch must also preserve resource relationships and satisfy the API's update rules.
+
+<!-- astrona:playground:renew -->
+
+Select the private cluster connection and inspect the live state from your host shell:
+
+```sh
+export KUBECONFIG="$(astrona kubeconfig ats-001-playground-030-03)"
+if test "$(kubectl config current-context)" = "kind-astro-ats-001-playground-030-03"; then
+  kubectl -n starfleet get deployment probe -o jsonpath='{.spec.selector.matchLabels}{"\n"}{.spec.template.metadata.labels}{"\n"}{range .spec.template.spec.containers[*]}{.name}{"\n"}{end}'
+else
+  printf "Select this module's private kubeconfig before continuing.\n" >&2
+fi
+```
+
+The output separates ownership labels, template labels and container names. Preserve that distinction when reviewing a rendered patch. This command reads the baseline object and changes nothing. A target selector or list merge must be verified against rendered output from your saved composition; there is no patch operation implied by this inspection.
+
+You can now explain why targeting and merge semantics matter independently of YAML validity. The final review concerns the complete resource contract, including fields that the patch was supposed to leave unchanged.
 
 ## Common pitfalls
 
