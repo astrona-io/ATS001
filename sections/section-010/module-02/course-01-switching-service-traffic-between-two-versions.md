@@ -6,6 +6,22 @@ exam_objectives:
 ---
 # Switching Service Traffic Between Two Versions
 
+The `probe` application must move from version one to version two without replacing its public address. Keeping both versions running lets you test the replacement before changing traffic. The difficult part is proving that the replacement is ready and that the Service selects only the version you intended.
+
+## Learning objectives
+
+- Explain how a Service selector separates two application versions.
+- Identify the components that update backend routing after a switch.
+- Distinguish traffic reversal from restoration of application data.
+
+## Before you start
+
+Use a shell on your own machine with the module playground running. A Pod is Kubernetes's unit for running one or more containers together. The environment provides the `probe` Deployment, which maintains application Pods, and the `starfleet` namespace, which groups these objects.
+
+Read-only commands below use kubectl, the Kubernetes command-line tool. Select the private kubeconfig: the file that identifies this environment's cluster and credentials. The commands do not change the application.
+
+## Switching Service Traffic Between Two Versions
+
 Blue-green deployment keeps two application versions available and changes which version receives normal traffic. A Kubernetes Service provides a stable access point and normally selects backend Pods through labels. In a basic blue-green design, changing that selector moves the Service's eligible backend set from one prepared version to the other.
 
 ## Build Two Distinct Backend Sets
@@ -39,6 +55,42 @@ A basic traffic rollback selects the earlier backend set again, provided that se
 Suppose green returns errors only when reading a newly required configuration key. Restoring blue traffic may reduce impact while the team fixes green's configuration. If green already performed an incompatible schema migration, returning traffic to blue can introduce another failure. The feasibility of rollback depends on compatibility beyond the routing object.
 
 After switching or reverting, examine the selected endpoints and meaningful application behavior. A selector with the expected text is evidence about configuration, not proof that every consumer sees the desired responses. Preserve the earlier set until the release decision and cleanup plan justify removing it.
+
+## Inspect the mechanism
+
+In the starting environment, the `probe` Service selects Pods with both `app: probe` and `release: probe`. A Service is an object that gives clients a stable network access point. Its selector is a set of label requirements; both requirements must match a Pod in the same namespace. The Service does not select a Deployment by its name.
+
+The EndpointSlice controller watches that selection and the matching Pods. An EndpointSlice records backend addresses, ports and readiness conditions. The network implementation uses this information to direct new Service connections. A blue-green switch changes the selector first; controller and network updates follow. These are separate components, which explains why reading the new selector alone cannot prove propagation has finished.
+
+```mermaid
+flowchart TB
+    S["Service selector"] --> E["EndpointSlice controller"]
+    P["Pod labels and readiness"] --> E
+    E --> B["Backend addresses"]
+    B --> N["Service network rules"]
+    N --> R["New connections"]
+```
+
+A selector change reaches client traffic through backend reconciliation and network updates.
+
+<!-- astrona:playground:renew -->
+
+Select the private cluster connection and inspect the live state from your host shell:
+
+```sh
+export KUBECONFIG="$(astrona kubeconfig ats-001-playground-010-02)"
+if test "$(kubectl config current-context)" = "kind-astro-ats-001-playground-010-02"; then
+  kubectl -n starfleet get service probe -o yaml
+  kubectl -n starfleet get pods -l app=probe --show-labels
+  kubectl -n starfleet get endpointslices -l kubernetes.io/service-name=probe -o yaml
+else
+  printf "Select this module's private kubeconfig before continuing.\n" >&2
+fi
+```
+
+In `get`, kubectl reads stored objects. The `-l` flag filters by label, and `-o yaml` shows their structured fields. Compare the Service selector with Pod labels, then match EndpointSlice addresses to those Pods. Read each endpoint's `conditions.ready` field. Pod names and addresses vary; the matching relationship is what matters. The initial environment has one release, so this inspection establishes the original pool before any version switch.
+
+You can now separate the declaration of a switch from evidence that clients use its intended backends. The remaining release decision concerns whether those backends return correct responses and remain compatible with shared data.
 
 ## Common pitfalls
 

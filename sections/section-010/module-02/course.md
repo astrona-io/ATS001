@@ -6,7 +6,7 @@ exam_objectives:
 ---
 # A Prepared Blue-Green Switch
 
-This module connects intended application behavior to declared resources and observed conditions.
+The `probe` application must move from version one to version two without replacing its public address. Keeping both versions running lets you test the replacement before changing traffic. The difficult part is proving that the replacement is ready and that the Service selects only the version you intended.
 
 ## Learning Goals
 

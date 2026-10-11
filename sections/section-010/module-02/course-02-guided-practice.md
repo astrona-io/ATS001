@@ -10,6 +10,10 @@ The playground starts with the probe Deployment and a Service that selects only 
 
 Use the module playground and its private kubeconfig. The context check below prevents commands from being directed at an unrelated cluster. The helper retries a command for a bounded interval after controller or policy changes; it cannot turn a persistent failure into success. Read the actual errors when the interval expires.
 
+The selector change is the traffic operation; creating a new Deployment is the capacity operation. Keep them separate when interpreting the commands. A newly accepted Deployment must still create ready Pods before its labels are a useful Service target.
+
+Observe endpoint membership before and after the switch, then compare the application's response version. These observations cover routing state and application behavior separately. Restoring the selector only restores the earlier routing choice; it does not reverse writes made while the replacement served requests.
+
 <!-- astrona:playground:renew -->
 
 For a timed catalog session, renew this module before continuing. Skip renewal for an untimed local author run:
