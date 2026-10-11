@@ -9,6 +9,10 @@ A Helm release keeps revision metadata that can support selected configuration r
 
 Use the module playground and its private kubeconfig. The context check below prevents commands from being directed at an unrelated cluster. The helper retries a command for a bounded interval after controller or policy changes; it cannot turn a persistent failure into success. Read the actual errors when the interval expires.
 
+Read the release namespace before interpreting its history. A revision identifies recorded chart and configuration state, while live resource status describes what the cluster currently realizes. The application may also have changed external state through a migration or a lifecycle hook.
+
+Before recovery, identify which boundary needs restoration. Rolling back templates is appropriate only when the earlier application still works with current data and configuration. Check the installed Helm version's help for its supported options instead of assuming another version's failure-handling behavior.
+
 <!-- astrona:playground:renew -->
 
 For a timed catalog session, renew this module before continuing. Skip renewal for an untimed local author run:

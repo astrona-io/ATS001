@@ -5,7 +5,7 @@ exam_objectives:
 ---
 # Release Operations And Recovery Limits
 
-This module connects intended application behavior to declared resources and observed conditions.
+A Helm upgrade changes an image and runs a database migration. Returning to the previous release revision may restore templates while leaving the migrated database in place. Recovery needs an explicit account of both kinds of state.
 
 ## Learning Goals
 

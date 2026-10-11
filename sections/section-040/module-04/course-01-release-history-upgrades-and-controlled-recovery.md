@@ -5,6 +5,22 @@ exam_objectives:
 ---
 # Release History, Upgrades And Controlled Recovery
 
+A Helm upgrade changes an image and runs a database migration. Returning to the previous release revision may restore templates while leaving the migrated database in place. Recovery needs an explicit account of both kinds of state.
+
+## Learning objectives
+
+- Read release history in the correct namespace.
+- Explain which state a release revision records.
+- Identify external effects that rollback and uninstall may leave behind.
+
+## Before you start
+
+Use a shell on your own machine with the module playground running. A Pod is Kubernetes's unit for running one or more containers together. The environment provides the `probe` Deployment, which maintains application Pods, and the `starfleet` namespace, which groups these objects.
+
+Read-only commands below use kubectl, the Kubernetes command-line tool. Select the private kubeconfig: the file that identifies this environment's cluster and credentials. The commands do not change the application.
+
+## Release History, Upgrades and Controlled Recovery
+
 A Helm release records an installed chart instance and its revisions. Upgrading a release can change the chart, its values or both, producing a new rendered resource set. Recovery requires knowing which revision and external dependencies represent a working application, rather than treating a revision number as a complete snapshot of every system.
 
 ## Identify The Release And Namespace
@@ -38,6 +54,45 @@ Uninstall removes resources according to the release and resource policies. Pers
 For a failed `scout` upgrade, connect the release revision to the effective Deployment image, Pod state and relevant dependency changes. A missing configuration key calls for a configuration correction. A incompatible data migration calls for application-aware recovery. These decisions require more than selecting an earlier history entry.
 
 Keep enough release and application evidence to explain the outcome. Release metadata helps reconstruct the intended change, while resource status and application signals show its effects. Together they support a controlled recovery plan with clearly stated limits.
+
+## Inspect the mechanism
+
+Helm records chart and configuration state for a release. Kubernetes separately records the objects and their current status. A database separately records the data changed by application or migration Jobs. These records have different owners and lifetimes; a revision number does not combine them into a universal snapshot.
+
+Before an upgrade, compare the current installed manifests with the proposed output and identify hooks, persistent claims and immutable fields. A hook is a chart-declared action at a release lifecycle point. It can perform an effect outside the ordinary resource set. Current Helm versions also differ in supported failure-handling options, so inspect the installed command's help before relying on a familiar flag.
+
+```mermaid
+flowchart TB
+    U["Release upgrade"] --> M["Rendered resource changes"]
+    U --> H["Lifecycle hooks"]
+    M --> R["Recorded release revision"]
+    H --> D["External data changes"]
+    R --> B["Template rollback"]
+    D --> C["Compatibility review"]
+    B --> C
+```
+
+Restoring recorded templates still requires compatibility with external state that may have changed.
+
+<!-- astrona:playground:renew -->
+
+Select the private cluster connection and inspect the live state from your host shell:
+
+```sh
+export KUBECONFIG="$(astrona kubeconfig ats-001-playground-040-04)"
+if test "$(kubectl config current-context)" = "kind-astro-ats-001-playground-040-04"; then
+  helm version --short
+  helm list -n starfleet
+  helm upgrade --help
+  helm rollback --help
+else
+  printf "Select this module's private kubeconfig before continuing.\n" >&2
+fi
+```
+
+These commands inspect the local Helm version, release inventory and supported operations. No upgrade or rollback runs. If the baseline has no release records, that is consistent with directly created fixtures. When a release exists, its namespace and revision are required inputs for interpreting history; never infer a rollback target from an unrelated application's revision number.
+
+You can now describe the recovery boundary of a release operation. A controlled rollback or uninstall depends on chart policy, current API support, storage retention and application data, rather than on release status alone.
 
 ## Common pitfalls
 
