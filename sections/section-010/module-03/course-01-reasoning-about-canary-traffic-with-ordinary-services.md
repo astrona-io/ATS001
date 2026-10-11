@@ -6,6 +6,22 @@ exam_objectives:
 ---
 # Reasoning About Canary Traffic With Ordinary Services
 
+Suppose four ready application Pods run the established version and one runs a replacement. Including all five behind a Service introduces the replacement to real traffic. It does not tell you how many requests, users or operations will reach that replacement.
+
+## Learning objectives
+
+- Calculate the canary share of eligible backend Pods.
+- Explain why connection reuse can change observed request proportions.
+- Choose version-specific evidence for promotion or withdrawal.
+
+## Before you start
+
+Use a shell on your own machine with the module playground running. A Pod is Kubernetes's unit for running one or more containers together. The environment provides the `probe` Deployment, which maintains application Pods, and the `starfleet` namespace, which groups these objects.
+
+Read-only commands below use kubectl, the Kubernetes command-line tool. Select the private kubeconfig: the file that identifies this environment's cluster and credentials. The commands do not change the application.
+
+## Reasoning About Canary Traffic With Ordinary Services
+
 A canary release exposes a new application version to a limited share of traffic before wider promotion. With ordinary Kubernetes Services, a simple design selects ready Pods from both stable and canary Deployments. The share of backend Pods provides an approximate traffic influence, but the Service does not offer a general per-version percentage field.
 
 ## Declare Shared And Distinct Labels
@@ -39,6 +55,42 @@ Withdrawing a canary can remove its eligible endpoints by changing its scale or 
 Promotion requires a deliberate desired state, not just leaving two Deployment names indefinitely. The team can update the stable release or make the new version the intended active set, while controlling old-version capacity and compatibility. A successful traffic experiment does not automatically clean up release objects or preserve a reliable rollback path.
 
 Record the image identity, effective endpoints, observation window and criteria used for the decision. Those facts explain whether the canary was exposed as intended and whether the evidence supports broader use. A memorized ratio without those conditions is not a sufficient release argument.
+
+## Inspect the mechanism
+
+A Service selects backends; it does not count business operations. Consider a client that opens one connection and sends one hundred requests through it. If that connection reaches the canary, all hundred can use that version. Another client might open a new connection for each request and produce a different distribution with the same backend pool.
+
+The first useful calculation therefore concerns eligible endpoints. If four stable Pods are ready and the only canary is not ready, ordinary ready endpoints provide no canary exposure. If two stable Pods become unready while the canary remains ready, its share of the three eligible backends becomes one third. Desired replicas alone conceal both cases.
+
+```mermaid
+flowchart TB
+    C["Client connection"] --> S["Service"]
+    S --> A["Stable ready endpoint"]
+    S --> B["Canary ready endpoint"]
+    A --> R["Requests on that connection"]
+    B --> R
+```
+
+Several requests can use one selected backend, so endpoint proportions do not guarantee request proportions.
+
+<!-- astrona:playground:renew -->
+
+Select the private cluster connection and inspect the live state from your host shell:
+
+```sh
+export KUBECONFIG="$(astrona kubeconfig ats-001-playground-010-03)"
+if test "$(kubectl config current-context)" = "kind-astro-ats-001-playground-010-03"; then
+  kubectl -n starfleet get deployment probe -o jsonpath='{.spec.replicas}{"\n"}'
+  kubectl -n starfleet get pods -l app=probe --show-labels
+  kubectl -n starfleet get endpointslices -l kubernetes.io/service-name=probe -o yaml
+else
+  printf "Select this module's private kubeconfig before continuing.\n" >&2
+fi
+```
+
+The first command reads desired replicas through JSONPath, a field-selection expression. Compare that number with ready Pods and the EndpointSlice conditions. The initial fixture has no separate canary, so do not interpret its two replicas as two versions. This read-only inspection shows which facts must be measured before calculating exposure in a mixed-version pool.
+
+You can now explain what a replica ratio measures and what it leaves uncertain. Promotion still needs meaningful observations tied to the actual version and operation, rather than a guessed percentage.
 
 ## Common pitfalls
 

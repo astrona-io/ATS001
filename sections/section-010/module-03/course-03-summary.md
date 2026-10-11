@@ -10,4 +10,6 @@ A canary exposes a new version alongside known capacity. Shared selection can us
 
 Promotion requires version-specific evidence about useful behavior. Withdrawal changes capacity or routing and still needs propagation and compatibility considerations. Release cleanup and rollback readiness require deliberate decisions.
 
+Canary exposure depends on eligible endpoints and client connection behavior. A reliable promotion decision connects version identity to error rate, latency and meaningful operation results over a stated observation period.
+
 <!-- astrona:playground:destroy -->

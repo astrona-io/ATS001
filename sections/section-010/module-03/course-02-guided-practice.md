@@ -10,6 +10,10 @@ Ordinary Services distribute connections across eligible ready endpoints without
 
 Use the module playground and its private kubeconfig. The context check below prevents commands from being directed at an unrelated cluster. The helper retries a command for a bounded interval after controller or policy changes; it cannot turn a persistent failure into success. Read the actual errors when the interval expires.
 
+Replica scaling changes both capacity and the set of possible backends. Count ready endpoints when interpreting the experiment, because desired replicas can include Pods that are not ready. A response sample measures what these particular requests encountered, rather than promising the same distribution for all clients.
+
+Connection reuse and readiness changes can make the observed share differ from the simple replica ratio. Identify each response by its application version. A canary response proves that the version is reachable; it does not establish that every important operation is correct.
+
 <!-- astrona:playground:renew -->
 
 For a timed catalog session, renew this module before continuing. Skip renewal for an untimed local author run:

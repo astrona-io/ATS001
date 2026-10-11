@@ -6,7 +6,7 @@ exam_objectives:
 ---
 # Canary Exposure And Promotion
 
-This module connects intended application behavior to declared resources and observed conditions.
+Suppose four ready application Pods run the established version and one runs a replacement. Including all five behind a Service introduces the replacement to real traffic. It does not tell you how many requests, users or operations will reach that replacement.
 
 ## Learning Goals
 
