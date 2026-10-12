@@ -10,6 +10,9 @@ This section covers use Kubernetes primitives to implement common deployment str
 
 Each module begins with its goals and ends with a summary. Reusable YAML knowledge checks follow the section summary and are registered separately for future presentation.
 
+
+You will separate version capacity from traffic exposure. Blue-green keeps a replacement ready before a selector switch; a basic canary shares eligible backends while its observed request share depends on connections and readiness. The central question is which version actually serves the intended operation.
+
 ## Learning Outcomes
 
 - Explain Service selection across two versions.
