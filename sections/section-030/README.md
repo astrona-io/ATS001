@@ -1,0 +1,26 @@
+---
+draft: true
+exam_objectives:
+- Kustomize
+---
+# Kustomize
+
+This section covers kustomize. You will study Reusable Kustomize Composition, Focused Patches For Environment Changes. The lessons explain the responsible components, configuration relationships and failure cases relevant to application development.
+
+Each module begins with its goals and ends with a summary. Reusable YAML knowledge checks follow the section summary and are registered separately for future presentation.
+
+
+You will follow reusable resources through client-side composition and focused changes. Review final names, selectors, containers and configuration references instead of assuming a successful build preserved their relationships. The cluster receives rendered objects rather than the original base and overlay structure.
+
+## Learning Outcomes
+
+- Explain a base, overlay and resource composition.
+- Trace naming and namespace transformations.
+- Explain generated configuration references and hashes.
+- Review final selectors and supported API definitions.
+- Select a clear owner for an environment setting.
+- Choose a precise patch target.
+- Compare schema-aware merge and ordered JSON operations.
+- Detect unintended container or selector changes.
+
+Each module pairs its concept readings with a guided practical sequence in an isolated playground. Finish the practice and closing summary before moving on. The YAML knowledge checks remain separate from the environment lifecycle.

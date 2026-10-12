@@ -1,0 +1,7 @@
+section:
+  id: section-030
+  title: Canary Deployments With Kustomize
+  description: >
+    Send a small share of traffic to a new version by pod count, shaped with Kustomize overlays
+
+  order: 3

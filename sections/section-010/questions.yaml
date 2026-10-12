@@ -1,0 +1,114 @@
+schema_version: 1
+kind: question_bank
+id: ats001-section-010
+course_id: ATS001
+exam_code: CKAD
+status: draft
+provenance: Original practice material; not official examination questions.
+scope:
+  type: section
+  id: section-010
+  title: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+placement:
+  position: after
+  reading: sections/section-010/module-03/course-03-summary.md
+questions:
+- id: ats001-section-010-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Explain Service selection across two versions.
+  source_readings:
+  - sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+  prompt: A public Service selects app=scout without a version label, and both blue and green Pods carry
+    that label. What follows?
+  options:
+  - id: a
+    text: Only the newest image digest is selected
+    explanation: Image identity is not automatically part of label selection.
+  - id: b
+    text: Both eligible version sets can enter the backend pool
+    explanation: The Service selector includes all matching eligible Pods.
+  - id: c
+    text: Only the older Deployment is selected automatically
+    explanation: A Service does not infer an active version from Deployment age.
+  correct_option: b
+  explanation: The Service selector includes all matching eligible Pods.
+- id: ats001-section-010-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Verify readiness, capacity and backend ports.
+  source_readings:
+  - sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+  prompt: Green Pods exist but are not ready. What is the risk of switching the only public Service to
+    them?
+  options:
+  - id: a
+    text: The Service can have no useful ready backend capacity
+    explanation: Pod existence does not establish readiness or sufficient eligible endpoints.
+  - id: b
+    text: The switch automatically repairs their dependencies
+    explanation: Selection does not correct application prerequisites.
+  - id: c
+    text: The green Deployment automatically receives blue's memory state
+    explanation: Traffic selection does not copy process state.
+  correct_option: a
+  explanation: Pod existence does not establish readiness or sufficient eligible endpoints.
+- id: ats001-section-010-q03
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Evaluate the conditions for safe traffic rollback.
+  source_readings:
+  - sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+  prompt: Green has made a data change that blue cannot read. Why can routing rollback be unsafe?
+  options:
+  - id: a
+    text: A Service selector can never be changed twice
+    explanation: Selectors can be changed, but compatibility determines whether that helps.
+  - id: b
+    text: Kubernetes deletes every old Pod immediately after a switch
+    explanation: The switch itself does not universally remove the earlier Deployment.
+  - id: c
+    text: The earlier application is incompatible with current data
+    explanation: Returning traffic to blue does not reverse external data changes.
+  correct_option: c
+  explanation: Returning traffic to blue does not reverse external data changes.
+- id: ats001-section-010-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Estimate exposure from ready endpoints with stated limits.
+  source_readings:
+  - sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+  prompt: Four ready stable endpoints and one ready canary endpoint guarantee what request percentage?
+  options:
+  - id: a
+    text: Exactly twenty percent of all response bytes
+    explanation: Backend count does not control response size or byte volume.
+  - id: b
+    text: No exact HTTP request percentage
+    explanation: Endpoint ratio influences selection but connections, affinity and traffic patterns affect
+      requests.
+  - id: c
+    text: Exactly twenty percent of every user's requests
+    explanation: A count ratio does not provide that per-user guarantee.
+  correct_option: b
+  explanation: Endpoint ratio influences selection but connections, affinity and traffic patterns affect
+    requests.
+- id: ats001-section-010-q05
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Choose version-specific promotion evidence.
+  source_readings:
+  - sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+  prompt: Which evidence best supports promoting a canary?
+  options:
+  - id: a
+    text: Version-specific correctness, error and latency observations over a useful window
+    explanation: Promotion should evaluate meaningful behavior with exposure context.
+  - id: b
+    text: Only that the canary Pod is Running
+    explanation: A running process can still fail important requests.
+  - id: c
+    text: Only that its desired replica count is one
+    explanation: Replica intent does not demonstrate useful behavior.
+  correct_option: a
+  explanation: Promotion should evaluate meaningful behavior with exposure context.

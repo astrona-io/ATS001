@@ -1,0 +1,7 @@
+section:
+  id: section-020
+  title: Rolling Updates And Rollbacks
+  description: >
+    How a Deployment replaces its pods a few at a time, how to tune that pace, and how to go back to a working revision
+
+  order: 2

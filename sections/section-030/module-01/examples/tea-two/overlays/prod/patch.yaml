@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tea
+  namespace: tea-two
+spec:
+  replicas: 8
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tea-canary
+  namespace: tea-two
+spec:
+  replicas: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tea
+  namespace: tea-two
+spec:
+  selector:
+    app: tea

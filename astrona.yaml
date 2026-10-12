@@ -1,0 +1,171 @@
+# CKAD concepts, module playgrounds and guided practice; YAML checks are indexed separately.
+training:
+  id: ATS001
+  title: Application Deployment
+  description: Detailed CKAD teaching with module playgrounds, guided hands-on practice and reusable YAML
+    knowledge checks. Technical content remains draft for review.
+  certification:
+    name: Certified Kubernetes Application Developer
+    code: CKAD
+    provider: CNCF / Linux Foundation
+    domain: Application Deployment
+    weight: 20
+    competencies:
+    - Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+    - Understand Deployments and how to perform rolling updates
+    - Use the Helm package manager to deploy existing packages
+    - Kustomize
+modules:
+- id: module-intro
+  title: Introduction
+  description: Audience, learning method, reading requirements and authoring process.
+  content:
+  - type: reading
+    title: Introduction
+    path: sections/intro/README.md
+  - type: reading
+    title: Welcome To The Course
+    path: sections/intro/course-01-welcome.md
+  - type: reading
+    title: Get Your Machine Ready
+    path: sections/intro/course-02-get-your-machine-ready.md
+  - type: reading
+    title: How This Course Is Made
+    path: sections/intro/course-03-how-this-course-is-made.md
+- id: module-010
+  title: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+  description: Developed explanations and application reasoning for Use Kubernetes primitives to implement
+    common deployment strategies (e.g. blue/green or canary).
+  draft: true
+  content:
+  - type: reading
+    title: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+    path: sections/section-010/README.md
+  - type: reading
+    title: A Prepared Blue-Green Switch
+    path: sections/section-010/module-02/course.md
+  - type: reading
+    title: Switching Service Traffic Between Two Versions
+    path: sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+  - type: reading
+    title: Switch A Service Between Ready Versions
+    path: sections/section-010/module-02/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-010/module-02/course-03-summary.md
+  - type: reading
+    title: Canary Exposure And Promotion
+    path: sections/section-010/module-03/course.md
+  - type: reading
+    title: Reasoning About Canary Traffic With Ordinary Services
+    path: sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+  - type: reading
+    title: Observe Canary Backends Without Assuming Exact Percentages
+    path: sections/section-010/module-03/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-010/module-03/course-03-summary.md
+- id: module-020
+  title: Understand Deployments and how to perform rolling updates
+  description: Developed explanations and application reasoning for Understand Deployments and how to
+    perform rolling updates.
+  draft: true
+  content:
+  - type: reading
+    title: Understand Deployments and how to perform rolling updates
+    path: sections/section-020/README.md
+  - type: reading
+    title: Rolling Updates And Availability
+    path: sections/section-020/module-03/course.md
+  - type: reading
+    title: Rolling Updates And Health Gates
+    path: sections/section-020/module-03/course-01-rolling-updates-and-health-gates.md
+  - type: reading
+    title: Calculating Rollout Capacity And Diagnosing Progress
+    path: sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
+  - type: reading
+    title: Perform And Inspect A Rolling Template Update
+    path: sections/section-020/module-03/course-03-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-020/module-03/course-04-summary.md
+  - type: reading
+    title: Release Diagnosis And Template History
+    path: sections/section-020/module-04/course.md
+  - type: reading
+    title: Intended Versions And Observed Progress
+    path: sections/section-020/module-04/course-01-intended-versions-and-observed-progress.md
+  - type: reading
+    title: Reproduce, Correct And Verify
+    path: sections/section-020/module-04/course-02-reproduce-correct-and-verify.md
+  - type: reading
+    title: Diagnose A Failed Image Update And Repair The Template
+    path: sections/section-020/module-04/course-03-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-020/module-04/course-04-summary.md
+- id: module-030
+  title: Kustomize
+  description: Developed explanations and application reasoning for Kustomize.
+  draft: true
+  content:
+  - type: reading
+    title: Kustomize
+    path: sections/section-030/README.md
+  - type: reading
+    title: Reusable Kustomize Composition
+    path: sections/section-030/module-02/course.md
+  - type: reading
+    title: Composing Resources With Kustomize
+    path: sections/section-030/module-02/course-01-composing-resources-with-kustomize.md
+  - type: reading
+    title: Render And Apply A Self-Contained Kustomize Base
+    path: sections/section-030/module-02/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-030/module-02/course-03-summary.md
+  - type: reading
+    title: Focused Patches For Environment Changes
+    path: sections/section-030/module-03/course.md
+  - type: reading
+    title: Targeted Patches And Environment Differences
+    path: sections/section-030/module-03/course-01-targeted-patches-and-environment-differences.md
+  - type: reading
+    title: Patch One Environment Without Editing Its Base
+    path: sections/section-030/module-03/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-030/module-03/course-03-summary.md
+- id: module-040
+  title: Use the Helm package manager to deploy existing packages
+  description: Developed explanations and application reasoning for Use the Helm package manager to deploy
+    existing packages.
+  draft: true
+  content:
+  - type: reading
+    title: Use the Helm package manager to deploy existing packages
+    path: sections/section-040/README.md
+  - type: reading
+    title: Existing Charts And Effective Values
+    path: sections/section-040/module-03/course.md
+  - type: reading
+    title: Charts, Values And The Rendered Application
+    path: sections/section-040/module-03/course-01-charts-values-and-the-rendered-application.md
+  - type: reading
+    title: Install An Existing Chart And Inspect Effective Values
+    path: sections/section-040/module-03/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-040/module-03/course-03-summary.md
+  - type: reading
+    title: Release Operations And Recovery Limits
+    path: sections/section-040/module-04/course.md
+  - type: reading
+    title: Release History, Upgrades And Controlled Recovery
+    path: sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+  - type: reading
+    title: Upgrade A Release And Inspect Controlled Recovery
+    path: sections/section-040/module-04/course-02-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-040/module-04/course-03-summary.md
