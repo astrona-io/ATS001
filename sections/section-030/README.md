@@ -9,6 +9,9 @@ This section covers kustomize. You will study Reusable Kustomize Composition, Fo
 
 Each module begins with its goals and ends with a summary. Reusable YAML knowledge checks follow the section summary and are registered separately for future presentation.
 
+
+You will follow reusable resources through client-side composition and focused changes. Review final names, selectors, containers and configuration references instead of assuming a successful build preserved their relationships. The cluster receives rendered objects rather than the original base and overlay structure.
+
 ## Learning Outcomes
 
 - Explain a base, overlay and resource composition.
