@@ -9,6 +9,9 @@ This section covers understand Deployments and how to perform rolling updates. Y
 
 Each module begins with its goals and ends with a summary. Reusable YAML knowledge checks follow the section summary and are registered separately for future presentation.
 
+
+You will connect template changes to ReplicaSet ownership, replacement capacity and health gates. Calculate surge and unavailability before interpreting progress. Then distinguish a release blocked before startup from one that completed but still returns incorrect application results.
+
 ## Learning Outcomes
 
 - Identify changes that create Deployment revisions.
