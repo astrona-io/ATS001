@@ -9,6 +9,9 @@ This section covers use the Helm package manager to deploy existing packages. Yo
 
 Each module begins with its goals and ends with a summary. Reusable YAML knowledge checks follow the section summary and are registered separately for future presentation.
 
+
+You will trace package values into rendered objects and distinguish chart identity from release and application identity. Release recovery restores supported recorded state, while hooks, persistent storage and external data can have separate effects. A recovery decision must name that boundary.
+
 ## Learning Outcomes
 
 - Distinguish chart, application and release identities.
