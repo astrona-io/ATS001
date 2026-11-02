@@ -1,0 +1,206 @@
+version: 1
+approval: CKAD playgrounds and guided practice requested 2026-10-12; no new graded labs.
+course:
+  id: ATS001
+  certification:
+    name: Certified Kubernetes Application Developer
+    code: CKAD
+    provider: CNCF / Linux Foundation
+    domain: Application Deployment
+    weight: 20
+    competencies:
+    - Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+    - Understand Deployments and how to perform rolling updates
+    - Use the Helm package manager to deploy existing packages
+    - Kustomize
+defaults:
+  playground: true
+  module_lab: false
+  capstone: false
+  section_quiz: true
+  final_quiz: true
+assessment_format: YAML question banks, schema version 1; indexed in assessments/index.yaml
+sections:
+- id: section-010
+  title: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+  curriculum_item: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green
+    or canary)
+  capstone: false
+  section_quiz: true
+  modules:
+  - id: module-02
+    title: A Prepared Blue-Green Switch
+    objectives:
+    - Explain Service selection across two versions.
+    - Verify readiness, capacity and backend ports.
+    - Distinguish a traffic switch from a data migration.
+    - Evaluate the conditions for safe traffic rollback.
+    outline:
+    - Switching Service Traffic Between Two Versions
+    - Switch A Service Between Ready Versions
+    playground: true
+    module_lab: false
+    sources:
+    - reading: sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+      adapted_from: null
+    - reading: sections/section-010/module-02/course-02-guided-practice.md
+      adapted_from: null
+    practice_readings:
+    - sections/section-010/module-02/course-02-guided-practice.md
+  - id: module-03
+    title: Canary Exposure And Promotion
+    objectives:
+    - Explain shared Service selection for stable and canary Pods.
+    - Estimate exposure from ready endpoints with stated limits.
+    - Choose version-specific promotion evidence.
+    - Distinguish withdrawal from full release promotion.
+    outline:
+    - Reasoning About Canary Traffic With Ordinary Services
+    - Observe Canary Backends Without Assuming Exact Percentages
+    playground: true
+    module_lab: false
+    sources:
+    - reading: sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+      adapted_from: null
+    - reading: sections/section-010/module-03/course-02-guided-practice.md
+      adapted_from: null
+    practice_readings:
+    - sections/section-010/module-03/course-02-guided-practice.md
+- id: section-020
+  title: Understand Deployments and how to perform rolling updates
+  curriculum_item: Understand Deployments and how to perform rolling updates
+  capstone: false
+  section_quiz: true
+  modules:
+  - id: module-03
+    title: Rolling Updates And Availability
+    objectives:
+    - Identify changes that create Deployment revisions.
+    - Calculate surge and unavailability limits.
+    - Explain readiness and capacity effects on rollout.
+    - Distinguish reported progress failure from automatic recovery.
+    outline:
+    - Rolling Updates And Health Gates
+    - Calculating Rollout Capacity And Diagnosing Progress
+    - Perform And Inspect A Rolling Template Update
+    playground: true
+    module_lab: false
+    sources:
+    - reading: sections/section-020/module-03/course-01-rolling-updates-and-health-gates.md
+      adapted_from: ATS039/sections/section-010/module-03/course-01-rolling-updates-and-health-gates.md
+    - reading: sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
+      adapted_from: null
+    - reading: sections/section-020/module-03/course-03-guided-practice.md
+      adapted_from: null
+    practice_readings:
+    - sections/section-020/module-03/course-03-guided-practice.md
+  - id: module-04
+    title: Release Diagnosis And Template History
+    objectives:
+    - Compare intended release identity with observed resources.
+    - Locate the failed transition in a release.
+    - Choose a correction supported by diagnostic evidence.
+    - Evaluate rollback limits and meaningful verification.
+    outline:
+    - Intended Versions And Observed Progress
+    - Reproduce, Correct And Verify
+    - Diagnose A Failed Image Update And Repair The Template
+    playground: true
+    module_lab: false
+    sources:
+    - reading: sections/section-020/module-04/course-01-intended-versions-and-observed-progress.md
+      adapted_from: ATS039/sections/section-020/module-02/course-01-intended-versions-and-observed-progress.md
+    - reading: sections/section-020/module-04/course-02-reproduce-correct-and-verify.md
+      adapted_from: ATS039/sections/section-020/module-02/course-02-reproduce-correct-and-verify.md
+    - reading: sections/section-020/module-04/course-03-guided-practice.md
+      adapted_from: null
+    practice_readings:
+    - sections/section-020/module-04/course-03-guided-practice.md
+- id: section-030
+  title: Kustomize
+  curriculum_item: Kustomize
+  capstone: false
+  section_quiz: true
+  modules:
+  - id: module-02
+    title: Reusable Kustomize Composition
+    objectives:
+    - Explain a base, overlay and resource composition.
+    - Trace naming and namespace transformations.
+    - Explain generated configuration references and hashes.
+    - Review final selectors and supported API definitions.
+    outline:
+    - Composing Resources With Kustomize
+    - Render And Apply A Self-Contained Kustomize Base
+    playground: true
+    module_lab: false
+    sources:
+    - reading: sections/section-030/module-02/course-01-composing-resources-with-kustomize.md
+      adapted_from: null
+    - reading: sections/section-030/module-02/course-02-guided-practice.md
+      adapted_from: null
+    practice_readings:
+    - sections/section-030/module-02/course-02-guided-practice.md
+  - id: module-03
+    title: Focused Patches For Environment Changes
+    objectives:
+    - Select a clear owner for an environment setting.
+    - Choose a precise patch target.
+    - Compare schema-aware merge and ordered JSON operations.
+    - Detect unintended container or selector changes.
+    outline:
+    - Targeted Patches And Environment Differences
+    - Patch One Environment Without Editing Its Base
+    playground: true
+    module_lab: false
+    sources:
+    - reading: sections/section-030/module-03/course-01-targeted-patches-and-environment-differences.md
+      adapted_from: null
+    - reading: sections/section-030/module-03/course-02-guided-practice.md
+      adapted_from: null
+    practice_readings:
+    - sections/section-030/module-03/course-02-guided-practice.md
+- id: section-040
+  title: Use the Helm package manager to deploy existing packages
+  curriculum_item: Use the Helm package manager to deploy existing packages
+  capstone: false
+  section_quiz: true
+  modules:
+  - id: module-03
+    title: Existing Charts And Effective Values
+    objectives:
+    - Distinguish chart, application and release identities.
+    - Trace value precedence into rendered fields.
+    - Review chart dependencies and resource requirements.
+    - Separate rendering, admission and application health.
+    outline:
+    - Charts, Values And The Rendered Application
+    - Install An Existing Chart And Inspect Effective Values
+    playground: true
+    module_lab: false
+    sources:
+    - reading: sections/section-040/module-03/course-01-charts-values-and-the-rendered-application.md
+      adapted_from: null
+    - reading: sections/section-040/module-03/course-02-guided-practice.md
+      adapted_from: null
+    practice_readings:
+    - sections/section-040/module-03/course-02-guided-practice.md
+  - id: module-04
+    title: Release Operations And Recovery Limits
+    objectives:
+    - Identify release history in the correct namespace.
+    - Evaluate upgrade value reuse and chart changes.
+    - Explain hooks, waiting and immutable-field constraints.
+    - Assess rollback and uninstall effects on external state.
+    outline:
+    - Release History, Upgrades And Controlled Recovery
+    - Upgrade A Release And Inspect Controlled Recovery
+    playground: true
+    module_lab: false
+    sources:
+    - reading: sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+      adapted_from: null
+    - reading: sections/section-040/module-04/course-02-guided-practice.md
+      adapted_from: null
+    practice_readings:
+    - sections/section-040/module-04/course-02-guided-practice.md

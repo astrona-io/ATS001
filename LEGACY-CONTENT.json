@@ -1,0 +1,221 @@
+{
+  "base_commit": "4c65a6d6109518080af46112882ccd747df69687",
+  "files": [
+    {
+      "path": "sections/section-010/module-01/course-01-how-a-service-finds-its-pods.md",
+      "sha256": "591747e1ca6622c26c5b1b6176abd867bfffeeddfc5acdc60ccf3316731d60a5"
+    },
+    {
+      "path": "sections/section-010/module-01/course-02-update-one-version-and-switch-traffic.md",
+      "sha256": "f9ac88c0fc93a328b9449899613871a7e44700661762d3e5f86e8742cbd226d4"
+    },
+    {
+      "path": "sections/section-010/module-01/course-03-wrap-up.md",
+      "sha256": "c7ff50275581d03b32e227d07d93b907ad9b57a4af36f514ce017d2736a3ae0d"
+    },
+    {
+      "path": "sections/section-010/module-01/course.md",
+      "sha256": "0118f1072b387d8e2fbc228c3ba6a5c858c18428f4bc4c06e611f80d5fb02988"
+    },
+    {
+      "path": "sections/section-010/module-01/labs/lab-01/README.md",
+      "sha256": "4ffe172b7daf39cb98f522f7728e981b7d860707f299ef5b7a51cba4a37ae478"
+    },
+    {
+      "path": "sections/section-010/module-01/labs/lab-01/config.yaml",
+      "sha256": "487bf5a83366d2c258fc7516e3ea75517ace1d447232f6e6cf6f9d0e1613faa0"
+    },
+    {
+      "path": "sections/section-010/module-01/labs/lab-01/manifests/lab-start.yaml",
+      "sha256": "d2ae8f3750444596fd7c012ce254e0cdbb62851d71830b193d63d93a5d62018e"
+    },
+    {
+      "path": "sections/section-010/module-01/labs/lab-01/question.md",
+      "sha256": "8c6fafbc8251bceae5272528660674801b312a0bff9e61f2828ff631f010385d"
+    },
+    {
+      "path": "sections/section-010/module-01/labs/lab-01/solution.md",
+      "sha256": "76a9ea009a2d309e223e71720d00754bb4d7b59af6ffffc5cb1eacacb036b9a9"
+    },
+    {
+      "path": "sections/section-010/module-01/labs/lab-01/solution/solution.yaml",
+      "sha256": "fbc7f2fc293c1a2815649612306c4aac46c4005110c9998175a0b7b9a13ddb2a"
+    },
+    {
+      "path": "sections/section-010/module-01/labs/lab-01/validation/validate-service.sh",
+      "sha256": "fecf9de1e7daa40c190e488223251f92c602d6ffcdc0f9a4549d96638a14ea25"
+    },
+    {
+      "path": "sections/section-010/section.yaml",
+      "sha256": "ca9edd7357de9ec67b506f1cc39659f4123262cb99fe78e057562af6c2d623dc"
+    },
+    {
+      "path": "sections/section-020/module-01/course-01-what-starts-a-rollout.md",
+      "sha256": "9d5fbd26ab0209caaf8703a15ae3746d01af3714b4c4084361ceffe7a48dfa93"
+    },
+    {
+      "path": "sections/section-020/module-01/course-02-roll-out-with-zero-downtime.md",
+      "sha256": "e285d7a8dd74dee40cede8fb515a2988ec39a33ef401553a95808a6a9a8b8314"
+    },
+    {
+      "path": "sections/section-020/module-01/course-03-wrap-up.md",
+      "sha256": "3f24e5024cb2c2043e85c384739cd08bf7fcc96b1821d405ed0d084b628609d8"
+    },
+    {
+      "path": "sections/section-020/module-01/course.md",
+      "sha256": "dba2a79128c1979d76a1fe908e55b0e08d4c3b332e8273e76496b60cbb2faecf"
+    },
+    {
+      "path": "sections/section-020/module-01/examples/deployment-cassini-zero-downtime.yaml",
+      "sha256": "34e75f2673d1cf513acdea5ede0fc22cc7ce078584706dd688421c3c990d7ba9"
+    },
+    {
+      "path": "sections/section-020/module-01/examples/deployment-cassini.yaml",
+      "sha256": "1ba3ec9184f409c40a00a74a5646d7892bfe484107e81bb226eeca4351ff8e95"
+    },
+    {
+      "path": "sections/section-020/module-02/course-01-build-a-rollout-history.md",
+      "sha256": "7cffd16f5cebaa97b1cf827a134e0033553814a9bc5c71fa97c586d2abe2a8e1"
+    },
+    {
+      "path": "sections/section-020/module-02/course-02-roll-back-to-a-working-revision.md",
+      "sha256": "86d602e23e3f31137288404ad6d0606bf3c7e83819501236c282d9284367aa15"
+    },
+    {
+      "path": "sections/section-020/module-02/course-03-wrap-up.md",
+      "sha256": "1742e2c0f97e363017e3c5e36754e92afcdfcc813301bae3b882da0a07194204"
+    },
+    {
+      "path": "sections/section-020/module-02/course.md",
+      "sha256": "475c111bad11375d817cf559cb605d1bcafbe2150a1f784fc2d1debf6e78fa3e"
+    },
+    {
+      "path": "sections/section-020/module-02/examples/deployment-api-new-c32-working.yaml",
+      "sha256": "1e1ca724fdbfb80d7ea32f7197697a23e8cda68fccbe2c83574cb5940c9d054d"
+    },
+    {
+      "path": "sections/section-020/module-02/examples/deployment-api-new-c32.yaml",
+      "sha256": "8b06db3afe7cd4c5a88ec099f43f0307285610fc37403b761388b1fc6b09cd03"
+    },
+    {
+      "path": "sections/section-020/section.yaml",
+      "sha256": "c67f470e10b7799ac91a15ec26608505ac862b326be09f89b05b436c6bf381b5"
+    },
+    {
+      "path": "sections/section-030/module-01/course-01-canary-traffic-by-pod-count.md",
+      "sha256": "abd5b983b4bce3b5e00942e05d2828ecbd91dcb5be97cfbe4976b15309db7fb7"
+    },
+    {
+      "path": "sections/section-030/module-01/course-02-roll-back-a-canary-with-an-overlay.md",
+      "sha256": "dcbdf671ebb016fad6f4191f99f5ddb42c1ec1ee295d7f17c14e2e4b5fb346c7"
+    },
+    {
+      "path": "sections/section-030/module-01/course-03-a-twenty-percent-canary.md",
+      "sha256": "1110bfc5cab6af803353147de0fa00d03d1e20d229c5bd2010bd06f9ca8f4099"
+    },
+    {
+      "path": "sections/section-030/module-01/course-04-wrap-up.md",
+      "sha256": "88b3986b8ef02bec53e297e8202e509f9bb4e69366ad9deb1f5ff191c16ed9bc"
+    },
+    {
+      "path": "sections/section-030/module-01/course.md",
+      "sha256": "284027525da0fe484a254448bf387f527afc1857b7568880feb7f960b20ab355"
+    },
+    {
+      "path": "sections/section-030/module-01/examples/tea-one/base/app.yaml",
+      "sha256": "c35678460cf741cef30681ae43e8e110bd9cb29e8ccf37422bf5efea5823f512"
+    },
+    {
+      "path": "sections/section-030/module-01/examples/tea-one/base/kustomization.yaml",
+      "sha256": "9a0bc334660bd76e500ec23badb577ce1ec5fbe9b812c81aad048aa0a6398d22"
+    },
+    {
+      "path": "sections/section-030/module-01/examples/tea-one/base/namespace.yaml",
+      "sha256": "663fe6eea419fa74456267591daf959152d84691bdecfffc49155c74e611dcdb"
+    },
+    {
+      "path": "sections/section-030/module-01/examples/tea-one/overlays/prod/kustomization.yaml",
+      "sha256": "7fa76d3a097c3d2153bbd8fb2427c2a91531fa137445907181338210db74f9b5"
+    },
+    {
+      "path": "sections/section-030/module-01/examples/tea-one/overlays/prod/patch.yaml",
+      "sha256": "2ef3bb9e17970abca1aca4c82e3f0a6682b2c2aab374a5a6c78169b0db43bd51"
+    },
+    {
+      "path": "sections/section-030/module-01/examples/tea-two/base/app.yaml",
+      "sha256": "840a9da32a1421b782b3cb9bcdc51f81a948f4b949ebc8308df3d41b2873790a"
+    },
+    {
+      "path": "sections/section-030/module-01/examples/tea-two/base/kustomization.yaml",
+      "sha256": "9a0bc334660bd76e500ec23badb577ce1ec5fbe9b812c81aad048aa0a6398d22"
+    },
+    {
+      "path": "sections/section-030/module-01/examples/tea-two/base/namespace.yaml",
+      "sha256": "01151c6251febb4ff9a6a79bb0369debec6dbc82dc872caaf4f5d38d7d72463b"
+    },
+    {
+      "path": "sections/section-030/module-01/examples/tea-two/overlays/prod/kustomization.yaml",
+      "sha256": "7fa76d3a097c3d2153bbd8fb2427c2a91531fa137445907181338210db74f9b5"
+    },
+    {
+      "path": "sections/section-030/module-01/examples/tea-two/overlays/prod/patch.yaml",
+      "sha256": "b4d1f74845ae62a1eb031d52c85481582a949c2da822b0f10812d035b7cbb9e8"
+    },
+    {
+      "path": "sections/section-030/section.yaml",
+      "sha256": "963e3a466f5f55df53a406b1c29d77b3b35947fbf5d25eaab2ed90377fab21af"
+    },
+    {
+      "path": "sections/section-040/module-01/course-01-what-a-chart-is.md",
+      "sha256": "a5f4b34c65f9f1baddf821c1e79acf5b72d032bbb7dd89d3c16185113c13087c"
+    },
+    {
+      "path": "sections/section-040/module-01/course-02-install-upgrade-and-uninstall.md",
+      "sha256": "e6acc8a06de2fd369eea51e086de6d9b9fdb551a4a9f3cfaacc274f14ed20f02"
+    },
+    {
+      "path": "sections/section-040/module-01/course-03-wrap-up.md",
+      "sha256": "aa24cc742d0354e63fd5e9ea01b7d9c6b86c4e918a1dc35ae9168eaeb9754ef0"
+    },
+    {
+      "path": "sections/section-040/module-01/course.md",
+      "sha256": "2e3c7c1944cd2930912944d08c291fcfd6e665be88a9a6844819c9597b0cffee"
+    },
+    {
+      "path": "sections/section-040/module-01/examples/charts/study-web/Chart.yaml",
+      "sha256": "ee872b376cabf1da3d800be365702a882ea3a8637c80323c2d9abf777c4c0c01"
+    },
+    {
+      "path": "sections/section-040/module-01/examples/charts/study-web/templates/deployment.yaml",
+      "sha256": "6923a6a35520819703c768372066509d42f8ee2261754b4090f7c2b7db2bf128"
+    },
+    {
+      "path": "sections/section-040/module-01/examples/charts/study-web/templates/service.yaml",
+      "sha256": "10fffb5e9d881408cb455b0169e6bf86e0debd34a14abcedd3fe321b16dfaab3"
+    },
+    {
+      "path": "sections/section-040/module-01/examples/charts/study-web/values.yaml",
+      "sha256": "f9c3b8bd9784519dfbb57c70c8554825df27db85a2a2fd769cdf96769f635bdd"
+    },
+    {
+      "path": "sections/section-040/module-02/course-01-releases-and-their-states.md",
+      "sha256": "51838f1ba0f6e0b03f26eb19837b0957a77c978e3aa575c5ce3063b86f64cc92"
+    },
+    {
+      "path": "sections/section-040/module-02/course-02-tidy-up-the-releases-on-a-planet.md",
+      "sha256": "bd4b47ee6fd2d1bd65123e32a1a38938e40090277ebeb3c4f02fb91ad11e456f"
+    },
+    {
+      "path": "sections/section-040/module-02/course-03-wrap-up.md",
+      "sha256": "77ed20ba79f7c51d68abc8079d90c13fd4368d8d8af8b38b7f251f8d50f7f565"
+    },
+    {
+      "path": "sections/section-040/module-02/course.md",
+      "sha256": "06375d6ad18f9853305292f42ccee62850a028e37699e3fef35907bcc56ad941"
+    },
+    {
+      "path": "sections/section-040/section.yaml",
+      "sha256": "d878f129c533e20f0cd90c0e09288933d08d5fd996fed84318c5a7f2cc3cf1c2"
+    }
+  ]
+}

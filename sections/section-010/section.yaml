@@ -1,0 +1,7 @@
+section:
+  id: section-010
+  title: Blue-Green Deployments
+  description: >
+    Blue-green deployment keeps two versions of an application available at the same time
+
+  order: 1

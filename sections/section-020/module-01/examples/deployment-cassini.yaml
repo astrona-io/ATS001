@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mercury
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cassini
+  namespace: mercury
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: cassini
+  template:
+    metadata:
+      labels:
+        app: cassini
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.31-alpine
+          ports:
+            - containerPort: 80
