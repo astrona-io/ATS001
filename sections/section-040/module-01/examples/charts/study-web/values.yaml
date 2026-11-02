@@ -1,6 +1,0 @@
-replicaCount: 1
-image:
-  repository: nginx
-  tag: 1.31-alpine
-service:
-  port: 80
