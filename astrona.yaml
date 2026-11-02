@@ -37,7 +37,7 @@ modules:
     blue/green or canary)
   description: Developed explanations and application reasoning for Use Kubernetes
     primitives to implement common deployment strategies (e.g. blue/green or canary).
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Use Kubernetes primitives to implement common deployment strategies (e.g.
@@ -109,7 +109,7 @@ modules:
   title: Understand Deployments and how to perform rolling updates
   description: Developed explanations and application reasoning for Understand Deployments
     and how to perform rolling updates.
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Understand Deployments and how to perform rolling updates
@@ -183,7 +183,7 @@ modules:
 - id: module-030
   title: Kustomize
   description: Developed explanations and application reasoning for Kustomize.
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Kustomize
@@ -252,7 +252,7 @@ modules:
   title: Use the Helm package manager to deploy existing packages
   description: Developed explanations and application reasoning for Use the Helm package
     manager to deploy existing packages.
-  status: alpha
+  maturity: alpha
   content:
   - type: reading
     title: Use the Helm package manager to deploy existing packages
