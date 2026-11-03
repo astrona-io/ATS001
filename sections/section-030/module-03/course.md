@@ -21,8 +21,9 @@ Use the module playground for guided practice. It provides an isolated kind clus
 ## Reading Order
 
 1. Targeted Patches And Environment Differences
-2. Patch One Environment Without Editing Its Base
-3. Summary
+2. JSON Patches, Targets And Components
+3. Patch One Environment Without Editing Its Base
+4. Summary
 
 The playground provides the initial state for the guided practice. Keep it open while following the practical steps.
 

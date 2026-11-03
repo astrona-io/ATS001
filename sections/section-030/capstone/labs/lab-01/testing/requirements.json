@@ -1,0 +1,17 @@
+{
+  "context": "kind-astro-ats-001-lab-030-capstone-01",
+  "resources": [
+    {
+      "kind": "deployment",
+      "name": "probe",
+      "expected": {"spec": {"replicas": 3}},
+      "state": "deployment"
+    }
+  ],
+  "behavior": [
+    {
+      "args": ["kubectl", "-n", "starfleet", "exec", "shuttle", "--", "wget", "-q", "-T", "3", "-O-", "http://probe/"],
+      "contains": ["version=v2", "greeting=hello-production"]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "context": "kind-astro-ats-001-lab-040-capstone-01",
+  "resources": [
+    {
+      "kind": "deployment",
+      "name": "helm-probe",
+      "expected": {"spec": {"replicas": 2}},
+      "state": "deployment"
+    }
+  ],
+  "behavior": [
+    {
+      "args": ["kubectl", "-n", "starfleet", "exec", "shuttle", "--", "wget", "-q", "-T", "3", "-O-", "http://helm-probe/"],
+      "contains": ["version=v1.1 host=helm-probe-"]
+    }
+  ]
+}

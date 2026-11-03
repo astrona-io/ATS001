@@ -5,7 +5,7 @@ exam_objectives:
 ---
 # Understand Deployments and how to perform rolling updates
 
-This section covers understand Deployments and how to perform rolling updates. You will study Rolling Updates And Availability, Release Diagnosis And Template History. The lessons explain the responsible components, configuration relationships and failure cases relevant to application development.
+This section covers understand Deployments and how to perform rolling updates. You will study Rolling Updates And Availability, Release Diagnosis And Template History, Revision History And Rollback and Deployment Strategy, Scaling And Pause. A capstone lab closes the section, and a knowledge check follows it. The lessons explain the responsible components, configuration relationships and failure cases relevant to application development.
 
 Each module begins with its goals and ends with a summary. Reusable YAML knowledge checks follow the section summary and are registered separately for future presentation.
 
@@ -22,5 +22,8 @@ You will connect template changes to ReplicaSet ownership, replacement capacity 
 - Locate the failed transition in a release.
 - Choose a correction supported by diagnostic evidence.
 - Evaluate rollback limits and meaningful verification.
+- Read the revision history and roll back to a named revision.
+- Choose between RollingUpdate and Recreate and remove the rollingUpdate settings when you switch.
+- Scale a Deployment and batch several template changes with pause and resume.
 
 Each module pairs its concept readings with a guided practical sequence in an isolated playground. Finish the practice and closing summary before moving on. The YAML knowledge checks remain separate from the environment lifecycle.

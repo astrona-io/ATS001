@@ -1,0 +1,543 @@
+# Final domain knowledge check across all four sections.
+schema_version: 1
+kind: "question_bank"
+id: "ats001-final"
+course_id: "ATS001"
+exam_code: "CKAD"
+status: "draft"
+provenance: "Original practice material written for this course; not official exam questions."
+scope:
+  type: "domain"
+  id: "application-deployment"
+  title: "Application Deployment"
+questions:
+  - id: ats001-final-q01
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Implement blue/green with a Service selector"
+    source_readings:
+      - sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+    prompt: "Two Deployments, `app-blue` and `app-green`, run with the Pod labels `version: blue` and `version: green`. A Service selects `app: web, version: blue`. How do you switch traffic to green with no change to either Deployment?"
+    options:
+      - id: a
+        text: "Change the Service selector to version: green"
+        explanation: "The Service chooses Pods by label, so changing its selector moves the traffic."
+      - id: b
+        text: "Scale app-blue to zero and keep the selector"
+        explanation: "Traffic would find no Pods; the Service still selects blue."
+      - id: c
+        text: "Rename the Service"
+        explanation: "A new name does not change which Pods are selected."
+      - id: d
+        text: "Delete the Service Endpoints object by hand"
+        explanation: "Endpoints are managed from the selector and are rebuilt."
+    correct_option: a
+    explanation: "The Service chooses Pods by label, so changing its selector moves the traffic."
+
+  - id: ats001-final-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Verify the new version before the switch"
+    source_readings:
+      - sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+    prompt: "What is the safest check to run before switching a Service to the green Pods?"
+    options:
+      - id: a
+        text: "Delete the blue Deployment"
+        explanation: "Blue is the way back if green fails."
+      - id: b
+        text: "Confirm that the green Pods are Ready and answer a test request through their own path"
+        explanation: "The switch sends all traffic at once, so the new set must be proven healthy first."
+      - id: c
+        text: "Check only that the green Deployment object exists"
+        explanation: "An object can exist while its Pods fail readiness."
+      - id: d
+        text: "Change the green image tag again"
+        explanation: "This adds a new change without evidence."
+    correct_option: b
+    explanation: "The switch sends all traffic at once, so the new set must be proven healthy first."
+
+  - id: ats001-final-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Reason about canary traffic with ordinary Services"
+    source_readings:
+      - sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+    prompt: "A Service selects the label `app: web`. A stable Deployment runs 9 Pods and a canary Deployment runs 1 Pod with the same label. About what share of connections reaches the canary?"
+    options:
+      - id: a
+        text: "Exactly 1 percent"
+        explanation: "The share follows counts, not a fixed percentage."
+      - id: b
+        text: "Half, because there are two Deployments"
+        explanation: "Deployments do not weight traffic; Pods do."
+      - id: c
+        text: "About one in ten, because Pods are spread by count and the share is approximate"
+        explanation: "With ordinary Services the ratio follows the Pod count, and it is not exact."
+      - id: d
+        text: "None until the stable Deployment is scaled down"
+        explanation: "Both sets are selected at once."
+    correct_option: c
+    explanation: "With ordinary Services the ratio follows the Pod count, and it is not exact."
+
+  - id: ats001-final-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Withdraw or promote a canary"
+    source_readings:
+      - sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+    prompt: "The canary shows errors. What is the fastest way to withdraw it with ordinary Services?"
+    options:
+      - id: a
+        text: "Scale the stable Deployment to zero"
+        explanation: "This removes the healthy version."
+      - id: b
+        text: "Change the Service type"
+        explanation: "Type does not control version selection."
+      - id: c
+        text: "Delete the namespace"
+        explanation: "This removes everything."
+      - id: d
+        text: "Scale the canary Deployment to zero"
+        explanation: "The Service stops selecting any canary Pods, and the stable Pods keep serving."
+    correct_option: d
+    explanation: "The Service stops selecting any canary Pods, and the stable Pods keep serving."
+
+  - id: ats001-final-q05
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Use labels so one Service selects both versions"
+    source_readings:
+      - sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+    prompt: "Why must the stable and canary Pods share one label that the Service selects?"
+    options:
+      - id: a
+        text: "The Service selector can only match Pods that carry its labels, and the shared label puts both sets behind one Service"
+        explanation: "Extra labels such as version stay on the Pods and tell them apart."
+      - id: b
+        text: "Kubernetes requires every Deployment to share the name"
+        explanation: "Names can differ."
+      - id: c
+        text: "The Deployment selectors must be identical"
+        explanation: "Each Deployment keeps its own selector so the two do not manage each other's Pods."
+      - id: d
+        text: "It lets the Service pick the newest image automatically"
+        explanation: "A Service does not choose images."
+    correct_option: a
+    explanation: "Extra labels such as version stay on the Pods and tell them apart."
+
+  - id: ats001-final-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Calculate surge and unavailable Pods"
+    source_readings:
+      - sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
+    prompt: "A Deployment has 4 replicas with `maxSurge: 25%` and `maxUnavailable: 25%`. What are the limits during a rolling update?"
+    options:
+      - id: a
+        text: "Up to 2 extra and 2 unavailable"
+        explanation: "25 percent of 4 is 1."
+      - id: b
+        text: "Up to 1 extra Pod and up to 1 unavailable Pod"
+        explanation: "Surge rounds up and unavailable rounds down, giving 1 and 1."
+      - id: c
+        text: "Up to 0 extra and 0 unavailable"
+        explanation: "Surge rounds up, so it is at least 1."
+      - id: d
+        text: "Up to 4 extra and 4 unavailable"
+        explanation: "That is 100 percent."
+    correct_option: b
+    explanation: "Surge rounds up and unavailable rounds down, giving 1 and 1."
+
+  - id: ats001-final-q07
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Identify what starts a rollout"
+    source_readings:
+      - sections/section-020/module-03/course-01-rolling-updates-and-health-gates.md
+    prompt: "Which change to a Deployment starts a new rollout?"
+    options:
+      - id: a
+        text: "Changing spec.replicas"
+        explanation: "Scaling changes the Pod count and not the template."
+      - id: b
+        text: "Adding a label to the Deployment metadata only"
+        explanation: "Metadata outside the template does not change the template."
+      - id: c
+        text: "A change to the Pod template, such as the image"
+        explanation: "A new template hash creates a new ReplicaSet."
+      - id: d
+        text: "Running kubectl get deployment"
+        explanation: "Reading changes nothing."
+    correct_option: c
+    explanation: "A new template hash creates a new ReplicaSet."
+
+  - id: ats001-final-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use readiness as a rollout gate"
+    source_readings:
+      - sections/section-020/module-03/course-01-rolling-updates-and-health-gates.md
+    prompt: "During a rolling update, what lets Kubernetes decide that a new Pod can receive traffic and that the update can continue?"
+    options:
+      - id: a
+        text: "The image has been pulled"
+        explanation: "Pulling does not prove the application works."
+      - id: b
+        text: "The Pod has an IP address"
+        explanation: "An address says nothing about health."
+      - id: c
+        text: "The old Pods are deleted"
+        explanation: "Old Pods are removed after the new ones are ready."
+      - id: d
+        text: "The readiness probe reports success"
+        explanation: "Without a probe a Pod counts as ready when its containers start."
+    correct_option: d
+    explanation: "Without a probe a Pod counts as ready when its containers start."
+
+  - id: ats001-final-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Roll back a failed update"
+    source_readings:
+      - sections/section-020/module-04/course-02-reproduce-correct-and-verify.md
+    prompt: "A rolling update to a bad image is stuck. Which command returns the Deployment to the previous working revision?"
+    options:
+      - id: a
+        text: "kubectl rollout undo deployment/NAME"
+        explanation: "Undo re-applies the previous Pod template as a new revision."
+      - id: b
+        text: "kubectl rollout pause deployment/NAME"
+        explanation: "Pause stops further changes and does not revert."
+      - id: c
+        text: "kubectl scale deployment/NAME --replicas=0"
+        explanation: "This stops all Pods."
+      - id: d
+        text: "kubectl rollout status deployment/NAME"
+        explanation: "This only reports progress."
+    correct_option: a
+    explanation: "Undo re-applies the previous Pod template as a new revision."
+
+  - id: ats001-final-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read the rollout history"
+    source_readings:
+      - sections/section-020/module-04/course-01-intended-versions-and-observed-progress.md
+    prompt: "Which command lists the revisions of a Deployment?"
+    options:
+      - id: a
+        text: "kubectl get history deployment/NAME"
+        explanation: "There is no such subcommand."
+      - id: b
+        text: "kubectl rollout history deployment/NAME"
+        explanation: "It lists revisions, and --revision=N shows one template."
+      - id: c
+        text: "kubectl describe nodes"
+        explanation: "This shows nodes."
+      - id: d
+        text: "kubectl logs deployment/NAME --previous"
+        explanation: "This shows container logs."
+    correct_option: b
+    explanation: "It lists revisions, and --revision=N shows one template."
+
+  - id: ats001-final-q11
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Choose a strategy for an update that cannot overlap versions"
+    source_readings:
+      - sections/section-020/module-03/course-01-rolling-updates-and-health-gates.md
+    prompt: "An application must never run two versions at the same time. Which Deployment strategy fits, and what is the cost?"
+    options:
+      - id: a
+        text: "RollingUpdate with maxSurge 100 percent"
+        explanation: "Both versions run together during the update."
+      - id: b
+        text: "RollingUpdate with maxUnavailable 0"
+        explanation: "New Pods start before old ones stop, so versions overlap."
+      - id: c
+        text: "strategy.type: Recreate, which stops all old Pods first and causes downtime"
+        explanation: "Recreate removes old Pods before it creates new ones."
+      - id: d
+        text: "Recreate, with no downtime"
+        explanation: "Recreate always has a gap."
+    correct_option: c
+    explanation: "Recreate removes old Pods before it creates new ones."
+
+  - id: ats001-final-q12
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Pause a rollout to batch changes"
+    source_readings:
+      - sections/section-020/module-04/course-01-intended-versions-and-observed-progress.md
+    prompt: "What does `kubectl rollout pause deployment/NAME` do?"
+    options:
+      - id: a
+        text: "It rolls back the last change"
+        explanation: "That is rollout undo."
+      - id: b
+        text: "It scales the Deployment to zero"
+        explanation: "Pause does not change the replica count."
+      - id: c
+        text: "It deletes old ReplicaSets"
+        explanation: "History is kept."
+      - id: d
+        text: "It lets you edit the template several times without starting a rollout until you resume"
+        explanation: "Paused Deployments store template changes and roll out once on resume."
+    correct_option: d
+    explanation: "Paused Deployments store template changes and roll out once on resume."
+
+  - id: ats001-final-q13
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Distinguish building a kustomization from applying it"
+    source_readings:
+      - sections/section-030/module-02/course-02-build-output-and-common-transformers.md
+    prompt: "Which command prints the rendered YAML of the directory `app` without contacting the cluster?"
+    options:
+      - id: a
+        text: "kubectl kustomize app"
+        explanation: "This runs the build on your machine and prints the result."
+      - id: b
+        text: "kubectl apply -k app"
+        explanation: "This builds and then sends the objects to the API server."
+      - id: c
+        text: "kubectl get -k app"
+        explanation: "This builds and then reads the live objects that the build names."
+      - id: d
+        text: "kubectl diff -f app"
+        explanation: "This compares a single manifest file; it does not build a kustomization."
+    correct_option: a
+    explanation: "This runs the build on your machine and prints the result."
+
+  - id: ats001-final-q14
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Trace naming transformations"
+    source_readings:
+      - sections/section-030/module-02/course-02-build-output-and-common-transformers.md
+    prompt: "A kustomization sets `namePrefix: dev-` and a `replicas` entry for `name: crew`. The base Deployment is named `crew`. What does the build produce?"
+    options:
+      - id: a
+        text: "A Deployment named `crew` because prefixes only apply to Services"
+        explanation: "The prefix applies to every resource."
+      - id: b
+        text: "A Deployment named `dev-crew` with the replica count from the entry"
+        explanation: "The replicas entry matches the name in the base files, and the prefix is applied to the output."
+      - id: c
+        text: "A build error because the replicas name must include the prefix"
+        explanation: "The entry uses the original name from the files."
+      - id: d
+        text: "A Deployment named `dev-crew` with the replica count unchanged"
+        explanation: "The entry matches the original name, so the count changes."
+    correct_option: b
+    explanation: "The replicas entry matches the name in the base files, and the prefix is applied to the output."
+
+  - id: ats001-final-q15
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Write a JSON 6902 patch"
+    source_readings:
+      - sections/section-030/module-03/course-02-json-patches-targets-and-components.md
+    prompt: "Which patch operation removes the second container of a Deployment?"
+    options:
+      - id: a
+        text: "op: remove with path /spec/template/spec/containers/2"
+        explanation: "Index 2 is the third container."
+      - id: b
+        text: "op: replace with path /spec/template/spec/containers/1"
+        explanation: "Replace needs a value and does not delete."
+      - id: c
+        text: "op: remove with path /spec/template/spec/containers/1"
+        explanation: "Lists are zero-based, so index 1 is the second container."
+      - id: d
+        text: "op: add with path /spec/template/spec/containers/-"
+        explanation: "This appends a container."
+    correct_option: c
+    explanation: "Lists are zero-based, so index 1 is the second container."
+
+  - id: ats001-final-q16
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain generated configuration references and hashes"
+    source_readings:
+      - sections/section-030/module-04/course-01-generating-configmaps-and-content-hashes.md
+    prompt: "A generated ConfigMap named `crew-settings` has its literal changed and the kustomization is applied. What happens to a Deployment that mounts it?"
+    options:
+      - id: a
+        text: "Nothing, because the Deployment keeps the old name"
+        explanation: "Kustomize rewrites the reference to the new hashed name."
+      - id: b
+        text: "The ConfigMap is edited in place and running Pods reload it"
+        explanation: "A new object is created; the old name is not edited."
+      - id: c
+        text: "The old ConfigMap is deleted by kubectl apply"
+        explanation: "Apply does not delete objects that have left the build output."
+      - id: d
+        text: "The name gets a new hash, the Pod template changes and a rollout starts"
+        explanation: "The new hashed name is part of the Pod template."
+    correct_option: d
+    explanation: "The new hashed name is part of the Pod template."
+
+  - id: ats001-final-q17
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Choose generator behavior in an overlay"
+    source_readings:
+      - sections/section-030/module-04/course-02-secrets-behavior-and-generator-options.md
+    prompt: "An overlay declares a configMapGenerator with the same name as the base and wants to keep the base keys but change one. Which setting does it need?"
+    options:
+      - id: a
+        text: "behavior: merge"
+        explanation: "Merge keeps the base keys, adds new keys and overwrites matching keys."
+      - id: b
+        text: "behavior: replace"
+        explanation: "Replace discards the base keys."
+      - id: c
+        text: "behavior: create"
+        explanation: "Create fails when the name already exists."
+      - id: d
+        text: "options: immutable: true"
+        explanation: "Immutable does not combine keys."
+    correct_option: a
+    explanation: "Merge keeps the base keys, adds new keys and overwrites matching keys."
+
+  - id: ats001-final-q18
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Trace value precedence into rendered fields"
+    source_readings:
+      - sections/section-040/module-03/course-02-values-precedence-and-local-rendering.md
+    prompt: "A chart default sets `replicaCount: 1`. A command uses `-f values.yaml` (which sets 3) and `--set replicaCount=5`. What is rendered?"
+    options:
+      - id: a
+        text: "1"
+        explanation: "The chart default has the lowest priority."
+      - id: b
+        text: "5"
+        explanation: "--set has the highest priority, above -f files and chart defaults."
+      - id: c
+        text: "3"
+        explanation: "The file is overridden by --set."
+      - id: d
+        text: "The command fails because the key is set twice"
+        explanation: "Helm merges sources by priority and does not fail."
+    correct_option: b
+    explanation: "--set has the highest priority, above -f files and chart defaults."
+
+  - id: ats001-final-q19
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Separate rendering from admission"
+    source_readings:
+      - sections/section-040/module-03/course-02-values-precedence-and-local-rendering.md
+    prompt: "What does `helm template demo CHART` do?"
+    options:
+      - id: a
+        text: "Installs the chart and prints the release"
+        explanation: "That is helm install."
+      - id: b
+        text: "Validates the objects against the API server"
+        explanation: "That needs helm install --dry-run=server."
+      - id: c
+        text: "Renders the templates on your machine without creating a release"
+        explanation: "It prints the YAML and does not contact the cluster."
+      - id: d
+        text: "Downloads the chart from the repository index only"
+        explanation: "It renders; it does not only download."
+    correct_option: c
+    explanation: "It prints the YAML and does not contact the cluster."
+
+  - id: ats001-final-q20
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Evaluate upgrade value reuse"
+    source_readings:
+      - sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+      - sections/section-040/module-03/course-02-values-precedence-and-local-rendering.md
+    prompt: "A release was installed with `--set version=v2`. You run `helm upgrade RELEASE CHART` with no value flags. What version value results?"
+    options:
+      - id: a
+        text: "v2, because Helm always keeps previous values"
+        explanation: "That requires --reuse-values."
+      - id: b
+        text: "The upgrade fails because no values were given"
+        explanation: "A chart can install with its defaults."
+      - id: c
+        text: "Empty, because values are cleared and the chart has no default"
+        explanation: "The chart default is used."
+      - id: d
+        text: "The chart default, because values are not reused unless --reuse-values is set"
+        explanation: "Upgrade starts from chart defaults plus the values you pass."
+    correct_option: d
+    explanation: "Upgrade starts from chart defaults plus the values you pass."
+
+  - id: ats001-final-q21
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Install a fixed chart version"
+    source_readings:
+      - sections/section-040/module-05/course-01-chart-repositories-and-versions.md
+    prompt: "How do you install exactly version 1.2.0 of `team/web`?"
+    options:
+      - id: a
+        text: "helm install web team/web --version 1.2.0"
+        explanation: "The --version flag selects the chart version."
+      - id: b
+        text: "helm install web team/web --set appVersion=1.2.0"
+        explanation: "appVersion is information in Chart.yaml and does not select a version."
+      - id: c
+        text: "helm install web team/web:1.2.0"
+        explanation: "This colon form is for container images, not repository charts."
+      - id: d
+        text: "helm repo add web 1.2.0"
+        explanation: "This registers a repository."
+    correct_option: a
+    explanation: "The --version flag selects the chart version."
+
+  - id: ats001-final-q22
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Identify release history"
+    source_readings:
+      - sections/section-040/module-04/course-02-uninstall-wait-and-inspecting-a-release.md
+      - sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+    prompt: "A release `demo` is at revision 2. You run `helm rollback demo 1`. What is the new current revision?"
+    options:
+      - id: a
+        text: "1, because revision 2 is deleted"
+        explanation: "History is kept and grows."
+      - id: b
+        text: "3, a new revision with the content of revision 1"
+        explanation: "Rollback adds a revision; history is not removed."
+      - id: c
+        text: "2, because nothing changes"
+        explanation: "A rollback creates a new revision."
+      - id: d
+        text: "0, because the release restarts"
+        explanation: "Revisions do not reset."
+    correct_option: b
+    explanation: "Rollback adds a revision; history is not removed."
+
+  - id: ats001-final-q23
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Explain waiting and automatic rollback"
+    source_readings:
+      - sections/section-040/module-04/course-02-uninstall-wait-and-inspecting-a-release.md
+    prompt: "Which flag makes `helm upgrade` roll back to the previous revision by itself if the new Pods do not become ready?"
+    options:
+      - id: a
+        text: "--wait only"
+        explanation: "Wait fails the upgrade but does not roll back."
+      - id: b
+        text: "--dry-run=server"
+        explanation: "This validates and stores nothing."
+      - id: c
+        text: "--atomic"
+        explanation: "Atomic implies --wait and rolls back on failure or timeout."
+      - id: d
+        text: "--keep-history"
+        explanation: "That flag belongs to uninstall."
+    correct_option: c
+    explanation: "Atomic implies --wait and rolls back on failure or timeout."

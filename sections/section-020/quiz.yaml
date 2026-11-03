@@ -1,0 +1,329 @@
+# Knowledge check for section 020. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats001-section-020
+course_id: ATS001
+exam_code: CKAD
+status: draft
+provenance: Original practice material; not official examination questions.
+scope:
+  type: section
+  id: section-020
+  title: "Understand Deployments and how to perform rolling updates"
+questions:
+- id: ats001-section-020-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Identify changes that create Deployment revisions.
+  source_readings:
+  - sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
+  prompt: Which change normally starts a Deployment template rollout?
+  options:
+  - id: a
+    text: Only reading the Deployment status
+    explanation: Inspection does not mutate the desired workload.
+  - id: b
+    text: Changing the container image in the Pod template
+    explanation: A template change creates a new desired replica template and revision.
+  - id: c
+    text: Only changing an unrelated ConfigMap object
+    explanation: An external object update does not inherently change the Deployment template.
+  correct_option: b
+  explanation: A template change creates a new desired replica template and revision.
+- id: ats001-section-020-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Calculate surge and unavailability limits.
+  source_readings:
+  - sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
+  prompt: With three desired replicas and maxSurge and maxUnavailable both twenty-five percent, which
+    limits apply?
+  options:
+  - id: a
+    text: One surge Pod and zero unavailable Pods
+    explanation: Surge percentage rounds up while unavailability percentage rounds down.
+  - id: b
+    text: Zero surge Pods and one unavailable Pod
+    explanation: That reverses the applicable rounding behavior.
+  - id: c
+    text: Exactly three extra Pods and three unavailable Pods
+    explanation: Those values do not follow the stated percentages.
+  correct_option: a
+  explanation: Surge percentage rounds up while unavailability percentage rounds down.
+- id: ats001-section-020-q03
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Distinguish reported progress failure from automatic recovery.
+  source_readings:
+  - sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
+  prompt: A Deployment reports progress deadline exceeded. What does that establish?
+  options:
+  - id: a
+    text: The earlier revision has already been restored automatically
+    explanation: The deadline condition does not universally perform rollback.
+  - id: b
+    text: The new image has been deleted from its registry
+    explanation: Deployment progress reporting does not remove image artifacts.
+  - id: c
+    text: A reported failure to make required rollout progress
+    explanation: The condition reports the stalled progress; automatic rollback is not implied.
+  correct_option: c
+  explanation: The condition reports the stalled progress; automatic rollback is not implied.
+- id: ats001-section-020-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Compare intended release identity with observed resources.
+  source_readings:
+  - sections/section-020/module-04/course-01-intended-versions-and-observed-progress.md
+  prompt: Desired updated replicas exist, but available replicas remain low. What should be examined?
+  options:
+  - id: a
+    text: Only whether an older Service name exists
+    explanation: That does not locate the new Pods' failed transition.
+  - id: b
+    text: The new Pods' preparation, readiness and availability conditions
+    explanation: Observed availability depends on lifecycle and health beyond desired counts.
+  - id: c
+    text: Only the release's human-readable title
+    explanation: A title does not explain the unavailable capacity.
+  correct_option: b
+  explanation: Observed availability depends on lifecycle and health beyond desired counts.
+- id: ats001-section-020-q05
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Evaluate rollback limits and meaningful verification.
+  source_readings:
+  - sections/section-020/module-04/course-02-reproduce-correct-and-verify.md
+  prompt: Why might restoring an earlier Pod template fail to restore a working release?
+  options:
+  - id: a
+    text: External configuration or data may have changed independently
+    explanation: Template history does not capture every application dependency.
+  - id: b
+    text: Template history always contains a complete database backup
+    explanation: Deployment history is not a database snapshot mechanism.
+  - id: c
+    text: A retained revision guarantees every old dependency still exists
+    explanation: The environment can change outside the retained template.
+  correct_option: a
+  explanation: Template history does not capture every application dependency.
+- id: ats001-section-020-q06
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Identify which changes create a revision"
+  source_readings:
+  - sections/section-020/module-05/course-01-recording-and-reading-revision-history.md
+  prompt: "Which change to a Deployment creates a new revision?"
+  options:
+  - id: a
+    text: "Changing `spec.replicas`."
+    explanation: "Scaling does not change the template."
+  - id: b
+    text: "Changing an environment variable in the Pod template."
+    explanation: "Only changes to `spec.template` create a revision."
+  - id: c
+    text: "Adding an annotation to the Deployment metadata."
+    explanation: "Deployment annotations are outside the template."
+  - id: d
+    text: "Changing `spec.revisionHistoryLimit`."
+    explanation: "This field does not change the template."
+  correct_option: b
+  explanation: "Each revision is a ReplicaSet that stores one Pod template."
+- id: ats001-section-020-q07
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Read the template of one revision"
+  source_readings:
+  - sections/section-020/module-05/course-01-recording-and-reading-revision-history.md
+  prompt: "Which command shows the Pod template of revision 2 of Deployment `probe`?"
+  options:
+  - id: a
+    text: "`kubectl -n starfleet rollout history deployment/probe --revision=2`"
+    explanation: "The `--revision` flag prints the template of one revision."
+  - id: b
+    text: "`kubectl -n starfleet rollout status deployment/probe --revision=2`"
+    explanation: "`status` reports progress and has no revision flag."
+  - id: c
+    text: "`kubectl -n starfleet scale deployment/probe --revision=2`"
+    explanation: "`scale` changes replicas."
+  - id: d
+    text: "`kubectl -n starfleet get revision 2`"
+    explanation: "There is no Revision resource."
+  correct_option: a
+  explanation: "The history list and the revision flag are the evidence to read before a rollback."
+- id: ats001-section-020-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Record a reason for a change"
+  source_readings:
+  - sections/section-020/module-05/course-01-recording-and-reading-revision-history.md
+  prompt: "Where does the CHANGE-CAUSE column of `kubectl rollout history` get its text?"
+  options:
+  - id: a
+    text: "From the container image name."
+    explanation: "The image name is not recorded as a cause."
+  - id: b
+    text: "From the Pod logs."
+    explanation: "Logs are not part of the history."
+  - id: c
+    text: "From the annotation `kubernetes.io/change-cause`."
+    explanation: "The Deployment copies the annotation to the ReplicaSet of the revision."
+  - id: d
+    text: "From the Service annotations."
+    explanation: "The Service is not involved."
+  correct_option: c
+  explanation: "Set the annotation with `kubectl annotate` after each change. The `--record` flag is deprecated."
+- id: ats001-section-020-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Roll back to a named revision"
+  source_readings:
+  - sections/section-020/module-05/course-02-rolling-back-to-a-chosen-revision.md
+  prompt: "A Deployment has revisions 1, 2 and 3. Revision 3 is broken and revision 2 is also bad. How do you return to revision 1?"
+  options:
+  - id: a
+    text: "`kubectl rollout undo deployment/NAME --to-revision=1`"
+    explanation: "`--to-revision` names the target revision."
+  - id: b
+    text: "`kubectl rollout undo deployment/NAME` twice."
+    explanation: "The second undo goes back to the revision you just left."
+  - id: c
+    text: "`kubectl rollout restart deployment/NAME`"
+    explanation: "Restart reuses the current template."
+  - id: d
+    text: "`kubectl scale deployment/NAME --replicas=1`"
+    explanation: "Scaling does not change the template."
+  correct_option: a
+  explanation: "A rollback reuses the stored ReplicaSet and gets a new revision number."
+- id: ats001-section-020-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "State what a rollback does not restore"
+  source_readings:
+  - sections/section-020/module-05/course-02-rolling-back-to-a-chosen-revision.md
+  prompt: "Which item does `kubectl rollout undo` NOT restore?"
+  options:
+  - id: a
+    text: "The container image."
+    explanation: "The image is part of the template."
+  - id: b
+    text: "An environment variable of the container."
+    explanation: "Environment variables are part of the template."
+  - id: c
+    text: "The readiness probe."
+    explanation: "The probe is part of the template."
+  - id: d
+    text: "The replica count that you changed with `kubectl scale`."
+    explanation: "A rollback restores only `spec.template`."
+  correct_option: d
+  explanation: "Replica counts, strategy, external data and ConfigMap content stay as they are."
+- id: ats001-section-020-q11
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Compare the Deployment strategies"
+  source_readings:
+  - sections/section-020/module-06/course-01-choosing-a-deployment-strategy.md
+  prompt: "An application must never run two versions at once. Which strategy fits?"
+  options:
+  - id: a
+    text: "`RollingUpdate` with the default values."
+    explanation: "Old and new Pods run together."
+  - id: b
+    text: "`Recreate`, which stops all old Pods before it creates new ones."
+    explanation: "Recreate avoids an overlap and accepts a short outage."
+  - id: c
+    text: "`RollingUpdate` with `maxSurge: 0` and `maxUnavailable: 0`."
+    explanation: "This combination is rejected."
+  - id: d
+    text: "`Recreate` together with a `rollingUpdate` block."
+    explanation: "The API server rejects this combination."
+  correct_option: b
+  explanation: "Pick Recreate when versions cannot overlap and downtime is acceptable."
+- id: ats001-section-020-q12
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Calculate surge and unavailability with percentages"
+  source_readings:
+  - sections/section-020/module-06/course-01-choosing-a-deployment-strategy.md
+  prompt: "A Deployment has 10 replicas and `maxSurge: 25%`, `maxUnavailable: 25%`. What are the effective limits?"
+  options:
+  - id: a
+    text: "Surge 3 (rounded up from 2.5) and unavailable 2 (rounded down from 2.5)."
+    explanation: "Surge rounds up and unavailable rounds down."
+  - id: b
+    text: "Surge 2 and unavailable 3."
+    explanation: "This reverses the rounding rules."
+  - id: c
+    text: "Surge 3 and unavailable 3."
+    explanation: "Unavailable rounds down."
+  - id: d
+    text: "Surge 2 and unavailable 2."
+    explanation: "Surge rounds up."
+  correct_option: a
+  explanation: "At most 13 Pods exist and at least 8 stay available during the update."
+- id: ats001-section-020-q13
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Switch the strategy type safely"
+  source_readings:
+  - sections/section-020/module-06/course-01-choosing-a-deployment-strategy.md
+  prompt: "You patch only `spec.strategy.type` to `Recreate` and the API server rejects the change. What fixes it?"
+  options:
+  - id: a
+    text: "Set `maxSurge` to 0."
+    explanation: "This keeps the block and is still rejected."
+  - id: b
+    text: "Delete the Service."
+    explanation: "The Service does not affect strategy validation."
+  - id: c
+    text: "Set `rollingUpdate` to `null` in the same patch."
+    explanation: "`Recreate` cannot carry a `rollingUpdate` block."
+  - id: d
+    text: "Add more replicas first."
+    explanation: "Replica count is not the cause."
+  correct_option: c
+  explanation: "A merge patch sets a field to null to remove it."
+- id: ats001-section-020-q14
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Batch changes with pause"
+  source_readings:
+  - sections/section-020/module-06/course-02-pausing-a-rollout-to-batch-changes.md
+  prompt: "You pause a Deployment, change the image and an environment variable, scale to 5 replicas, and then resume. What happens?"
+  options:
+  - id: a
+    text: "Three rollouts run, one per change."
+    explanation: "Pause groups the template changes into one."
+  - id: b
+    text: "Nothing happens until you delete the Deployment."
+    explanation: "Resume starts the rollout."
+  - id: c
+    text: "The scale waits for the resume."
+    explanation: "Scaling still works while paused."
+  - id: d
+    text: "The scale happens at once, and one rollout applies both template changes after the resume."
+    explanation: "Scaling is not part of the template, and pause holds back only template rollouts."
+  correct_option: d
+  explanation: "The history shows one new revision."
+- id: ats001-section-020-q15
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Know when pause blocks other commands"
+  source_readings:
+  - sections/section-020/module-06/course-02-pausing-a-rollout-to-batch-changes.md
+  prompt: "Template edits on a Deployment seem to do nothing and no new ReplicaSet appears. What do you check?"
+  options:
+  - id: a
+    text: "Whether `spec.paused` is true."
+    explanation: "A paused Deployment records changes but starts no rollout."
+  - id: b
+    text: "Whether the namespace has a quota label."
+    explanation: "Quotas do not stop a rollout silently."
+  - id: c
+    text: "Whether the Service uses a named port."
+    explanation: "Service ports do not affect rollouts."
+  - id: d
+    text: "Whether the Pods have an owner."
+    explanation: "All Deployment Pods have an owner."
+  correct_option: a
+  explanation: "Run `kubectl rollout resume` and then check the status."

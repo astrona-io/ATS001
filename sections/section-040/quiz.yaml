@@ -1,0 +1,336 @@
+# Knowledge check for the Helm section. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: "question_bank"
+id: "ats001-040"
+course_id: "ATS001"
+exam_code: "CKAD"
+status: "draft"
+provenance: "Original practice material written for this course; not official exam questions."
+scope:
+  type: "section"
+  id: "section-040"
+  title: "Helm"
+questions:
+  - id: ats001-040-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Distinguish chart, application and release identities"
+    source_readings:
+      - sections/section-040/module-03/course-01-charts-values-and-the-rendered-application.md
+    prompt: "Which statement separates a chart from a release?"
+    options:
+      - id: a
+        text: "A chart is the package of templates and defaults, and a release is one installation of it with a name"
+        explanation: "Several releases can come from one chart in the same or different namespaces."
+      - id: b
+        text: "A release is the package and a chart is the running installation"
+        explanation: "The terms are reversed."
+      - id: c
+        text: "A chart and a release are the same thing with two names"
+        explanation: "They are different objects: a package and an installation."
+      - id: d
+        text: "A chart is stored in a Secret and a release is stored in a repository"
+        explanation: "Release records are stored in the cluster; charts are stored in repositories or archives."
+    correct_option: a
+    explanation: "Several releases can come from one chart in the same or different namespaces."
+
+  - id: ats001-040-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Trace value precedence into rendered fields"
+    source_readings:
+      - sections/section-040/module-03/course-02-values-precedence-and-local-rendering.md
+    prompt: "A chart default sets `replicaCount: 1`. A command uses `-f values.yaml` (which sets 3) and `--set replicaCount=5`. What is rendered?"
+    options:
+      - id: a
+        text: "1"
+        explanation: "The chart default has the lowest priority."
+      - id: b
+        text: "5"
+        explanation: "--set has the highest priority, above -f files and chart defaults."
+      - id: c
+        text: "3"
+        explanation: "The file is overridden by --set."
+      - id: d
+        text: "The command fails because the key is set twice"
+        explanation: "Helm merges sources by priority and does not fail."
+    correct_option: b
+    explanation: "--set has the highest priority, above -f files and chart defaults."
+
+  - id: ats001-040-q03
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Separate rendering from admission"
+    source_readings:
+      - sections/section-040/module-03/course-02-values-precedence-and-local-rendering.md
+    prompt: "What does `helm template demo CHART` do?"
+    options:
+      - id: a
+        text: "Installs the chart and prints the release"
+        explanation: "That is helm install."
+      - id: b
+        text: "Validates the objects against the API server"
+        explanation: "That needs helm install --dry-run=server."
+      - id: c
+        text: "Renders the templates on your machine without creating a release"
+        explanation: "It prints the YAML and does not contact the cluster."
+      - id: d
+        text: "Downloads the chart from the repository index only"
+        explanation: "It renders; it does not only download."
+    correct_option: c
+    explanation: "It prints the YAML and does not contact the cluster."
+
+  - id: ats001-040-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read supplied and computed values"
+    source_readings:
+      - sections/section-040/module-03/course-02-values-precedence-and-local-rendering.md
+    prompt: "Which command shows the values you supplied to a release, without the chart defaults?"
+    options:
+      - id: a
+        text: "helm show values CHART"
+        explanation: "This prints the chart defaults."
+      - id: b
+        text: "helm get manifest RELEASE"
+        explanation: "This prints rendered objects."
+      - id: c
+        text: "helm history RELEASE"
+        explanation: "This lists revisions."
+      - id: d
+        text: "helm get values RELEASE"
+        explanation: "Without --all it prints only user-supplied values."
+    correct_option: d
+    explanation: "Without --all it prints only user-supplied values."
+
+  - id: ats001-040-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Evaluate upgrade value reuse"
+    source_readings:
+      - sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+      - sections/section-040/module-03/course-02-values-precedence-and-local-rendering.md
+    prompt: "A release was installed with `--set version=v2`. You run `helm upgrade RELEASE CHART` with no value flags. What version value results?"
+    options:
+      - id: a
+        text: "The chart default, because values are not reused unless --reuse-values is set"
+        explanation: "Upgrade starts from chart defaults plus the values you pass."
+      - id: b
+        text: "v2, because Helm always keeps previous values"
+        explanation: "That requires --reuse-values."
+      - id: c
+        text: "The upgrade fails because no values were given"
+        explanation: "A chart can install with its defaults."
+      - id: d
+        text: "Empty, because values are cleared and the chart has no default"
+        explanation: "The chart default is used."
+    correct_option: a
+    explanation: "Upgrade starts from chart defaults plus the values you pass."
+
+  - id: ats001-040-q06
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Use repositories"
+    source_readings:
+      - sections/section-040/module-05/course-01-chart-repositories-and-versions.md
+    prompt: "You added a repository, but a chart published a minute ago does not appear in `helm search repo`. What is the likely fix?"
+    options:
+      - id: a
+        text: "Run helm install first"
+        explanation: "Install does not refresh the search listing."
+      - id: b
+        text: "Run helm repo update to refresh the local copy of the index"
+        explanation: "Search reads the local index, which only changes on add or update."
+      - id: c
+        text: "Use helm search hub"
+        explanation: "That searches a different public directory."
+      - id: d
+        text: "Delete the release"
+        explanation: "No release is involved."
+    correct_option: b
+    explanation: "Search reads the local index, which only changes on add or update."
+
+  - id: ats001-040-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Install a fixed chart version"
+    source_readings:
+      - sections/section-040/module-05/course-01-chart-repositories-and-versions.md
+    prompt: "How do you install exactly version 1.2.0 of `team/web`?"
+    options:
+      - id: a
+        text: "helm install web team/web --set appVersion=1.2.0"
+        explanation: "appVersion is information in Chart.yaml and does not select a version."
+      - id: b
+        text: "helm install web team/web:1.2.0"
+        explanation: "This colon form is for container images, not repository charts."
+      - id: c
+        text: "helm install web team/web --version 1.2.0"
+        explanation: "The --version flag selects the chart version."
+      - id: d
+        text: "helm repo add web 1.2.0"
+        explanation: "This registers a repository."
+    correct_option: c
+    explanation: "The --version flag selects the chart version."
+
+  - id: ats001-040-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Package a chart"
+    source_readings:
+      - sections/section-040/module-05/course-02-archives-dependencies-and-pulling-charts.md
+    prompt: "`Chart.yaml` has `name: crew-chart` and `version: 0.2.0`. What file does `helm package crew-chart` write?"
+    options:
+      - id: a
+        text: "crew-chart.tgz"
+        explanation: "The version is part of the file name."
+      - id: b
+        text: "crew-chart-v1.tgz"
+        explanation: "The version comes from Chart.yaml and not from appVersion."
+      - id: c
+        text: "index.yaml"
+        explanation: "That file is made by helm repo index."
+      - id: d
+        text: "crew-chart-0.2.0.tgz"
+        explanation: "The name and version come from Chart.yaml."
+    correct_option: d
+    explanation: "The name and version come from Chart.yaml."
+
+  - id: ats001-040-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Review chart dependencies"
+    source_readings:
+      - sections/section-040/module-05/course-02-archives-dependencies-and-pulling-charts.md
+    prompt: "A chart lists a dependency in Chart.yaml but the `charts` directory is empty. Which command downloads it?"
+    options:
+      - id: a
+        text: "helm dependency update CHART_DIRECTORY"
+        explanation: "It downloads the archives and writes Chart.lock."
+      - id: b
+        text: "helm repo update"
+        explanation: "That refreshes indexes only."
+      - id: c
+        text: "helm lint CHART_DIRECTORY"
+        explanation: "Lint checks files but downloads nothing."
+      - id: d
+        text: "helm get manifest RELEASE"
+        explanation: "That reads an installed release."
+    correct_option: a
+    explanation: "It downloads the archives and writes Chart.lock."
+
+  - id: ats001-040-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Identify release history"
+    source_readings:
+      - sections/section-040/module-04/course-02-uninstall-wait-and-inspecting-a-release.md
+      - sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+    prompt: "A release `demo` is at revision 2. You run `helm rollback demo 1`. What is the new current revision?"
+    options:
+      - id: a
+        text: "1, because revision 2 is deleted"
+        explanation: "History is kept and grows."
+      - id: b
+        text: "3, a new revision with the content of revision 1"
+        explanation: "Rollback adds a revision; history is not removed."
+      - id: c
+        text: "2, because nothing changes"
+        explanation: "A rollback creates a new revision."
+      - id: d
+        text: "0, because the release restarts"
+        explanation: "Revisions do not reset."
+    correct_option: b
+    explanation: "Rollback adds a revision; history is not removed."
+
+  - id: ats001-040-q11
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Assess rollback and uninstall effects"
+    source_readings:
+      - sections/section-040/module-04/course-02-uninstall-wait-and-inspecting-a-release.md
+    prompt: "What does `helm uninstall demo --keep-history` change compared with plain uninstall?"
+    options:
+      - id: a
+        text: "It keeps the Deployments running"
+        explanation: "The release objects are still deleted."
+      - id: b
+        text: "It keeps persistent data of the application outside the chart"
+        explanation: "That depends on the chart, not on this flag."
+      - id: c
+        text: "It keeps the revision records, so the release can be inspected and rolled back"
+        explanation: "Without it the history is deleted with the release."
+      - id: d
+        text: "It uninstalls only the newest revision"
+        explanation: "Uninstall removes the release, not one revision."
+    correct_option: c
+    explanation: "Without it the history is deleted with the release."
+
+  - id: ats001-040-q12
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Explain waiting and automatic rollback"
+    source_readings:
+      - sections/section-040/module-04/course-02-uninstall-wait-and-inspecting-a-release.md
+    prompt: "Which flag makes `helm upgrade` roll back to the previous revision by itself if the new Pods do not become ready?"
+    options:
+      - id: a
+        text: "--wait only"
+        explanation: "Wait fails the upgrade but does not roll back."
+      - id: b
+        text: "--dry-run=server"
+        explanation: "This validates and stores nothing."
+      - id: c
+        text: "--keep-history"
+        explanation: "That flag belongs to uninstall."
+      - id: d
+        text: "--atomic"
+        explanation: "Atomic implies --wait and rolls back on failure or timeout."
+    correct_option: d
+    explanation: "Atomic implies --wait and rolls back on failure or timeout."
+
+  - id: ats001-040-q13
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Identify release history in the correct namespace"
+    source_readings:
+      - sections/section-040/module-04/course-02-uninstall-wait-and-inspecting-a-release.md
+    prompt: "`helm list` shows nothing, but you installed a release in `starfleet`. What should you try?"
+    options:
+      - id: a
+        text: "helm list -n starfleet"
+        explanation: "Releases are stored in the namespace of the release and listed per namespace."
+      - id: b
+        text: "helm repo list"
+        explanation: "This lists repositories."
+      - id: c
+        text: "helm search repo starfleet"
+        explanation: "This searches charts."
+      - id: d
+        text: "helm history starfleet"
+        explanation: "History needs a release name."
+    correct_option: a
+    explanation: "Releases are stored in the namespace of the release and listed per namespace."
+
+  - id: ats001-040-q14
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Separate rendering, admission and application health"
+    source_readings:
+      - sections/section-040/module-03/course-02-values-precedence-and-local-rendering.md
+    prompt: "Which command validates rendered objects with the API server without storing them?"
+    options:
+      - id: a
+        text: "helm template RELEASE CHART"
+        explanation: "This renders locally only."
+      - id: b
+        text: "helm install RELEASE CHART --dry-run=server"
+        explanation: "The server dry run sends objects for validation and keeps nothing."
+      - id: c
+        text: "helm lint CHART"
+        explanation: "This checks chart files only."
+      - id: d
+        text: "helm show values CHART"
+        explanation: "This prints defaults."
+    correct_option: b
+    explanation: "The server dry run sends objects for validation and keeps nothing."

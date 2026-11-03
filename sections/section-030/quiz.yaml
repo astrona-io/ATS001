@@ -1,0 +1,311 @@
+# Knowledge check for the Kustomize section. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: "question_bank"
+id: "ats001-030"
+course_id: "ATS001"
+exam_code: "CKAD"
+status: "draft"
+provenance: "Original practice material written for this course; not official exam questions."
+scope:
+  type: "section"
+  id: "section-030"
+  title: "Kustomize"
+questions:
+  - id: ats001-030-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain a base, overlay and resource composition"
+    source_readings:
+      - sections/section-030/module-02/course-01-composing-resources-with-kustomize.md
+    prompt: "What is the role of a Kustomize base?"
+    options:
+      - id: a
+        text: "Reusable resources that overlays include and change"
+        explanation: "A base holds the shared definitions; an overlay lists them under resources and adds its own changes."
+      - id: b
+        text: "A controller that keeps applying files to the cluster"
+        explanation: "Kustomize builds YAML on the client side; it is not a running controller."
+      - id: c
+        text: "A database snapshot of the cluster"
+        explanation: "A base is a directory of resource files, not a backup."
+      - id: d
+        text: "A Helm chart stored in a repository"
+        explanation: "A base is a plain kustomization directory and has no template language."
+    correct_option: a
+    explanation: "A base holds the shared definitions; an overlay lists them under resources and adds its own changes."
+
+  - id: ats001-030-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Distinguish building a kustomization from applying it"
+    source_readings:
+      - sections/section-030/module-02/course-02-build-output-and-common-transformers.md
+    prompt: "Which command prints the rendered YAML of the directory `app` without contacting the cluster?"
+    options:
+      - id: a
+        text: "kubectl apply -k app"
+        explanation: "This builds and then sends the objects to the API server."
+      - id: b
+        text: "kubectl kustomize app"
+        explanation: "This runs the build on your machine and prints the result."
+      - id: c
+        text: "kubectl get -k app"
+        explanation: "This builds and then reads the live objects that the build names."
+      - id: d
+        text: "kubectl diff -f app"
+        explanation: "This compares a single manifest file; it does not build a kustomization."
+    correct_option: b
+    explanation: "This runs the build on your machine and prints the result."
+
+  - id: ats001-030-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Trace naming transformations"
+    source_readings:
+      - sections/section-030/module-02/course-02-build-output-and-common-transformers.md
+    prompt: "A kustomization sets `namePrefix: dev-` and a `replicas` entry for `name: crew`. The base Deployment is named `crew`. What does the build produce?"
+    options:
+      - id: a
+        text: "A Deployment named `crew` because prefixes only apply to Services"
+        explanation: "The prefix applies to every resource."
+      - id: b
+        text: "A build error because the replicas name must include the prefix"
+        explanation: "The entry uses the original name from the files."
+      - id: c
+        text: "A Deployment named `dev-crew` with the replica count from the entry"
+        explanation: "The replicas entry matches the name in the base files, and the prefix is applied to the output."
+      - id: d
+        text: "A Deployment named `dev-crew` with the replica count unchanged"
+        explanation: "The entry matches the original name, so the count changes."
+    correct_option: c
+    explanation: "The replicas entry matches the name in the base files, and the prefix is applied to the output."
+
+  - id: ats001-030-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Review final selectors"
+    source_readings:
+      - sections/section-030/module-02/course-02-build-output-and-common-transformers.md
+    prompt: "Why is `labels` safer than `commonLabels` when you apply a new label to an existing Deployment?"
+    options:
+      - id: a
+        text: "`labels` encrypts the label values"
+        explanation: "Neither field encrypts anything."
+      - id: b
+        text: "`labels` is applied by the cluster, not by the build"
+        explanation: "Both fields are applied during the build."
+      - id: c
+        text: "`commonLabels` only works on Services"
+        explanation: "It works on many kinds and also writes selectors."
+      - id: d
+        text: "`labels` leaves selectors alone unless includeSelectors is true, and a live selector cannot change"
+        explanation: "Changing a Deployment selector after creation is rejected by the API."
+    correct_option: d
+    explanation: "Changing a Deployment selector after creation is rejected by the API."
+
+  - id: ats001-030-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use the images transformer"
+    source_readings:
+      - sections/section-030/module-02/course-02-build-output-and-common-transformers.md
+    prompt: "Which entry changes the tag of every container image `docker.io/library/busybox` without editing the Deployment file?"
+    options:
+      - id: a
+        text: "An images entry with name docker.io/library/busybox and newTag"
+        explanation: "The images transformer matches by image name and sets a new name, tag or digest."
+      - id: b
+        text: "A labels entry with the image name"
+        explanation: "Labels change metadata, not images."
+      - id: c
+        text: "A namespace entry with the tag"
+        explanation: "The namespace field sets metadata.namespace only."
+      - id: d
+        text: "A replicas entry with the tag"
+        explanation: "Replicas sets counts only."
+    correct_option: a
+    explanation: "The images transformer matches by image name and sets a new name, tag or digest."
+
+  - id: ats001-030-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Compare schema-aware merge and ordered JSON operations"
+    source_readings:
+      - sections/section-030/module-03/course-01-targeted-patches-and-environment-differences.md
+    prompt: "A strategic merge patch names the container `probe` and sets one environment variable. What happens to a second container named `helper` in the base?"
+    options:
+      - id: a
+        text: "It is deleted because the patch lists one container"
+        explanation: "A strategic merge patch does not delete unlisted list items."
+      - id: b
+        text: "It stays unchanged, because containers are matched by name"
+        explanation: "Strategic merge uses the container name as the merge key."
+      - id: c
+        text: "It is renamed to probe"
+        explanation: "Names are the match key and are not changed."
+      - id: d
+        text: "The build fails because the list lengths differ"
+        explanation: "The lists are merged, not compared by length."
+    correct_option: b
+    explanation: "Strategic merge uses the container name as the merge key."
+
+  - id: ats001-030-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Write a JSON 6902 patch"
+    source_readings:
+      - sections/section-030/module-03/course-02-json-patches-targets-and-components.md
+    prompt: "Which patch operation removes the second container of a Deployment?"
+    options:
+      - id: a
+        text: "op: remove with path /spec/template/spec/containers/2"
+        explanation: "Index 2 is the third container."
+      - id: b
+        text: "op: replace with path /spec/template/spec/containers/1"
+        explanation: "Replace needs a value and does not delete."
+      - id: c
+        text: "op: remove with path /spec/template/spec/containers/1"
+        explanation: "Lists are zero-based, so index 1 is the second container."
+      - id: d
+        text: "op: add with path /spec/template/spec/containers/-"
+        explanation: "This appends a container."
+    correct_option: c
+    explanation: "Lists are zero-based, so index 1 is the second container."
+
+  - id: ats001-030-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose a precise patch target"
+    source_readings:
+      - sections/section-030/module-03/course-02-json-patches-targets-and-components.md
+    prompt: "A patch target has `name: crew.*`. Which resources can it match?"
+    options:
+      - id: a
+        text: "Only the resource named exactly crew.*, with the characters taken literally"
+        explanation: "The value is a regular expression, not a literal name."
+      - id: b
+        text: "Every resource in the kustomization"
+        explanation: "The kind and name still limit the match."
+      - id: c
+        text: "Only resources in the default namespace"
+        explanation: "Namespace is a separate field and is not implied."
+      - id: d
+        text: "Resources whose whole name matches the regular expression, such as crew and crew-extra"
+        explanation: "The name field is a regular expression that must match the whole name."
+    correct_option: d
+    explanation: "The name field is a regular expression that must match the whole name."
+
+  - id: ats001-030-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Describe a component"
+    source_readings:
+      - sections/section-030/module-03/course-02-json-patches-targets-and-components.md
+    prompt: "How does an overlay include a Kustomize component?"
+    options:
+      - id: a
+        text: "It lists the component directory under components"
+        explanation: "Components have kind Component and are listed under components, not resources."
+      - id: b
+        text: "It lists the directory under resources"
+        explanation: "Resources expects kustomizations or manifests, not a Component kind."
+      - id: c
+        text: "It copies the files into the base"
+        explanation: "Copying is not needed; components are referenced by path."
+      - id: d
+        text: "It passes the directory to kubectl apply -f"
+        explanation: "A component is only meaningful inside a build."
+    correct_option: a
+    explanation: "Components have kind Component and are listed under components, not resources."
+
+  - id: ats001-030-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain generated configuration references and hashes"
+    source_readings:
+      - sections/section-030/module-04/course-01-generating-configmaps-and-content-hashes.md
+    prompt: "A generated ConfigMap named `crew-settings` has its literal changed and the kustomization is applied. What happens to a Deployment that mounts it?"
+    options:
+      - id: a
+        text: "Nothing, because the Deployment keeps the old name"
+        explanation: "Kustomize rewrites the reference to the new hashed name."
+      - id: b
+        text: "The name gets a new hash, the Pod template changes and a rollout starts"
+        explanation: "The new hashed name is part of the Pod template."
+      - id: c
+        text: "The ConfigMap is edited in place and running Pods reload it"
+        explanation: "A new object is created; the old name is not edited."
+      - id: d
+        text: "The old ConfigMap is deleted by kubectl apply"
+        explanation: "Apply does not delete objects that have left the build output."
+    correct_option: b
+    explanation: "The new hashed name is part of the Pod template."
+
+  - id: ats001-030-q11
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Choose generator behavior in an overlay"
+    source_readings:
+      - sections/section-030/module-04/course-02-secrets-behavior-and-generator-options.md
+    prompt: "An overlay declares a configMapGenerator with the same name as the base and wants to keep the base keys but change one. Which setting does it need?"
+    options:
+      - id: a
+        text: "behavior: replace"
+        explanation: "Replace discards the base keys."
+      - id: b
+        text: "behavior: create"
+        explanation: "Create fails when the name already exists."
+      - id: c
+        text: "behavior: merge"
+        explanation: "Merge keeps the base keys, adds new keys and overwrites matching keys."
+      - id: d
+        text: "options: immutable: true"
+        explanation: "Immutable does not combine keys."
+    correct_option: c
+    explanation: "Merge keeps the base keys, adds new keys and overwrites matching keys."
+
+  - id: ats001-030-q12
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Describe Secret generation"
+    source_readings:
+      - sections/section-030/module-04/course-02-secrets-behavior-and-generator-options.md
+    prompt: "What does a `secretGenerator` literal protect?"
+    options:
+      - id: a
+        text: "It encrypts the value with the cluster key"
+        explanation: "The generator does not encrypt."
+      - id: b
+        text: "It hides the value from kubectl get -o yaml"
+        explanation: "The encoded value is visible there."
+      - id: c
+        text: "It removes the value from the kustomization file"
+        explanation: "The literal stays in the file."
+      - id: d
+        text: "Nothing beyond the Secret object, because the value is only base64 encoded"
+        explanation: "Base64 is an encoding and anyone who can read the file or Secret can decode it."
+    correct_option: d
+    explanation: "Base64 is an encoding and anyone who can read the file or Secret can decode it."
+
+  - id: ats001-030-q13
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Turn off the name hash on purpose"
+    source_readings:
+      - sections/section-030/module-04/course-02-secrets-behavior-and-generator-options.md
+    prompt: "What is the cost of `disableNameSuffixHash: true` on a generated ConfigMap that a Deployment mounts?"
+    options:
+      - id: a
+        text: "A change to the settings no longer changes the Pod template, so no rollout starts"
+        explanation: "The fixed name leaves the template unchanged."
+      - id: b
+        text: "The build fails when the content changes"
+        explanation: "The build still works."
+      - id: c
+        text: "The Deployment cannot reference the ConfigMap"
+        explanation: "The reference works with the fixed name."
+      - id: d
+        text: "The ConfigMap becomes a Secret"
+        explanation: "The kind does not change."
+    correct_option: a
+    explanation: "The fixed name leaves the template unchanged."

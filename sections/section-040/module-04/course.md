@@ -21,8 +21,9 @@ Use the module playground for guided practice. It provides an isolated kind clus
 ## Reading Order
 
 1. Release History, Upgrades And Controlled Recovery
-2. Upgrade A Release And Inspect Controlled Recovery
-3. Summary
+2. Uninstall, Wait And Inspecting A Release
+3. Upgrade A Release And Inspect Controlled Recovery
+4. Summary
 
 The playground provides the initial state for the guided practice. Keep it open while following the practical steps.
 

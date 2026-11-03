@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: probe
+  namespace: starfleet
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        environment: preview
+    spec:
+      containers:
+      - name: probe
+        env:
+        - name: VERSION
+          value: preview

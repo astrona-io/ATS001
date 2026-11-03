@@ -21,8 +21,9 @@ Use the module playground for guided practice. It provides an isolated kind clus
 ## Reading Order
 
 1. Charts, Values And The Rendered Application
-2. Install An Existing Chart And Inspect Effective Values
-3. Summary
+2. Values Precedence And Local Rendering
+3. Install An Existing Chart And Inspect Effective Values
+4. Summary
 
 The playground provides the initial state for the guided practice. Keep it open while following the practical steps.
 

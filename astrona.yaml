@@ -1,8 +1,10 @@
+---
 training:
   id: ATS001
   title: Application Deployment
-  description: Detailed CKAD teaching with module playgrounds, guided hands-on practice
-    and reusable YAML knowledge checks. Technical content remains draft for review.
+  description: >-
+    Detailed CKAD teaching with module playgrounds, guided hands-on practice and reusable YAML knowledge
+    checks. Technical content remains draft for review.
   certification:
     name: Certified Kubernetes Application Developer
     code: CKAD
@@ -10,8 +12,7 @@ training:
     domain: Application Deployment
     weight: 20
     competencies:
-    - Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green
-      or canary)
+    - Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
     - Understand Deployments and how to perform rolling updates
     - Use the Helm package manager to deploy existing packages
     - Kustomize
@@ -33,15 +34,14 @@ modules:
     title: How This Course Is Made
     path: sections/intro/course-03-how-this-course-is-made.md
 - id: module-010
-  title: Use Kubernetes primitives to implement common deployment strategies (e.g.
-    blue/green or canary)
-  description: Developed explanations and application reasoning for Use Kubernetes
-    primitives to implement common deployment strategies (e.g. blue/green or canary).
+  title: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+  description: >-
+    Developed explanations and application reasoning for Use Kubernetes primitives to implement common
+    deployment strategies (e.g. blue/green or canary).
   status: alpha
   content:
   - type: reading
-    title: Use Kubernetes primitives to implement common deployment strategies (e.g.
-      blue/green or canary)
+    title: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
     path: sections/section-010/README.md
   - type: reading
     title: A Prepared Blue-Green Switch
@@ -49,6 +49,9 @@ modules:
   - type: reading
     title: Switching Service Traffic Between Two Versions
     path: sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+  - type: reading
+    title: Selectors, Ports And Endpoints When A Switch Fails
+    path: sections/section-010/module-02/course-02-selectors-ports-and-endpoints-when-a-switch-fails.md
   - type: reading
     title: Switch A Service To A Ready Deployment — Task
     path: sections/section-010/module-02/labs/lab-01/question.md
@@ -60,26 +63,25 @@ modules:
     topic: blue-green
     task_kind: build
     learning_goals:
-    - Move the original Service to a ready version-two Deployment while preserving
-      the previous version.
+    - Move the original Service to a ready version-two Deployment while preserving the previous version.
     tags:
     - ckad
     - blue-green
   - type: reading
-    title: Switch A Service To A Ready Deployment — Solution
-    path: sections/section-010/module-02/labs/lab-01/solution.md
-  - type: reading
     title: Switch A Service Between Ready Versions
-    path: sections/section-010/module-02/course-02-guided-practice.md
+    path: sections/section-010/module-02/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-010/module-02/course-03-summary.md
+    path: sections/section-010/module-02/course-04-summary.md
   - type: reading
     title: Canary Exposure And Promotion
     path: sections/section-010/module-03/course.md
   - type: reading
     title: Reasoning About Canary Traffic With Ordinary Services
     path: sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+  - type: reading
+    title: Sizing, Promoting And Withdrawing A Canary
+    path: sections/section-010/module-03/course-02-sizing-promoting-and-withdrawing-a-canary.md
   - type: reading
     title: Configure Stable And Canary Backends — Task
     path: sections/section-010/module-03/labs/lab-01/question.md
@@ -91,24 +93,83 @@ modules:
     topic: canary
     task_kind: build
     learning_goals:
-    - Expose stable and canary Deployments through one Service without assuming exact
-      request percentages.
+    - Expose stable and canary Deployments through one Service without assuming exact request percentages.
     tags:
     - ckad
     - canary
   - type: reading
-    title: Configure Stable And Canary Backends — Solution
-    path: sections/section-010/module-03/labs/lab-01/solution.md
-  - type: reading
     title: Observe Canary Backends Without Assuming Exact Percentages
-    path: sections/section-010/module-03/course-02-guided-practice.md
+    path: sections/section-010/module-03/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-010/module-03/course-03-summary.md
+    path: sections/section-010/module-03/course-04-summary.md
+  - type: reading
+    title: Canary Routing With Ingress
+    path: sections/section-010/module-04/course.md
+  - type: reading
+    title: Routing A Host To Two Services With Ingress
+    path: sections/section-010/module-04/course-01-routing-a-host-to-two-services-with-ingress.md
+  - type: reading
+    title: Canary Annotations And Their Limits
+    path: sections/section-010/module-04/course-02-canary-annotations-and-their-limits.md
+  - type: reading
+    title: Create A Weighted Canary Ingress — Task
+    path: sections/section-010/module-04/labs/lab-01/question.md
+  - type: lab
+    title: Create A Weighted Canary Ingress
+    path: sections/section-010/module-04/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 20m
+    topic: canary-ingress
+    task_kind: build
+    learning_goals:
+    - Add a canary Ingress with a weight beside an existing primary Ingress.
+    tags:
+    - ckad
+    - canary
+    - ingress
+    resources:
+    - name: Kubernetes Ingress
+      url: https://kubernetes.io/docs/concepts/services-networking/ingress/
+    - name: NGINX Ingress canary annotations
+      url: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#canary
+  - type: reading
+    title: Practise Canary Ingress Objects
+    path: sections/section-010/module-04/course-03-practise-canary-ingress-objects.md
+  - type: reading
+    title: Summary
+    path: sections/section-010/module-04/course-04-summary.md
+  - type: reading
+    title: Blue-Green And Canary Release Capstone — Task
+    path: sections/section-010/capstone/labs/lab-01/question.md
+  - type: lab
+    title: Blue-Green And Canary Release Capstone
+    path: sections/section-010/capstone/labs/lab-01
+    difficulty: advanced
+    estimated_duration: 30m
+    topic: deployment-strategies
+    task_kind: build
+    learning_goals:
+    - Switch a Service to a prepared green Deployment
+    - Add a one-replica canary to a shared Service
+    tags:
+    - ckad
+    - blue-green
+    - canary
+    resources:
+    - name: Kubernetes Services
+      url: https://kubernetes.io/docs/concepts/services-networking/service/
+    - name: Kubernetes Deployments
+      url: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+  - type: quiz
+    title: 'Knowledge Check: Blue-Green And Canary Deployments'
+    path: sections/section-010/quiz.yaml
+    pass_score: 70
 - id: module-020
   title: Understand Deployments and how to perform rolling updates
-  description: Developed explanations and application reasoning for Understand Deployments
-    and how to perform rolling updates.
+  description: >-
+    Developed explanations and application reasoning for Understand Deployments and how to perform rolling
+    updates.
   status: alpha
   content:
   - type: reading
@@ -139,9 +200,6 @@ modules:
     - ckad
     - rolling-update
   - type: reading
-    title: Perform A Rolling Template Update — Solution
-    path: sections/section-020/module-03/labs/lab-01/solution.md
-  - type: reading
     title: Perform And Inspect A Rolling Template Update
     path: sections/section-020/module-03/course-03-guided-practice.md
   - type: reading
@@ -169,9 +227,6 @@ modules:
     - ckad
     - rollout
   - type: reading
-    title: Recover A Failed Deployment Update — Solution
-    path: sections/section-020/module-04/labs/lab-01/solution.md
-  - type: reading
     title: Reproduce, Correct And Verify
     path: sections/section-020/module-04/course-02-reproduce-correct-and-verify.md
   - type: reading
@@ -180,6 +235,99 @@ modules:
   - type: reading
     title: Summary
     path: sections/section-020/module-04/course-04-summary.md
+  - type: reading
+    title: Revision History And Rollback
+    path: sections/section-020/module-05/course.md
+  - type: reading
+    title: Recording And Reading Revision History
+    path: sections/section-020/module-05/course-01-recording-and-reading-revision-history.md
+  - type: reading
+    title: Rolling Back To A Chosen Revision
+    path: sections/section-020/module-05/course-02-rolling-back-to-a-chosen-revision.md
+  - type: reading
+    title: Roll Back To A Named Revision — Task
+    path: sections/section-020/module-05/labs/lab-01/question.md
+  - type: lab
+    title: Roll Back To A Named Revision
+    path: sections/section-020/module-05/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 20m
+    topic: rollback
+    task_kind: troubleshooting
+    learning_goals:
+    - Return a Deployment to a named revision and record the cause.
+    tags:
+    - ckad
+    - rollout
+    - rollback
+    resources:
+    - name: 'Kubernetes Deployments: rolling back'
+      url: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment
+  - type: reading
+    title: Practise History And Rollback
+    path: sections/section-020/module-05/course-03-practise-history-and-rollback.md
+  - type: reading
+    title: Summary
+    path: sections/section-020/module-05/course-04-summary.md
+  - type: reading
+    title: Deployment Strategy, Scaling And Pause
+    path: sections/section-020/module-06/course.md
+  - type: reading
+    title: Choosing A Deployment Strategy
+    path: sections/section-020/module-06/course-01-choosing-a-deployment-strategy.md
+  - type: reading
+    title: Pausing A Rollout To Batch Changes
+    path: sections/section-020/module-06/course-02-pausing-a-rollout-to-batch-changes.md
+  - type: reading
+    title: Switch To Recreate And Scale With One Rollout — Task
+    path: sections/section-020/module-06/labs/lab-01/question.md
+  - type: lab
+    title: Switch To Recreate And Scale With One Rollout
+    path: sections/section-020/module-06/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 20m
+    topic: deployment-strategy
+    task_kind: build
+    learning_goals:
+    - Change the strategy to Recreate, scale and update a Deployment in one rollout.
+    tags:
+    - ckad
+    - rollout
+    - recreate
+    - pause
+    resources:
+    - name: 'Kubernetes Deployments: strategy'
+      url: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+  - type: reading
+    title: Practise Strategy, Scaling And Pause
+    path: sections/section-020/module-06/course-03-practise-strategy-scaling-and-pause.md
+  - type: reading
+    title: Summary
+    path: sections/section-020/module-06/course-04-summary.md
+  - type: reading
+    title: Deployment Rollout Repair And Strategy Capstone — Task
+    path: sections/section-020/capstone/labs/lab-01/question.md
+  - type: lab
+    title: Deployment Rollout Repair And Strategy Capstone
+    path: sections/section-020/capstone/labs/lab-01
+    difficulty: advanced
+    estimated_duration: 30m
+    topic: deployments
+    task_kind: troubleshooting
+    learning_goals:
+    - Roll a Deployment back to its last working revision
+    - Switch a Deployment to Recreate and scale it
+    tags:
+    - ckad
+    - rollout
+    - recreate
+    resources:
+    - name: Kubernetes Deployments
+      url: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+  - type: quiz
+    title: 'Knowledge Check: Deployments And Rolling Updates'
+    path: sections/section-020/quiz.yaml
+    pass_score: 70
 - id: module-030
   title: Kustomize
   description: Developed explanations and application reasoning for Kustomize.
@@ -204,20 +352,23 @@ modules:
     estimated_duration: 25m
     topic: kustomize-base
     task_kind: build
-    learning_goals:
-    - Compose and apply a self-contained Kustomize base with a declared Pod label.
     tags:
     - ckad
     - kustomize-base
+    learning_goals:
+    - Compose and apply a self-contained Kustomize base with a declared Pod label.
+    resources:
+    - name: Kustomize
+      url: https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
   - type: reading
-    title: Apply A Kustomize Base — Solution
-    path: sections/section-030/module-02/labs/lab-01/solution.md
+    title: Build Output And Common Transformers
+    path: sections/section-030/module-02/course-02-build-output-and-common-transformers.md
   - type: reading
     title: Render And Apply A Self-Contained Kustomize Base
-    path: sections/section-030/module-02/course-02-guided-practice.md
+    path: sections/section-030/module-02/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-030/module-02/course-03-summary.md
+    path: sections/section-030/module-02/course-04-summary.md
   - type: reading
     title: Focused Patches For Environment Changes
     path: sections/section-030/module-03/course.md
@@ -234,24 +385,89 @@ modules:
     estimated_duration: 25m
     topic: kustomize-overlay
     task_kind: build
-    learning_goals:
-    - Use a targeted overlay to change capacity, labels and configuration.
     tags:
     - ckad
     - kustomize-overlay
+    learning_goals:
+    - Use a targeted overlay to change capacity, labels and configuration.
+    resources:
+    - name: Kustomize
+      url: https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
   - type: reading
-    title: Patch A Preview With Kustomize — Solution
-    path: sections/section-030/module-03/labs/lab-01/solution.md
+    title: JSON Patches, Targets And Components
+    path: sections/section-030/module-03/course-02-json-patches-targets-and-components.md
   - type: reading
     title: Patch One Environment Without Editing Its Base
-    path: sections/section-030/module-03/course-02-guided-practice.md
+    path: sections/section-030/module-03/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-030/module-03/course-03-summary.md
+    path: sections/section-030/module-03/course-04-summary.md
+  - type: reading
+    title: Generating ConfigMaps And Secrets With Kustomize
+    path: sections/section-030/module-04/course.md
+  - type: reading
+    title: Generating ConfigMaps And Content Hashes
+    path: sections/section-030/module-04/course-01-generating-configmaps-and-content-hashes.md
+  - type: reading
+    title: Secrets, Behavior And Generator Options
+    path: sections/section-030/module-04/course-02-secrets-behavior-and-generator-options.md
+  - type: reading
+    title: Generate A ConfigMap With Kustomize — Task
+    path: sections/section-030/module-04/labs/lab-01/question.md
+  - type: lab
+    title: Generate A ConfigMap With Kustomize
+    path: sections/section-030/module-04/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: kustomize-generator
+    task_kind: build
+    tags:
+    - ckad
+    - kustomize
+    - configmapgenerator
+    learning_goals:
+    - Generate a ConfigMap with a hashed name, mount it in a Deployment and apply it with kubectl apply
+      -k
+    resources:
+    - name: Kustomize
+      url: https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
+  - type: reading
+    title: Generate Settings And Roll Them Out
+    path: sections/section-030/module-04/course-03-guided-practice.md
+  - type: reading
+    title: Summary
+    path: sections/section-030/module-04/course-04-summary.md
+  - type: reading
+    title: Kustomize Section Capstone — Task
+    path: sections/section-030/capstone/labs/lab-01/question.md
+  - type: lab
+    title: 'Kustomize Section Capstone: Production Overlay'
+    path: sections/section-030/capstone/labs/lab-01
+    difficulty: advanced
+    estimated_duration: 35m
+    topic: kustomize-capstone
+    task_kind: build
+    tags:
+    - ckad
+    - kustomize
+    - patches
+    - configmapgenerator
+    - labels
+    learning_goals:
+    - Build an overlay that combines a JSON 6902 patch, a generated ConfigMap and a label transformer
+    - Keep the Deployment selector unchanged and the base unedited
+    resources:
+    - name: Kustomize
+      url: https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
+  - type: quiz
+    title: 'Knowledge Check: Kustomize'
+    path: sections/section-030/quiz.yaml
+    pass_score: 70
 - id: module-040
   title: Use the Helm package manager to deploy existing packages
-  description: Developed explanations and application reasoning for Use the Helm package
-    manager to deploy existing packages.
+  description: >-
+    Developed explanations and application reasoning for Use the Helm package manager to deploy existing
+    packages.
   status: alpha
   content:
   - type: reading
@@ -273,21 +489,23 @@ modules:
     estimated_duration: 25m
     topic: helm-install
     task_kind: build
-    learning_goals:
-    - Install an existing bundled chart and verify release ownership and effective
-      values.
     tags:
     - ckad
     - helm-install
+    learning_goals:
+    - Install an existing bundled chart and verify release ownership and effective values.
+    resources:
+    - name: Helm documentation
+      url: https://helm.sh/docs/
   - type: reading
-    title: Install A Chart With Explicit Values — Solution
-    path: sections/section-040/module-03/labs/lab-01/solution.md
+    title: Values Precedence And Local Rendering
+    path: sections/section-040/module-03/course-02-values-precedence-and-local-rendering.md
   - type: reading
     title: Install An Existing Chart And Inspect Effective Values
-    path: sections/section-040/module-03/course-02-guided-practice.md
+    path: sections/section-040/module-03/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-040/module-03/course-03-summary.md
+    path: sections/section-040/module-03/course-04-summary.md
   - type: reading
     title: Release Operations And Recovery Limits
     path: sections/section-040/module-04/course.md
@@ -304,17 +522,84 @@ modules:
     estimated_duration: 25m
     topic: helm-upgrade
     task_kind: build
-    learning_goals:
-    - Upgrade a release and verify its new revision, effective values and response.
     tags:
     - ckad
     - helm-upgrade
+    learning_goals:
+    - Upgrade a release and verify its new revision, effective values and response.
+    resources:
+    - name: Helm documentation
+      url: https://helm.sh/docs/
   - type: reading
-    title: Upgrade An Existing Helm Release — Solution
-    path: sections/section-040/module-04/labs/lab-01/solution.md
+    title: Uninstall, Wait And Inspecting A Release
+    path: sections/section-040/module-04/course-02-uninstall-wait-and-inspecting-a-release.md
   - type: reading
     title: Upgrade A Release And Inspect Controlled Recovery
-    path: sections/section-040/module-04/course-02-guided-practice.md
+    path: sections/section-040/module-04/course-03-guided-practice.md
   - type: reading
     title: Summary
-    path: sections/section-040/module-04/course-03-summary.md
+    path: sections/section-040/module-04/course-04-summary.md
+  - type: reading
+    title: Finding, Packaging And Installing Charts
+    path: sections/section-040/module-05/course.md
+  - type: reading
+    title: Chart Repositories And Versions
+    path: sections/section-040/module-05/course-01-chart-repositories-and-versions.md
+  - type: reading
+    title: Archives, Dependencies And Pulling Charts
+    path: sections/section-040/module-05/course-02-archives-dependencies-and-pulling-charts.md
+  - type: reading
+    title: Package A Chart And Install It From The Archive — Task
+    path: sections/section-040/module-05/labs/lab-01/question.md
+  - type: lab
+    title: Package A Chart And Install It From The Archive
+    path: sections/section-040/module-05/labs/lab-01
+    difficulty: intermediate
+    estimated_duration: 25m
+    topic: helm-package
+    task_kind: build
+    tags:
+    - ckad
+    - helm-package
+    - helm-install
+    learning_goals:
+    - Package a chart at a new version and install the archive with a values file
+    - Verify the chart version, supplied values and replicas of the release
+    resources:
+    - name: Helm documentation
+      url: https://helm.sh/docs/
+  - type: reading
+    title: Serve A Local Repository And Install From It
+    path: sections/section-040/module-05/course-03-serve-a-local-repository-and-install-from-it.md
+  - type: reading
+    title: Summary
+    path: sections/section-040/module-05/course-04-summary.md
+  - type: reading
+    title: Helm Section Capstone — Task
+    path: sections/section-040/capstone/labs/lab-01/question.md
+  - type: lab
+    title: 'Helm Section Capstone: Recover And Update A Release'
+    path: sections/section-040/capstone/labs/lab-01
+    difficulty: advanced
+    estimated_duration: 35m
+    topic: helm-capstone
+    task_kind: build
+    tags:
+    - ckad
+    - helm-rollback
+    - helm-upgrade
+    - helm-uninstall
+    learning_goals:
+    - Read release history and roll a release back to its first revision
+    - Upgrade with a values file and uninstall an unused release in another namespace
+    resources:
+    - name: Helm documentation
+      url: https://helm.sh/docs/
+  - type: quiz
+    title: 'Knowledge Check: Helm'
+    path: sections/section-040/quiz.yaml
+    pass_score: 70
+  - type: quiz
+    title: 'Final Knowledge Check: Application Deployment'
+    path: sections/final-domain-quiz.yaml
+    pass_score: 70

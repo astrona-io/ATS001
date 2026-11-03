@@ -205,7 +205,7 @@ The official objectives are listed in `astrona.yaml` and mapped in `CURRICULUM.m
 
 ### Playground and guided-practice scope
 
-On 2026-10-12 the maintainer requested CKAD playgrounds and hands-on teaching. This supersedes the earlier no-playgrounds instruction for CKAD. Add one ungraded environment per module and weave concrete practice into the reading order. Keep the existing YAML knowledge checks. No new graded labs or submission workflow are added in this scope.
+On 2026-10-12 the maintainer requested CKAD playgrounds and hands-on teaching. This supersedes the earlier no-playgrounds instruction for CKAD. Add one ungraded environment per module and weave concrete practice into the reading order. Keep the existing YAML knowledge checks. The 2026-10-13 maintainer request extends this scope to graded labs. Register each independent lab immediately after its teaching reading, with a task, solution, guarded bootstrap, reference repair and behavior grader. Keep technical pages draft until review.
 
 Playgrounds use the Astrona configuration contract, isolated kubeconfigs and bounded bootstrap waits. Do not write to unrelated clusters. Landing pages carry the playground launch marker, every practical reading renews it before the first step, and the final summary ends with the destroy marker. The shared writing and lifecycle guidance above applies to these environments.
 
@@ -224,17 +224,16 @@ self-contained-page and Mermaid rules apply throughout.
 
 ### Reusable question data
 
-Write original single-choice questions as YAML banks under section folders and
-`assessments/`. Use the versioned contract in `schemas/question-bank.schema.json`
-and teaching order in `assessments/index.yaml`. Each bank has 5–15 questions with
-stable IDs, one correct option, per-option feedback, a measurable learning
-objective and source reading paths for author traceability.
+Write original single-choice questions as one YAML bank per section
+(`sections/section-0N0/quiz.yaml`) plus `sections/final-domain-quiz.yaml`.
+Register each bank in `astrona.yaml` as a `type: quiz` entry; the manifest
+order is the teaching order. Each bank has 5–15 questions with stable IDs, one
+correct option, per-option feedback, a measurable learning objective and
+source reading paths for author traceability. See `ASSESSMENTS.md`.
 
-Do not register YAML as a Markdown reading. A future renderer consumes the bank
-index and presents the checkpoint after its declared reading, preserving bank
-order when several share an anchor. Do not expose answer keys before submission
-in a production quiz interface. These public banks are practice material, not
-secure or official exam questions.
+Do not expose answer keys before submission in a production quiz interface.
+These public banks are practice material, not secure or official exam
+questions.
 
 ### Review and authoring checks
 
@@ -248,6 +247,23 @@ verified on 2026-10-11. Detailed reading expansions were written on 2026-10-11.
 Validate manifest paths, summary ordering, curriculum coverage and question
 contracts. Record actual runtime evidence when available. Static validation is not live verification; do not invent command output.
 
-### Preserved earlier content
+### Course structure and legacy content
 
-Existing teaching, examples and lab assets remain unchanged outside the new reading manifest. LEGACY-CONTENT.json records their paths and hashes. Do not overwrite them while developing the new reading modules. New modules use previously unused IDs.
+The course has 13 taught modules, four section capstones and 17 graded labs
+(13 module labs plus 4 capstones). Module IDs are not contiguous:
+
+| Section | Taught modules | Capstone |
+| --- | --- | --- |
+| 010 | 02, 03, 04 | `section-010/capstone` |
+| 020 | 03, 04, 05, 06 | `section-020/capstone` |
+| 030 | 02, 03, 04 | `section-030/capstone` |
+| 040 | 03, 04, 05 | `section-040/capstone` |
+
+`astrona.yaml` is the source of truth for what is taught; `AUTHORING.yaml`
+mirrors it. `sections/` holds only taught content. Six earlier modules
+(010/module-01, 020/module-01, 020/module-02, 030/module-01, 040/module-01,
+040/module-02) are in the top-level `legacy/` folder, in their old style. They
+are not listed in `astrona.yaml`, and the taught modules cover their
+objectives. `LEGACY-CONTENT.json` records their paths and hashes. Do not edit
+them. To reuse one, rewrite it to the writing rules above, give it an unused
+module ID under `sections/` and list it in `astrona.yaml`.

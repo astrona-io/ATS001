@@ -1,0 +1,108 @@
+---
+draft: true
+exam_objectives:
+- Use the Helm package manager to deploy existing packages
+---
+# Helm Section Capstone: Recover And Update A Release
+
+Release `crew` in `starfleet` was upgraded to version `v2` by mistake. A second release, `scratch`, was installed in `outpost` for a test and is no longer needed.
+
+## Objective
+
+Read the release history, return the release to its first revision, apply the intended update from a values file and remove the unused release.
+
+## Starting state
+
+Release `crew` is at revision 2 with `version: v2` and one replica. Revision 1 had `version: v1`. Release `scratch` exists in the `outpost` namespace. The client Pod `shuttle` in `starfleet` is healthy.
+
+Use a host shell with this lab's private kubeconfig. A kubeconfig identifies the cluster and credentials used by kubectl, the Kubernetes command-line tool. This environment is separate from the ungraded playground.
+
+```sh
+export KUBECONFIG="$(astrona kubeconfig ats-001-lab-040-capstone-01)"
+test "$(kubectl config current-context)" = "kind-astro-ats-001-lab-040-capstone-01" || exit 1
+```
+
+Keep this connection selected throughout the task. Every script supplied by the lab refuses a different context.
+
+The chart that both releases use is below. Save its files in a local `chart` directory before you upgrade.
+
+Save this as `chart/Chart.yaml`:
+
+```yaml
+apiVersion: v2
+name: probe-chart
+version: 0.1.0
+appVersion: v1
+type: application
+```
+
+Save this as `chart/values.yaml`:
+
+```yaml
+replicaCount: 1
+version: v1
+```
+
+Save this as `chart/templates/application.yaml`:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helm-probe
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: helm-probe
+  template:
+    metadata:
+      labels:
+        app: helm-probe
+    spec:
+      containers:
+      - name: probe
+        image: docker.io/library/python:3.13-alpine
+        command: [python, /app/server.py]
+        env:
+        - name: VERSION
+          value: {{ .Values.version | quote }}
+        ports:
+        - name: http
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+        volumeMounts:
+        - name: app
+          mountPath: /app
+      volumes:
+      - name: app
+        configMap:
+          name: probe-code
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helm-probe
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: helm-probe
+  ports:
+  - port: 80
+    targetPort: http
+```
+
+
+## Required result
+
+Inspect the history of `crew`. Roll `crew` back to revision 1 and wait for it to be ready. Then save a values file named `crew-values.yaml` with `replicaCount: 2` and `version: "v1.1"`, and upgrade `crew` with `-f crew-values.yaml` from the local chart. Uninstall the release `scratch` in `outpost`. Grading checks that `crew` is deployed at revision 4, that its history contains a rollback to revision 1, that the supplied values match the file, that two replicas are ready and that the Service answers with `version=v1.1`. It also checks that `scratch` no longer exists.
+
+## Verify The Result
+
+Wait for the rollback and the upgrade to finish before you submit. Inspect actual results rather than relying on a sample transcript.

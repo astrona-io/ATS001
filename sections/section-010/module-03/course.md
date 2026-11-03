@@ -14,6 +14,7 @@ Suppose four ready application Pods run the established version and one runs a r
 - Estimate exposure from ready endpoints with stated limits.
 - Choose version-specific promotion evidence.
 - Distinguish withdrawal from full release promotion.
+- Size a canary with replica counts and scale it with kubectl.
 
 ## Before You Start
 
@@ -22,8 +23,10 @@ Use the module playground for guided practice. It provides an isolated kind clus
 ## Reading Order
 
 1. Reasoning About Canary Traffic With Ordinary Services
-2. Observe Canary Backends Without Assuming Exact Percentages
-3. Summary
+2. Sizing, Promoting And Withdrawing A Canary
+3. Configure Stable And Canary Backends
+4. Observe Canary Backends Without Assuming Exact Percentages
+5. Summary
 
 The playground provides the initial state for the guided practice. Keep it open while following the practical steps.
 

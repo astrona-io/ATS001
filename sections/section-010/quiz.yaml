@@ -1,0 +1,310 @@
+# Knowledge check for section 010. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats001-section-010
+course_id: ATS001
+exam_code: CKAD
+status: draft
+provenance: Original practice material; not official examination questions.
+scope:
+  type: section
+  id: section-010
+  title: "Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)"
+questions:
+- id: ats001-section-010-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Explain Service selection across two versions.
+  source_readings:
+  - sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+  prompt: A public Service selects app=scout without a version label, and both blue and green Pods carry
+    that label. What follows?
+  options:
+  - id: a
+    text: Only the newest image digest is selected
+    explanation: Image identity is not automatically part of label selection.
+  - id: b
+    text: Both eligible version sets can enter the backend pool
+    explanation: The Service selector includes all matching eligible Pods.
+  - id: c
+    text: Only the older Deployment is selected automatically
+    explanation: A Service does not infer an active version from Deployment age.
+  correct_option: b
+  explanation: The Service selector includes all matching eligible Pods.
+- id: ats001-section-010-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Verify readiness, capacity and backend ports.
+  source_readings:
+  - sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+  prompt: Green Pods exist but are not ready. What is the risk of switching the only public Service to
+    them?
+  options:
+  - id: a
+    text: The Service can have no useful ready backend capacity
+    explanation: Pod existence does not establish readiness or sufficient eligible endpoints.
+  - id: b
+    text: The switch automatically repairs their dependencies
+    explanation: Selection does not correct application prerequisites.
+  - id: c
+    text: The green Deployment automatically receives blue's memory state
+    explanation: Traffic selection does not copy process state.
+  correct_option: a
+  explanation: Pod existence does not establish readiness or sufficient eligible endpoints.
+- id: ats001-section-010-q03
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Evaluate the conditions for safe traffic rollback.
+  source_readings:
+  - sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+  prompt: Green has made a data change that blue cannot read. Why can routing rollback be unsafe?
+  options:
+  - id: a
+    text: A Service selector can never be changed twice
+    explanation: Selectors can be changed, but compatibility determines whether that helps.
+  - id: b
+    text: Kubernetes deletes every old Pod immediately after a switch
+    explanation: The switch itself does not universally remove the earlier Deployment.
+  - id: c
+    text: The earlier application is incompatible with current data
+    explanation: Returning traffic to blue does not reverse external data changes.
+  correct_option: c
+  explanation: Returning traffic to blue does not reverse external data changes.
+- id: ats001-section-010-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Estimate exposure from ready endpoints with stated limits.
+  source_readings:
+  - sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+  prompt: Four ready stable endpoints and one ready canary endpoint guarantee what request percentage?
+  options:
+  - id: a
+    text: Exactly twenty percent of all response bytes
+    explanation: Backend count does not control response size or byte volume.
+  - id: b
+    text: No exact HTTP request percentage
+    explanation: Endpoint ratio influences selection but connections, affinity and traffic patterns affect
+      requests.
+  - id: c
+    text: Exactly twenty percent of every user's requests
+    explanation: A count ratio does not provide that per-user guarantee.
+  correct_option: b
+  explanation: Endpoint ratio influences selection but connections, affinity and traffic patterns affect
+    requests.
+- id: ats001-section-010-q05
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Choose version-specific promotion evidence.
+  source_readings:
+  - sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+  prompt: Which evidence best supports promoting a canary?
+  options:
+  - id: a
+    text: Version-specific correctness, error and latency observations over a useful window
+    explanation: Promotion should evaluate meaningful behavior with exposure context.
+  - id: b
+    text: Only that the canary Pod is Running
+    explanation: A running process can still fail important requests.
+  - id: c
+    text: Only that its desired replica count is one
+    explanation: Replica intent does not demonstrate useful behavior.
+  correct_option: a
+  explanation: Promotion should evaluate meaningful behavior with exposure context.
+- id: ats001-section-010-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Diagnose a Service that selects no Pods after a switch"
+  source_readings:
+  - sections/section-010/module-02/course-02-selectors-ports-and-endpoints-when-a-switch-fails.md
+  prompt: "You change the selector of Service `probe` to `release: probe-green`. Requests fail at once. The green Pods are running and ready. What do you check first?"
+  options:
+  - id: a
+    text: "Restart the green Deployment."
+    explanation: "Restarting does not change labels, so a mismatch stays."
+  - id: b
+    text: "Delete the blue Deployment."
+    explanation: "Deleting blue removes the rollback path and does not fix a label mismatch."
+  - id: c
+    text: "Compare the Service selector with the labels on the green Pods, then read the EndpointSlice."
+    explanation: "The EndpointSlice lists ready Pods that match the selector. An empty list points to a label mismatch."
+  - id: d
+    text: "Increase the Service port number."
+    explanation: "The port number is not related to Pod selection."
+  correct_option: c
+  explanation: "A Service builds its backend list from Pods whose labels contain every selector pair, so a mismatch gives an empty list."
+- id: ats001-section-010-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Distinguish a port mapping failure from a selector failure"
+  source_readings:
+  - sections/section-010/module-02/course-02-selectors-ports-and-endpoints-when-a-switch-fails.md
+  prompt: "The EndpointSlice of a Service lists two ready Pod addresses with port 9090, but requests end with a connection error. The container listens on port 8080. What is wrong?"
+  options:
+  - id: a
+    text: "The selector matches no Pods."
+    explanation: "The EndpointSlice lists addresses, so the selector matches."
+  - id: b
+    text: "The `targetPort` is 9090 but the container listens on 8080."
+    explanation: "The Service forwards to the target port, so nothing accepts the connection."
+  - id: c
+    text: "The Pods are not ready."
+    explanation: "Endpoints that are listed with ready Pods show the problem is the port."
+  - id: d
+    text: "The Service has no cluster IP address."
+    explanation: "A Service with a selector always receives a cluster IP address unless it is headless."
+  correct_option: b
+  explanation: "Using the container port name as `targetPort` avoids this kind of mismatch."
+- id: ats001-section-010-q08
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Choose a command that changes a Service selector"
+  source_readings:
+  - sections/section-010/module-02/course-02-selectors-ports-and-endpoints-when-a-switch-fails.md
+  prompt: "Which command replaces the selector of the Service `probe` without editing YAML?"
+  options:
+  - id: a
+    text: "`kubectl -n starfleet set selector service probe app=probe,release=probe-green`"
+    explanation: "`set selector` replaces the label selector of a Service."
+  - id: b
+    text: "`kubectl -n starfleet scale service probe --replicas=2`"
+    explanation: "A Service has no replicas."
+  - id: c
+    text: "`kubectl -n starfleet rollout undo service probe`"
+    explanation: "Rollout commands apply to Deployments, DaemonSets and StatefulSets."
+  - id: d
+    text: "`kubectl -n starfleet label service probe release=probe-green`"
+    explanation: "This adds a label to the Service object. It does not change the Pod selector."
+  correct_option: a
+  explanation: "The `set selector` command is the short form of patching `spec.selector`."
+- id: ats001-section-010-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Size a canary with replica counts"
+  source_readings:
+  - sections/section-010/module-03/course-02-sizing-promoting-and-withdrawing-a-canary.md
+  prompt: "A Service selects `app: web`. Deployment `web-stable` has 9 ready replicas and `web-canary` has 1 ready replica. About what share of new connections reaches the canary, and what is the limit of this number?"
+  options:
+  - id: a
+    text: "About 10 percent, as an estimate from endpoint counts, because open connections stay on the Pod they reached."
+    explanation: "The share follows the ready endpoints, but clients that keep connections do not rebalance."
+  - id: b
+    text: "Exactly 10 percent, because the Service guarantees weights."
+    explanation: "A Service has no weight guarantee."
+  - id: c
+    text: "50 percent, because there are two Deployments."
+    explanation: "The share follows Pods, not Deployments."
+  - id: d
+    text: "0 percent, because canary Pods need a separate Service."
+    explanation: "A shared label puts the canary Pods behind the same Service."
+  correct_option: a
+  explanation: "A Service-based canary is an estimate. Use an Ingress with weights for finer control."
+- id: ats001-section-010-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Choose the correct promotion order for a canary"
+  source_readings:
+  - sections/section-010/module-03/course-02-sizing-promoting-and-withdrawing-a-canary.md
+  prompt: "The canary looks healthy. What is the correct way to promote it with two Deployments?"
+  options:
+  - id: a
+    text: "Delete the canary first, then update the stable Deployment."
+    explanation: "Capacity of the new version is lost during the gap."
+  - id: b
+    text: "Update the stable Deployment to the new template, wait for its rollout, then scale the canary to zero or delete it."
+    explanation: "The stable Pods become the new version before the canary is removed, so capacity never drops."
+  - id: c
+    text: "Scale the stable Deployment to zero, then keep only the canary."
+    explanation: "This removes almost all capacity at once."
+  - id: d
+    text: "Change the Service port to the canary port."
+    explanation: "Ports do not select versions."
+  correct_option: b
+  explanation: "Promotion moves the stable set to the new version first and removes the canary second."
+- id: ats001-section-010-q11
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Prevent two Deployments from owning the same Pods"
+  source_readings:
+  - sections/section-010/module-03/course-02-sizing-promoting-and-withdrawing-a-canary.md
+  prompt: "Both the stable and canary Deployments use the selector `app: probe`. What goes wrong?"
+  options:
+  - id: a
+    text: "Nothing, because selectors only matter for Services."
+    explanation: "Deployments use their selector to find Pods they own."
+  - id: b
+    text: "The Service stops working."
+    explanation: "The Service still selects the Pods, but the controllers conflict."
+  - id: c
+    text: "The Pods use the wrong image."
+    explanation: "The image comes from the template."
+  - id: d
+    text: "Each controller counts the other's Pods as its own, so replica counts conflict."
+    explanation: "Deployment selectors must be distinct for each Deployment."
+  correct_option: d
+  explanation: "Use a shared label for the Service and a distinct `release` label for each Deployment."
+- id: ats001-section-010-q12
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Describe what an Ingress needs to route traffic"
+  source_readings:
+  - sections/section-010/module-04/course-01-routing-a-host-to-two-services-with-ingress.md
+  prompt: "You apply an Ingress in a cluster that has no Ingress controller. What happens?"
+  options:
+  - id: a
+    text: "The API server rejects the object."
+    explanation: "The API server does not require a controller to exist."
+  - id: b
+    text: "The API server stores the object, but no traffic is routed."
+    explanation: "A controller must watch the Ingress and configure the proxy."
+  - id: c
+    text: "The kube-proxy component routes the traffic."
+    explanation: "kube-proxy handles Services, not Ingress rules."
+  - id: d
+    text: "The Ingress creates its own controller Pod."
+    explanation: "An Ingress does not create a controller."
+  correct_option: b
+  explanation: "The Ingress is a set of rules. The controller acts on them."
+- id: ats001-section-010-q13
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Configure a canary Ingress"
+  source_readings:
+  - sections/section-010/module-04/course-02-canary-annotations-and-their-limits.md
+  prompt: "Which setup sends about 20 percent of requests for a host to a canary Service with the NGINX Ingress controller?"
+  options:
+  - id: a
+    text: "A second Ingress for the same host and path that points to the canary Service and has the annotations `nginx.ingress.kubernetes.io/canary: \"true\"` and `nginx.ingress.kubernetes.io/canary-weight: \"20\"`."
+    explanation: "The canary object is matched to the primary by host and path."
+  - id: b
+    text: "One Ingress with `spec.weight: 20`."
+    explanation: "The Ingress API has no weight field."
+  - id: c
+    text: "The canary annotations on the primary Ingress only."
+    explanation: "The canary annotation belongs on the second Ingress."
+  - id: d
+    text: "A Service with `sessionAffinity: 20`."
+    explanation: "This is not a traffic weight."
+  correct_option: a
+  explanation: "A canary Ingress needs the canary annotation set to true and a weight from 0 to 100."
+- id: ats001-section-010-q14
+  type: single_choice
+  difficulty: advanced
+  learning_objective: "Spot an Ingress annotation mistake"
+  source_readings:
+  - sections/section-010/module-04/course-02-canary-annotations-and-their-limits.md
+  prompt: "A canary Ingress is stored and shows no error, but all traffic goes to the stable Service. The annotation is `nginx.ingress.kubernetes.io/canary-wieght: \"20\"`. Why was it accepted?"
+  options:
+  - id: a
+    text: "The weight must be a number without quotes."
+    explanation: "Annotation values are strings."
+  - id: b
+    text: "The API server validates only the first annotation."
+    explanation: "It validates none of the controller-specific keys."
+  - id: c
+    text: "Annotations are not validated, so a misspelled key is stored and ignored."
+    explanation: "The controller only reads keys it knows."
+  - id: d
+    text: "Canary Ingress objects accept only header rules."
+    explanation: "Weights are also supported."
+  correct_option: c
+  explanation: "Read the annotations back with `kubectl get ingress -o jsonpath` and compare the key names."

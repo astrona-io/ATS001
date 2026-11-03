@@ -1,0 +1,49 @@
+# Reference solution for the relay canary Deployment.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: relay-canary
+  namespace: starfleet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: relay
+      release: relay-canary
+  template:
+    metadata:
+      labels:
+        app: relay
+        release: relay-canary
+    spec:
+      containers:
+      - name: probe
+        image: docker.io/library/python:3.13-alpine
+        command:
+        - python
+        - /app/server.py
+        env:
+        - name: VERSION
+          value: v2
+        ports:
+        - name: http
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          periodSeconds: 2
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            memory: 128Mi
+        volumeMounts:
+        - name: app
+          mountPath: /app
+          readOnly: true
+      volumes:
+      - name: app
+        configMap:
+          name: probe-code

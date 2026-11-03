@@ -1,0 +1,15 @@
+{
+  "context": "kind-astro-ats-001-lab-040-05-01",
+  "resources": [
+    {
+      "kind": "deployment",
+      "name": "fleet-probe",
+      "expected": {
+        "metadata": {"name": "fleet-probe"},
+        "spec": {"replicas": 3}
+      },
+      "state": "deployment"
+    }
+  ],
+  "behavior": []
+}

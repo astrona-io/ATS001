@@ -14,6 +14,7 @@ The `probe` application must move from version one to version two without replac
 - Verify readiness, capacity and backend ports.
 - Distinguish a traffic switch from a data migration.
 - Evaluate the conditions for safe traffic rollback.
+- Diagnose a Service with no backends, unready backends or a wrong target port.
 
 ## Before You Start
 
@@ -22,8 +23,10 @@ Use the module playground for guided practice. It provides an isolated kind clus
 ## Reading Order
 
 1. Switching Service Traffic Between Two Versions
-2. Switch A Service Between Ready Versions
-3. Summary
+2. Selectors, Ports And Endpoints When A Switch Fails
+3. Switch A Service To A Ready Deployment
+4. Switch A Service Between Ready Versions
+5. Summary
 
 The playground provides the initial state for the guided practice. Keep it open while following the practical steps.
 

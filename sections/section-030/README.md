@@ -5,7 +5,7 @@ exam_objectives:
 ---
 # Kustomize
 
-This section covers kustomize. You will study Reusable Kustomize Composition, Focused Patches For Environment Changes. The lessons explain the responsible components, configuration relationships and failure cases relevant to application development.
+This section covers kustomize. You will study Reusable Kustomize Composition, Focused Patches For Environment Changes and Generating ConfigMaps And Secrets With Kustomize. A section capstone combines the three. The lessons explain the responsible components, configuration relationships and failure cases relevant to application development.
 
 Each module begins with its goals and ends with a summary. Reusable YAML knowledge checks follow the section summary and are registered separately for future presentation.
 
@@ -22,5 +22,8 @@ You will follow reusable resources through client-side composition and focused c
 - Choose a precise patch target.
 - Compare schema-aware merge and ordered JSON operations.
 - Detect unintended container or selector changes.
+- Use namePrefix, namespace, labels, images and replicas transformers.
+- Write JSON 6902 patches with targets, and explain components.
+- Generate ConfigMaps and Secrets and choose merge or replace behavior.
 
 Each module pairs its concept readings with a guided practical sequence in an isolated playground. Finish the practice and closing summary before moving on. The YAML knowledge checks remain separate from the environment lifecycle.

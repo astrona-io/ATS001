@@ -1,5 +1,8 @@
+---
 version: 1
-approval: CKAD playgrounds and guided practice requested 2026-10-12; no new graded labs.
+approval: >-
+  Maintainer requested continued CKAD playground and graded lab development on 2026-10-13, extending the
+  2026-10-12 playground scope.
 course:
   id: ATS001
   certification:
@@ -16,16 +19,18 @@ course:
 defaults:
   playground: true
   module_lab: false
-  capstone: false
+  capstone: true
   section_quiz: true
   final_quiz: true
-assessment_format: YAML question banks, schema version 1; indexed in assessments/index.yaml
+assessment_format: >-
+  YAML question banks, schema version 1; one quiz.yaml per section plus sections/final-domain-quiz.yaml,
+  registered as quiz entries in astrona.yaml
 sections:
 - id: section-010
   title: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
   curriculum_item: Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green
     or canary)
-  capstone: false
+  capstone: true
   section_quiz: true
   modules:
   - id: module-02
@@ -39,14 +44,22 @@ sections:
     - Switching Service Traffic Between Two Versions
     - Switch A Service Between Ready Versions
     playground: true
-    module_lab: false
+    module_lab: true
     sources:
     - reading: sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
-      adapted_from: null
+      adapted_from: 
     - reading: sections/section-010/module-02/course-02-guided-practice.md
-      adapted_from: null
+      adapted_from: 
     practice_readings:
     - sections/section-010/module-02/course-02-guided-practice.md
+    labs:
+    - id: lab-01
+      path: sections/section-010/module-02/labs/lab-01
+      after_reading: sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
+      objective: Move the original Service to a ready version-two Deployment while preserving the previous
+        version.
+      status: draft
+      runtime_verification: pending
   - id: module-03
     title: Canary Exposure And Promotion
     objectives:
@@ -58,18 +71,65 @@ sections:
     - Reasoning About Canary Traffic With Ordinary Services
     - Observe Canary Backends Without Assuming Exact Percentages
     playground: true
-    module_lab: false
+    module_lab: true
     sources:
     - reading: sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
-      adapted_from: null
+      adapted_from: 
     - reading: sections/section-010/module-03/course-02-guided-practice.md
-      adapted_from: null
+      adapted_from: 
     practice_readings:
     - sections/section-010/module-03/course-02-guided-practice.md
+    labs:
+    - id: lab-01
+      path: sections/section-010/module-03/labs/lab-01
+      after_reading: sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
+      objective: Expose stable and canary Deployments through one Service without assuming exact request
+        percentages.
+      status: draft
+      runtime_verification: pending
+  - id: module-04
+    title: Canary Routing With Ingress
+    objectives:
+    - Describe how an Ingress routes a host and path to a Service.
+    - Create an Ingress from the command line and from YAML.
+    - Configure a canary Ingress with a weight and with a header.
+    - State which parts of a canary depend on the Ingress controller.
+    outline:
+    - Routing A Host To Two Services With Ingress
+    - Canary Annotations And Their Limits
+    - Create A Weighted Canary Ingress
+    - Practise Canary Ingress Objects
+    - Summary
+    playground: true
+    module_lab: true
+    sources:
+    - reading: sections/section-010/module-04/course-01-routing-a-host-to-two-services-with-ingress.md
+      adapted_from: 
+    - reading: sections/section-010/module-04/course-02-canary-annotations-and-their-limits.md
+      adapted_from: 
+    - reading: sections/section-010/module-04/course-03-practise-canary-ingress-objects.md
+      adapted_from: 
+    practice_readings:
+    - sections/section-010/module-04/course-03-practise-canary-ingress-objects.md
+    labs:
+    - id: lab-01
+      path: sections/section-010/module-04/labs/lab-01
+      after_reading: sections/section-010/module-04/course-01-routing-a-host-to-two-services-with-ingress.md
+      objective: Add a canary Ingress with a weight beside an existing primary Ingress.
+      status: draft
+      runtime_verification: pending
+  capstone_lab:
+    path: sections/section-010/capstone/labs/lab-01
+    title: Blue-Green And Canary Release Capstone
+    status: draft
+    runtime_verification: pending
+  quiz:
+    path: sections/section-010/quiz.yaml
+    title: 'Knowledge Check: Blue-Green And Canary Deployments'
 - id: section-020
   title: Understand Deployments and how to perform rolling updates
   curriculum_item: Understand Deployments and how to perform rolling updates
-  capstone: false
+  capstone: true
   section_quiz: true
   modules:
   - id: module-03
@@ -84,16 +144,23 @@ sections:
     - Calculating Rollout Capacity And Diagnosing Progress
     - Perform And Inspect A Rolling Template Update
     playground: true
-    module_lab: false
+    module_lab: true
     sources:
     - reading: sections/section-020/module-03/course-01-rolling-updates-and-health-gates.md
       adapted_from: ATS039/sections/section-010/module-03/course-01-rolling-updates-and-health-gates.md
     - reading: sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
-      adapted_from: null
+      adapted_from: 
     - reading: sections/section-020/module-03/course-03-guided-practice.md
-      adapted_from: null
+      adapted_from: 
     practice_readings:
     - sections/section-020/module-03/course-03-guided-practice.md
+    labs:
+    - id: lab-01
+      path: sections/section-020/module-03/labs/lab-01
+      after_reading: sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
+      objective: Complete a readiness-gated update with explicit rollout capacity.
+      status: draft
+      runtime_verification: pending
   - id: module-04
     title: Release Diagnosis And Template History
     objectives:
@@ -106,20 +173,97 @@ sections:
     - Reproduce, Correct And Verify
     - Diagnose A Failed Image Update And Repair The Template
     playground: true
-    module_lab: false
+    module_lab: true
     sources:
     - reading: sections/section-020/module-04/course-01-intended-versions-and-observed-progress.md
       adapted_from: ATS039/sections/section-020/module-02/course-01-intended-versions-and-observed-progress.md
     - reading: sections/section-020/module-04/course-02-reproduce-correct-and-verify.md
       adapted_from: ATS039/sections/section-020/module-02/course-02-reproduce-correct-and-verify.md
     - reading: sections/section-020/module-04/course-03-guided-practice.md
-      adapted_from: null
+      adapted_from: 
     practice_readings:
     - sections/section-020/module-04/course-03-guided-practice.md
+    labs:
+    - id: lab-01
+      path: sections/section-020/module-04/labs/lab-01
+      objective: Restore two available replicas by correcting a failed Deployment image update.
+      status: draft
+      runtime_verification: pending
+      after_reading: sections/section-020/module-04/course-01-intended-versions-and-observed-progress.md
+  - id: module-05
+    title: Revision History And Rollback
+    objectives:
+    - Explain which changes create a revision and where a revision is stored.
+    - Read the revision history and the template of one revision.
+    - Record a reason for a change with the change-cause annotation.
+    - Roll back to the previous or to a named revision and state what a rollback does not restore.
+    outline:
+    - Recording And Reading Revision History
+    - Rolling Back To A Chosen Revision
+    - Roll Back To A Named Revision
+    - Practise History And Rollback
+    - Summary
+    playground: true
+    module_lab: true
+    sources:
+    - reading: sections/section-020/module-05/course-01-recording-and-reading-revision-history.md
+      adapted_from: 
+    - reading: sections/section-020/module-05/course-02-rolling-back-to-a-chosen-revision.md
+      adapted_from: 
+    - reading: sections/section-020/module-05/course-03-practise-history-and-rollback.md
+      adapted_from: 
+    practice_readings:
+    - sections/section-020/module-05/course-03-practise-history-and-rollback.md
+    labs:
+    - id: lab-01
+      path: sections/section-020/module-05/labs/lab-01
+      after_reading: sections/section-020/module-05/course-01-recording-and-reading-revision-history.md
+      objective: Return a Deployment to a named revision and record the cause.
+      status: draft
+      runtime_verification: pending
+  - id: module-06
+    title: Deployment Strategy, Scaling And Pause
+    objectives:
+    - Compare the RollingUpdate and Recreate strategies and choose between them.
+    - Calculate maxSurge and maxUnavailable, including percentage rounding.
+    - Scale a Deployment and change its image from the command line.
+    - Pause a rollout, batch several changes and resume.
+    outline:
+    - Choosing A Deployment Strategy
+    - Pausing A Rollout To Batch Changes
+    - Switch To Recreate And Scale With One Rollout
+    - Practise Strategy, Scaling And Pause
+    - Summary
+    playground: true
+    module_lab: true
+    sources:
+    - reading: sections/section-020/module-06/course-01-choosing-a-deployment-strategy.md
+      adapted_from: 
+    - reading: sections/section-020/module-06/course-02-pausing-a-rollout-to-batch-changes.md
+      adapted_from: 
+    - reading: sections/section-020/module-06/course-03-practise-strategy-scaling-and-pause.md
+      adapted_from: 
+    practice_readings:
+    - sections/section-020/module-06/course-03-practise-strategy-scaling-and-pause.md
+    labs:
+    - id: lab-01
+      path: sections/section-020/module-06/labs/lab-01
+      after_reading: sections/section-020/module-06/course-01-choosing-a-deployment-strategy.md
+      objective: Change the strategy to Recreate, scale and update a Deployment in one rollout.
+      status: draft
+      runtime_verification: pending
+  capstone_lab:
+    path: sections/section-020/capstone/labs/lab-01
+    title: Deployment Rollout Repair And Strategy Capstone
+    status: draft
+    runtime_verification: pending
+  quiz:
+    path: sections/section-020/quiz.yaml
+    title: 'Knowledge Check: Deployments And Rolling Updates'
 - id: section-030
   title: Kustomize
   curriculum_item: Kustomize
-  capstone: false
+  capstone: true
   section_quiz: true
   modules:
   - id: module-02
@@ -133,14 +277,21 @@ sections:
     - Composing Resources With Kustomize
     - Render And Apply A Self-Contained Kustomize Base
     playground: true
-    module_lab: false
+    module_lab: true
     sources:
     - reading: sections/section-030/module-02/course-01-composing-resources-with-kustomize.md
-      adapted_from: null
+      adapted_from: 
     - reading: sections/section-030/module-02/course-02-guided-practice.md
-      adapted_from: null
+      adapted_from: 
     practice_readings:
     - sections/section-030/module-02/course-02-guided-practice.md
+    labs:
+    - id: lab-01
+      path: sections/section-030/module-02/labs/lab-01
+      after_reading: sections/section-030/module-02/course-01-composing-resources-with-kustomize.md
+      objective: Compose and apply a self-contained Kustomize base with a declared Pod label.
+      status: draft
+      runtime_verification: pending
   - id: module-03
     title: Focused Patches For Environment Changes
     objectives:
@@ -152,18 +303,64 @@ sections:
     - Targeted Patches And Environment Differences
     - Patch One Environment Without Editing Its Base
     playground: true
-    module_lab: false
+    module_lab: true
     sources:
     - reading: sections/section-030/module-03/course-01-targeted-patches-and-environment-differences.md
-      adapted_from: null
+      adapted_from: 
     - reading: sections/section-030/module-03/course-02-guided-practice.md
-      adapted_from: null
+      adapted_from: 
     practice_readings:
     - sections/section-030/module-03/course-02-guided-practice.md
+    labs:
+    - id: lab-01
+      path: sections/section-030/module-03/labs/lab-01
+      after_reading: sections/section-030/module-03/course-01-targeted-patches-and-environment-differences.md
+      objective: Use a targeted overlay to change capacity, labels and configuration.
+      status: draft
+      runtime_verification: pending
+  - id: module-04
+    title: Generating ConfigMaps And Secrets With Kustomize
+    objectives:
+    - Generate a ConfigMap and a Secret from literals, files and environment files.
+    - Explain the content hash in a generated name and how it starts a rollout.
+    - Choose between `create`, `merge` and `replace` behavior in an overlay.
+    - Turn off the hash suffix when a fixed name is required.
+    outline:
+    - Generating ConfigMaps And Content Hashes
+    - Secrets, Behavior And Generator Options
+    - Generate Settings And Roll Them Out
+    - Summary
+    playground: true
+    module_lab: true
+    sources:
+    - reading: sections/section-030/module-04/course-01-generating-configmaps-and-content-hashes.md
+      adapted_from: 
+    - reading: sections/section-030/module-04/course-02-secrets-behavior-and-generator-options.md
+      adapted_from: 
+    - reading: sections/section-030/module-04/course-03-guided-practice.md
+      adapted_from: 
+    practice_readings:
+    - sections/section-030/module-04/course-03-guided-practice.md
+    labs:
+    - id: lab-01
+      path: sections/section-030/module-04/labs/lab-01
+      after_reading: sections/section-030/module-04/course-01-generating-configmaps-and-content-hashes.md
+      objective: Generate a ConfigMap with a hashed name, mount it in a Deployment and apply it with kubectl
+        apply -k
+      status: draft
+      runtime_verification: pending
+  capstone_lab:
+    path: sections/section-030/capstone/labs/lab-01
+    title: 'Kustomize Section Capstone: Production Overlay'
+    status: draft
+    runtime_verification: pending
+  quiz:
+    path: sections/section-030/quiz.yaml
+    title: 'Knowledge Check: Kustomize'
 - id: section-040
   title: Use the Helm package manager to deploy existing packages
   curriculum_item: Use the Helm package manager to deploy existing packages
-  capstone: false
+  capstone: true
   section_quiz: true
   modules:
   - id: module-03
@@ -177,14 +374,21 @@ sections:
     - Charts, Values And The Rendered Application
     - Install An Existing Chart And Inspect Effective Values
     playground: true
-    module_lab: false
+    module_lab: true
     sources:
     - reading: sections/section-040/module-03/course-01-charts-values-and-the-rendered-application.md
-      adapted_from: null
+      adapted_from: 
     - reading: sections/section-040/module-03/course-02-guided-practice.md
-      adapted_from: null
+      adapted_from: 
     practice_readings:
     - sections/section-040/module-03/course-02-guided-practice.md
+    labs:
+    - id: lab-01
+      path: sections/section-040/module-03/labs/lab-01
+      after_reading: sections/section-040/module-03/course-01-charts-values-and-the-rendered-application.md
+      objective: Install an existing bundled chart and verify release ownership and effective values.
+      status: draft
+      runtime_verification: pending
   - id: module-04
     title: Release Operations And Recovery Limits
     objectives:
@@ -196,11 +400,63 @@ sections:
     - Release History, Upgrades And Controlled Recovery
     - Upgrade A Release And Inspect Controlled Recovery
     playground: true
-    module_lab: false
+    module_lab: true
     sources:
     - reading: sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
-      adapted_from: null
+      adapted_from: 
     - reading: sections/section-040/module-04/course-02-guided-practice.md
-      adapted_from: null
+      adapted_from: 
     practice_readings:
     - sections/section-040/module-04/course-02-guided-practice.md
+    labs:
+    - id: lab-01
+      path: sections/section-040/module-04/labs/lab-01
+      after_reading: sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
+      objective: Upgrade a release and verify its new revision, effective values and response.
+      status: draft
+      runtime_verification: pending
+  - id: module-05
+    title: Finding, Packaging And Installing Charts
+    objectives:
+    - Add, update, search and remove a chart repository.
+    - Read a chart's values and metadata before installing it.
+    - Package a chart into an archive and install from the archive.
+    - Explain chart versions, the repository index and chart dependencies.
+    outline:
+    - Chart Repositories And Versions
+    - Archives, Dependencies And Pulling Charts
+    - Serve A Local Repository And Install From It
+    - Summary
+    playground: true
+    module_lab: true
+    sources:
+    - reading: sections/section-040/module-05/course-01-chart-repositories-and-versions.md
+      adapted_from: 
+    - reading: sections/section-040/module-05/course-02-archives-dependencies-and-pulling-charts.md
+      adapted_from: 
+    - reading: sections/section-040/module-05/course-03-serve-a-local-repository-and-install-from-it.md
+      adapted_from: 
+    practice_readings: []
+    labs:
+    - id: lab-01
+      path: sections/section-040/module-05/labs/lab-01
+      after_reading: sections/section-040/module-05/course-01-chart-repositories-and-versions.md
+      objective: Package a chart at a new version and install the archive with a values file
+      status: draft
+      runtime_verification: pending
+  capstone_lab:
+    path: sections/section-040/capstone/labs/lab-01
+    title: 'Helm Section Capstone: Recover And Update A Release'
+    status: draft
+    runtime_verification: pending
+  quiz:
+    path: sections/section-040/quiz.yaml
+    title: 'Knowledge Check: Helm'
+final_quiz:
+  path: sections/final-domain-quiz.yaml
+legacy:
+  path: legacy/
+  note: >-
+    Earlier modules (010/module-01, 020/module-01, 020/module-02, 030/module-01, 040/module-01, 040/module-02)
+    are not taught and not listed in astrona.yaml. They are kept for a possible future migration. See
+    LEGACY-CONTENT.md.

@@ -21,8 +21,9 @@ Use the module playground for guided practice. It provides an isolated kind clus
 ## Reading Order
 
 1. Composing Resources With Kustomize
-2. Render And Apply A Self-Contained Kustomize Base
-3. Summary
+2. Build Output And Common Transformers
+3. Render And Apply A Self-Contained Kustomize Base
+4. Summary
 
 The playground provides the initial state for the guided practice. Keep it open while following the practical steps.
 
