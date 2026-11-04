@@ -58,7 +58,7 @@ sections:
       after_reading: sections/section-010/module-02/course-01-switching-service-traffic-between-two-versions.md
       objective: Move the original Service to a ready version-two Deployment while preserving the previous
         version.
-      status: draft
+      status: alpha
       runtime_verification: pending
   - id: module-03
     title: Canary Exposure And Promotion
@@ -85,7 +85,7 @@ sections:
       after_reading: sections/section-010/module-03/course-01-reasoning-about-canary-traffic-with-ordinary-services.md
       objective: Expose stable and canary Deployments through one Service without assuming exact request
         percentages.
-      status: draft
+      status: alpha
       runtime_verification: pending
   - id: module-04
     title: Canary Routing With Ingress
@@ -116,12 +116,12 @@ sections:
       path: sections/section-010/module-04/labs/lab-01
       after_reading: sections/section-010/module-04/course-01-routing-a-host-to-two-services-with-ingress.md
       objective: Add a canary Ingress with a weight beside an existing primary Ingress.
-      status: draft
+      status: alpha
       runtime_verification: pending
   capstone_lab:
     path: sections/section-010/capstone/labs/lab-01
     title: Blue-Green And Canary Release Capstone
-    status: draft
+    status: alpha
     runtime_verification: pending
   quiz:
     path: sections/section-010/quiz.yaml
@@ -159,7 +159,7 @@ sections:
       path: sections/section-020/module-03/labs/lab-01
       after_reading: sections/section-020/module-03/course-02-calculating-rollout-capacity-and-diagnosing-progress.md
       objective: Complete a readiness-gated update with explicit rollout capacity.
-      status: draft
+      status: alpha
       runtime_verification: pending
   - id: module-04
     title: Release Diagnosis And Template History
@@ -187,7 +187,7 @@ sections:
     - id: lab-01
       path: sections/section-020/module-04/labs/lab-01
       objective: Restore two available replicas by correcting a failed Deployment image update.
-      status: draft
+      status: alpha
       runtime_verification: pending
       after_reading: sections/section-020/module-04/course-01-intended-versions-and-observed-progress.md
   - id: module-05
@@ -219,7 +219,7 @@ sections:
       path: sections/section-020/module-05/labs/lab-01
       after_reading: sections/section-020/module-05/course-01-recording-and-reading-revision-history.md
       objective: Return a Deployment to a named revision and record the cause.
-      status: draft
+      status: alpha
       runtime_verification: pending
   - id: module-06
     title: Deployment Strategy, Scaling And Pause
@@ -250,12 +250,12 @@ sections:
       path: sections/section-020/module-06/labs/lab-01
       after_reading: sections/section-020/module-06/course-01-choosing-a-deployment-strategy.md
       objective: Change the strategy to Recreate, scale and update a Deployment in one rollout.
-      status: draft
+      status: alpha
       runtime_verification: pending
   capstone_lab:
     path: sections/section-020/capstone/labs/lab-01
     title: Deployment Rollout Repair And Strategy Capstone
-    status: draft
+    status: alpha
     runtime_verification: pending
   quiz:
     path: sections/section-020/quiz.yaml
@@ -290,7 +290,7 @@ sections:
       path: sections/section-030/module-02/labs/lab-01
       after_reading: sections/section-030/module-02/course-01-composing-resources-with-kustomize.md
       objective: Compose and apply a self-contained Kustomize base with a declared Pod label.
-      status: draft
+      status: alpha
       runtime_verification: pending
   - id: module-03
     title: Focused Patches For Environment Changes
@@ -316,7 +316,7 @@ sections:
       path: sections/section-030/module-03/labs/lab-01
       after_reading: sections/section-030/module-03/course-01-targeted-patches-and-environment-differences.md
       objective: Use a targeted overlay to change capacity, labels and configuration.
-      status: draft
+      status: alpha
       runtime_verification: pending
   - id: module-04
     title: Generating ConfigMaps And Secrets With Kustomize
@@ -347,12 +347,12 @@ sections:
       after_reading: sections/section-030/module-04/course-01-generating-configmaps-and-content-hashes.md
       objective: Generate a ConfigMap with a hashed name, mount it in a Deployment and apply it with kubectl
         apply -k
-      status: draft
+      status: alpha
       runtime_verification: pending
   capstone_lab:
     path: sections/section-030/capstone/labs/lab-01
     title: 'Kustomize Section Capstone: Production Overlay'
-    status: draft
+    status: alpha
     runtime_verification: pending
   quiz:
     path: sections/section-030/quiz.yaml
@@ -387,7 +387,7 @@ sections:
       path: sections/section-040/module-03/labs/lab-01
       after_reading: sections/section-040/module-03/course-01-charts-values-and-the-rendered-application.md
       objective: Install an existing bundled chart and verify release ownership and effective values.
-      status: draft
+      status: alpha
       runtime_verification: pending
   - id: module-04
     title: Release Operations And Recovery Limits
@@ -413,7 +413,7 @@ sections:
       path: sections/section-040/module-04/labs/lab-01
       after_reading: sections/section-040/module-04/course-01-release-history-upgrades-and-controlled-recovery.md
       objective: Upgrade a release and verify its new revision, effective values and response.
-      status: draft
+      status: alpha
       runtime_verification: pending
   - id: module-05
     title: Finding, Packaging And Installing Charts
@@ -442,12 +442,12 @@ sections:
       path: sections/section-040/module-05/labs/lab-01
       after_reading: sections/section-040/module-05/course-01-chart-repositories-and-versions.md
       objective: Package a chart at a new version and install the archive with a values file
-      status: draft
+      status: alpha
       runtime_verification: pending
   capstone_lab:
     path: sections/section-040/capstone/labs/lab-01
     title: 'Helm Section Capstone: Recover And Update A Release'
-    status: draft
+    status: alpha
     runtime_verification: pending
   quiz:
     path: sections/section-040/quiz.yaml

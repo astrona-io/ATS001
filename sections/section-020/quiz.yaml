@@ -4,7 +4,7 @@ kind: question_bank
 id: ats001-section-020
 course_id: ATS001
 exam_code: CKAD
-status: draft
+status: alpha
 provenance: Original practice material; not official examination questions.
 scope:
   type: section
